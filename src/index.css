@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .mask-horizontal {
+    @apply [mask-image:linear-gradient(to_right,rgba(0,0,0,0)_0%,rgba(0,0,0,1)_20%,rgba(0,0,0,1)_80%,rgba(0,0,0,0)_100%)]
+           [mask-size:cover]
+           [mask-repeat:no-repeat];
+  }
+
+  .mask-vertical {
+    @apply [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,1)_20%,rgba(0,0,0,1)_80%,rgba(0,0,0,0)_100%)]
+           [mask-size:cover]
+           [mask-repeat:no-repeat];
+  }
+
+  .paused .animate-scrollX,
+  .paused .animate-scrollY {
+    animation-play-state: paused !important;
+  }
+
+  .reverse-x {
+    animation-direction: reverse;
+    animation-delay: -3s;
+  }
+}
+
+:root {
+  --svg-color: #000; /* Light mode default - Black */
+}
+
+.dark :root {
+    --svg-color: #fff; /* Dark mode - White */
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  background-color: var(--background-color);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(20 184 166) rgb(229 231 235);
+}
+
+.dark * {
+  scrollbar-color: rgb(20 184 166) rgb(31 41 55);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(229 231 235);
+  border-radius: 10px;
+}
+
+.dark *::-webkit-scrollbar-track {
+  background: rgb(31 41 55);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgb(20 184 166);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(13 148 136);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; /* Adjust weight as needed */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: "burtons";
+  src: url("assets/Burtons.otf");
+}
+
+/* Text styling inside card */
+.overlay {
+  position: absolute;
+  text-align: center;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: 0.5s ease-in-out;
+  opacity: 0;
+  width: 100%;
+}
+
+/************ Skills Css ************/
+.skill {
+  position: relative;
+}
+.skill-bx {
+  text-align: center;
+  padding: 40px;
+}
+.skill h2 {
+  font-size: 45px;
+  font-weight: 700;
+}
+.skill p {
+  color: #000000;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+  line-height: 1.5em;
+  margin: 14px 0 75px 0;
+}
+.skill-slider {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.skill-slider .item img {
+  width: 50%;
+  margin: 0 auto 25px auto;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 4px rgba(0, 255, 255, 0.6), 0 0 8px rgba(0, 255, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8), 0 0 16px rgba(0, 255, 255, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 4px rgba(0, 255, 255, 0.6), 0 0 8px rgba(0, 255, 255, 0.4);
+  }
+}
+
+.glowing-button {
+  position: relative;
+  overflow: hidden;
+  animation: glow 1.5s infinite alternate;
+}
+
+.glowing-button:hover {
+  filter: brightness(1.2);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulsate {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+}
+
+@keyframes float_1 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fade {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+  
+  @keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  @keyframes glitch {
+    0%, 100% { 
+      opacity: 0.5; 
+      filter: hue-rotate(0deg);
+    }
+    25% { 
+      opacity: 1; 
+      filter: hue-rotate(90deg);
+    }
+    50% { 
+      opacity: 0.3; 
+      filter: hue-rotate(180deg);
+    }
+    75% { 
+      opacity: 0.8; 
+      filter: hue-rotate(270deg);
+    }
+  }
