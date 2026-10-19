@@ -2,7 +2,7 @@ import { FaGithubSquare, FaGraduationCap, FaSchool } from "react-icons/fa";
 import { AiFillLinkedin, AiFillInstagram } from "react-icons/ai";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
-import logoSvg from "@/assets/logo_svg";
+
 import one from "@/assets/thumbnails/1.png";
 import two from "@/assets/thumbnails/2.png";
 import three from "@/assets/thumbnails/3.png";
@@ -13,18 +13,147 @@ import seven from "@/assets/thumbnails/7.png";
 import eight from "@/assets/thumbnails/8.png";
 import nine from "@/assets/thumbnails/9.png";
 import ten from "@/assets/thumbnails/10.png";
-import eleven from "@/assets/thumbnails/111.png";
-import twelve from "@/assets/thumbnails/122.png";
+import eleven from "@/assets/thumbnails/11.png";
+import twelve from "@/assets/thumbnails/12.png";
 import thirteen from "@/assets/thumbnails/13.png";
+import fourteen from "@/assets/thumbnails/14.png";
+
+export function getProjectLinks(project) {
+  if (project.links && project.links.length > 0) {
+    return project.links;
+  }
+
+  const result = [];
+
+  // Website buttons
+  if (project.userSiteUrl || project.userLiveUrl) {
+    result.push({
+      label: "User Site",
+      url: project.userSiteUrl || project.userLiveUrl,
+      type: "user-site",
+    });
+  }
+  if (project.adminSiteUrl || project.adminLiveUrl) {
+    result.push({
+      label: "Admin Site",
+      url: project.adminSiteUrl || project.adminLiveUrl,
+      type: "admin-site",
+    });
+  }
+  if (project.liveSiteUrl || project.liveUrl) {
+    result.push({
+      label: "Live Site",
+      url: project.liveSiteUrl || project.liveUrl,
+      type: "live-site",
+    });
+  }
+  if (project.adminUrl) {
+    result.push({
+      label: "Admin Site",
+      url: project.adminUrl,
+      type: "admin-site",
+    });
+  }
+
+  // Repo buttons
+  if (project.frontendRepoUrl || project.frontendGithubUrl) {
+    result.push({
+      label: "Frontend Repo",
+      url: project.frontendRepoUrl || project.frontendGithubUrl,
+      type: "frontend-repo",
+    });
+  }
+  if (project.backendRepoUrl || project.backendGithubUrl) {
+    result.push({
+      label: "Backend Repo",
+      url: project.backendRepoUrl || project.backendGithubUrl,
+      type: "backend-repo",
+    });
+  }
+  if (project.userRepoUrl) {
+    result.push({
+      label: "User Repo",
+      url: project.userRepoUrl,
+      type: "user-repo",
+    });
+  }
+  if (project.adminRepoUrl || project.adminGithubUrl) {
+    result.push({
+      label: "Admin Repo",
+      url: project.adminRepoUrl || project.adminGithubUrl,
+      type: "admin-repo",
+    });
+  }
+  if (project.githubUrl) {
+    result.push({
+      label: "GitHub",
+      url: project.githubUrl,
+      type: "github",
+    });
+  }
+
+  if (result.length > 0) {
+    return result;
+  }
+
+  if (project.to) {
+    const isGithub = project.to.toLowerCase().includes("github.com");
+    return [
+      {
+        label: isGithub ? "VIEW_PROJECT" : "LIVE_SITE",
+        url: project.to,
+        type: isGithub ? "github" : "live-site",
+      },
+    ];
+  }
+
+  return [];
+}
+
+export function categorizeProjectLinks(links) {
+  const hosted = [];
+  const code = [];
+
+  (links || []).forEach((link) => {
+    const type = (link.type || "").toLowerCase();
+    const label = (link.label || "").toLowerCase();
+    const url = (link.url || "").toLowerCase();
+
+    const isCode =
+      type === "github" ||
+      type === "frontend" ||
+      type === "backend" ||
+      type === "admin-repo" ||
+      type === "user-repo" ||
+      type === "frontend-repo" ||
+      type === "backend-repo" ||
+      type === "mobile-repo" ||
+      type === "mobile" ||
+      url.includes("github.com") ||
+      url.includes("gitlab.com") ||
+      url.includes(".git") ||
+      label.includes("repo") ||
+      label.includes("code") ||
+      (label.includes("github") && !label.includes("site") && !label.includes("live"));
+
+    if (isCode) {
+      code.push(link);
+    } else {
+      hosted.push(link);
+    }
+  });
+
+  return { hosted, code };
+}
 
 export const portfolioData = {
   personalInfo: {
     name: "Usama Puward",
-    title: "AI/SE Engineer & Software Developer",
+    title: "AI/ML Engineer & Software Developer",
     email: "usamafuward2001@gmail.com",
     phone: "+94 (76) 6260507",
     location: "Colombo, Sri Lanka",
-    bio: "Computer Science Graduate and current AI/SE Engineer and Software Developer, with a strong passion for Software Developing, Machine Learning, and Artificial Intelligence. Skilled in developing efficient and innovative solutions for real-world projects and building high-quality applications. Eager to tackle complex challenges in software development and drive innovation within the fields of AI and ML.",
+    bio: "Computer Science Graduate and current AI/ML Engineer and Software Developer, with a strong passion for Software Developing, Machine Learning, and Artificial Intelligence. Skilled in developing efficient and innovative solutions for real-world projects and building high-quality applications. Eager to tackle complex challenges in software development and drive innovation within the fields of AI and ML.",
   },
 
   socialLinks: [
@@ -56,35 +185,36 @@ export const portfolioData = {
   ],
 
   technologies: [
-    { imgUrl: logoSvg.bootstrap, altText: "Bootstrap Logo" },
-    { imgUrl: logoSvg.docker, altText: "Docker Logo" },
-    { imgUrl: logoSvg.github, altText: "GitHub Logo" },
-    { imgUrl: logoSvg.javascript, altText: "JavaScript Logo" },
-    { imgUrl: logoSvg.mongodb, altText: "MongoDB Logo" },
-    { imgUrl: logoSvg.nodedotjs, altText: "Node.js Logo" },
-    { imgUrl: logoSvg.python, altText: "Python Logo" },
-    { imgUrl: logoSvg.react, altText: "React Logo" },
-    { imgUrl: logoSvg.tensorflow, altText: "TensorFlow Logo" },
-    { imgUrl: logoSvg.postgresql, altText: "PostgreSQL Logo" },
-    { imgUrl: logoSvg.tailwindcss, altText: "Tailwind CSS Logo" },
-    { imgUrl: logoSvg.bootstrap, altText: "Bootstrap Logo" },
-    { imgUrl: logoSvg.sass, altText: "SCSS Logo" },
-    { imgUrl: logoSvg.fastapi, altText: "FastAPI Logo" },
-    { imgUrl: logoSvg.express, altText: "Express Logo" },
-    { imgUrl: logoSvg.mysql, altText: "MySQL Logo" },
-    { imgUrl: logoSvg.pandas, altText: "Pandas Logo" },
-    { imgUrl: logoSvg.numpy, altText: "NumPy Logo" },
-    { imgUrl: logoSvg.scikitlearn, altText: "scikit-learn Logo" },
-    { imgUrl: logoSvg.cplusplus, altText: "C++ Logo" },
-    { imgUrl: logoSvg.git, altText: "Git Logo" },
-    { imgUrl: logoSvg.django, altText: "Django Logo" },
-    { imgUrl: logoSvg.reactnative, altText: "React Native Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/bootstrap.svg", altText: "Bootstrap Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/docker.svg", altText: "Docker Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg", altText: "GitHub Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/javascript.svg", altText: "JavaScript Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mongodb.svg", altText: "MongoDB Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nodedotjs.svg", altText: "Node.js Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/python.svg", altText: "Python Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/react.svg", altText: "React Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tensorflow.svg", altText: "TensorFlow Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/postgresql.svg", altText: "PostgreSQL Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/tailwindcss.svg", altText: "Tailwind CSS Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/sass.svg", altText: "SCSS Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/fastapi.svg", altText: "FastAPI Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/express.svg", altText: "Express Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/mysql.svg", altText: "MySQL Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/pandas.svg", altText: "Pandas Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/numpy.svg", altText: "NumPy Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/scikitlearn.svg", altText: "scikit-learn Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/cplusplus.svg", altText: "C++ Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/git.svg", altText: "Git Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/django.svg", altText: "Django Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/react.svg", altText: "React Native Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/amazonaws.svg", altText: "AWS Logo" },
+    { imgUrl: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/microsoftazure.svg", altText: "Azure Logo" },
   ],
 
   skills: [
     {
       category: "Front-End Development",
-      progress: 85,
+      progress: 95,
       techs: [
         "React",
         "Next",
@@ -116,7 +246,7 @@ export const portfolioData = {
       techs: ["NLP", "Computer Vision", "Deep Learning"],
     },
     {
-      category: "DevOps & Containerization",
+      category: "DevOps & Containers",
       progress: 70,
       techs: ["Docker"],
     },
@@ -135,7 +265,7 @@ export const portfolioData = {
   educations: [
     {
       icon: FaGraduationCap,
-      degree: "Bachelor of Science in Computer Science",
+      degree: "B.Sc. Computer Science",
       institution: "University of Colombo School of Computing",
       year: "2022 - 2025",
       description:
@@ -150,6 +280,7 @@ export const portfolioData = {
         "Completed GCE Ordinary Level and GCE Advanced Level in Physical Science Stream. Alongside academics, actively participated in extracurricular activities, served as a student prefect, and achieved numerous accolades in both education and sports",
     },
   ],
+
   certifications: [
     {
       title: "Meta React Specialization",
@@ -157,160 +288,7 @@ export const portfolioData = {
         "A comprehensive specialization authorized by Meta and offered through Coursera. This program covers both fundamental and advanced React concepts, including building reusable components, managing data flow, and implementing advanced React patterns. Through instructional videos, assessments, and practical exercises, learners gain the skills to build sophisticated user interfaces for modern web applications.",
       to: "https://coursera.org/verify/specialization/IAW5HXC3NIPI",
       organization: "Meta",
-    },
-    {
-      title: "React Basics",
-      description:
-        "An online course authorized by Meta and offered through Coursera, covering the fundamental concepts of React for building user interfaces.",
-      to: "https://coursera.org/verify/MXULJQSHCAJP",
-      organization: "Meta",
-    },
-    {
-      title: "Advanced React",
-      description:
-        "An advanced course authorized by Meta and offered through Coursera, focusing on deeper React concepts and features, advanced hooks, JSX, component composition, and modern React patterns like Higher Order Components and Render Props. Includes building forms, consuming API data, testing React components, and developing a React portfolio.",
-      to: "https://coursera.org/verify/QRV2OJDBGU5C",
-      organization: "Meta",
-    },
-    {
-      title: "Introduction to Front-End Development",
-      description:
-        "An online course authorized by Meta and offered through Coursera, focusing on the essential skills and technologies for front-end development, including HTML, CSS, and JavaScript.",
-      to: "https://coursera.org/verify/D5H8DFCUNN57",
-      organization: "Meta",
-    },
-    {
-      title: "Machine Learning Specialization",
-      description:
-        "Completed an online specialization covering supervised and unsupervised learning, recommender systems, and reinforcement learning, gaining practical skills for real-world applications in machine learning.",
-      to: "https://coursera.org/verify/specialization/1XJIPHSURREJ",
-      organization: "DeepLearning.AI and Stanford University",
-    },
-    {
-      title: "Introduction to Generative AI",
-      description:
-        "An online course authorized by Google Cloud and offered through Coursera, providing foundational knowledge of generative AI concepts, tools, and applications.",
-      to: "https://coursera.org/verify/97FEMUSJ16AN",
-      organization: "Google Cloud",
-    },
-    {
-      title: "Introduction to Mobile Development",
-      description:
-        "An online course authorized by Meta and offered through Coursera, providing foundational knowledge and skills in mobile application development using various technologies and frameworks.",
-      to: "https://coursera.org/verify/4QU3RKF5QSCH",
-      organization: "Meta",
-    },
-    {
-      title: "30 Days MasterClass in Artificial Intelligence",
-      description:
-        "This certifies successfully completed the 30 Days MasterClass in Artificial Intelligence conducted by NoviTech R&D Private Limited, provided comprehensive training in various aspects of artificial intelligence, equipping participants with the skills to apply AI techniques in real-world applications.",
-      to: "https://drive.google.com/file/d/13UoHvS4MVml488xk3oTUJcm_Z4pzh8Ii/view?usp=sharing",
-      organization: "NoviTech R&D Private Limited",
-    },
-    {
-      title: "Introduction to TenserFlow",
-      description:
-        "An online course authorized by DeepLearning.AI and offered through Coursera, focusing on using TensorFlow to develop models for artificial intelligence, machine learning, and deep learning applications.",
-      to: "https://coursera.org/verify/4RPLXS251YLH",
-      organization: "DeepLearning.AI",
-    },
-    {
-      title: "Azure Fundamentals Training",
-      description:
-        "Successfully completed the Azure Fundamentals Training organized by Styava on 22nd March 2025, gaining foundational knowledge of Microsoft Azure services and cloud computing",
-      to: "https://drive.google.com/file/d/137dq4RbCMkcUrUhR7N9AfB97gxjbXxqk/view?usp=sharing",
-      organization: "Styava",
-    },
-    {
-      title: "Django Web Framework",
-      description:
-        "An online course authorized by Meta and offered through Coursera, covering the essentials of the Django web framework for building robust and scalable web applications.",
-      to: "https://coursera.org/verify/DEUTHXHU3D8O",
-      organization: "Meta",
-    },
-    {
-      title: "Supervised Machine Learning: Regression and Classification",
-      description:
-        "An online course authorized by DeepLearning.AI and Stanford University, offered through Coursera, focusing on supervised learning techniques, specifically regression and classification, to build predictive models in machine learning.",
-      to: "https://coursera.org/verify/PU99D2NGLKMN",
-      organization: "DeepLearning.AI and Stanford University",
-    },
-    {
-      title: "Unsupervised Learning, Recommenders, and Reinforcement Learning",
-      description:
-        "An online course authorized by DeepLearning.AI and Stanford University, offered through Coursera, covering key concepts in unsupervised learning, recommendation systems, and reinforcement learning to build advanced machine learning models",
-      to: "https://coursera.org/verify/YWTMGTOVMA3U",
-      organization: "DeepLearning.AI and Stanford University",
-    },
-    {
-      title: "Programming with JavaScript",
-      description:
-        "An online course authorized by Meta and offered through Coursera, focusing on core JavaScript programming skills essential for web development, including functions, objects, and asynchronous programming.",
-      to: "https://coursera.org/verify/6BXW9AAYUX9S",
-      organization: "Meta",
-    },
-    {
-      title: "Introduction to Large Language Models",
-      description:
-        "An online course authorized by Google Cloud and offered through Coursera. This course provides foundational knowledge of large language models (LLMs), their applications, and techniques to enhance their performance.",
-      to: "https://coursera.org/verify/WVOQZH3G9WIK",
-      organization: "Google Cloud",
-    },
-    {
-      title: "Convolutional Neural Networks in TensorFlow",
-      description:
-        "An online course authorized by DeepLearning.AI and offered through Coursera, focusing on building and deploying convolutional neural networks (CNNs) using TensorFlow for image recognition and computer vision applications.",
-      to: "https://coursera.org/verify/QCBOIZMZO4QY",
-      organization: "DeepLearning.AI",
-    },
-    {
-      title: "Advanced Learning Algorithms",
-      description:
-        "An online course authorized by DeepLearning.AI and Stanford University, offered through Coursera, covering advanced machine learning algorithms and techniques to enhance model performance and tackle complex data challenges.",
-      to: "https://coursera.org/verify/VZ4XLESMVTGF",
-      organization: "DeepLearning.AI and Stanford University",
-    },
-    {
-      title: "Introduction to Responsible AI",
-      description:
-        "An online course authorized by Google Cloud and offered through Coursera. This course provides foundational knowledge of responsible AI practices, emphasizing the importance of ethical considerations and Google's AI principles.",
-      to: "https://coursera.org/verify/O43QCWPY75RY",
-      organization: "Google Cloud",
-    },
-    {
-      title: "Artificial Intelligence on Microsoft Azure",
-      description:
-        "An online course authorized by Microsoft, offered through Coursera, covering AI implementation on Microsoft Azure, including cloud-based machine learning, cognitive services, and AI model deployment.",
-      to: "https://coursera.org/verify/JOQ04JJROD5F",
-      organization: "Microsoft",
-    },
-    {
-      title: "Mastering Multi-Agent Development with AutoGen",
-      description:
-        "An online course authorized by Packt, offered through Coursera, covering multi-agent systems and AutoGen, including autonomous agent interactions, conversation patterns, and AI-driven automation.",
-      to: "https://coursera.org/verify/CCC0CUDGVOOR",
-      organization: "Packt",
-    },
-    {
-      title: "Developing Back-End Apps with Node.js and Express",
-      description:
-        "An online course authorized by IBM and offered through Coursera, focusing on building back-end applications with Node.js and Express. The course covers asynchronous programming with callbacks and promises, creating REST APIs with CRUD operations, and implementing authentication and session management. Includes hands-on labs and a final project to strengthen practical skills for back-end and full-stack development.",
-      to: "https://coursera.org/verify/UK84HBWR3YRT",
-      organization: "IBM",
-    },
-    {
-      title: "Version Control",
-      description:
-        "An online course authorized by Meta and offered through Coursera. This course introduces version control systems, Git, and effective workflows for modern software development. Learners gain hands-on experience with Linux commands, repository creation, and collaboration techniques to manage code revisions and team projects efficiently.",
-      to: "https://coursera.org/verify/32XI9E6WKUMU",
-      organization: "Meta",
-    },
-    {
-      title: "DevOps Essentials and Version Control with Git",
-      description:
-        "An online course authorized by Edureka and offered through Coursera. This course introduces DevOps principles, Linux fundamentals, and Git for efficient version control in software development. Learners gain skills in DevOps lifecycle stages, Linux commands, repository and branch management, resolving merge conflicts, and implementing Git workflows for team collaboration and code management.",
-      to: "https://coursera.org/verify/CGZ88EILCMOB",
-      organization: "Edureka",
+      logo: "https://www.google.com/s2/favicons?domain=meta.com&sz=128",
     },
     {
       title: "Google 15 Free AI Tools Masterclass",
@@ -318,14 +296,199 @@ export const portfolioData = {
         "Successfully completed the Google 15 Free AI Tools Masterclass by AI Dude. This comprehensive program provided hands-on experience with a diverse suite of Google's free AI applications, focusing on leveraging these tools for enhanced productivity, creative problem-solving, and efficient workflow automation. Gained practical skills in applying artificial intelligence to real-world scenarios, demonstrating proficiency in navigating and utilizing Google's AI ecosystem effectively.",
       to: "https://drive.google.com/file/d/16ngTXWEk0_bCQ0JWhoBk4B4zlucWoKlp/view?usp=sharing",
       organization: "AI Dude",
+      logo: "https://ui-avatars.com/api/?name=AI+Dude&background=0D8ABC&color=fff",
+    },
+    {
+      title: "Developing Back-End Apps with Node.js and Express",
+      description:
+        "An online course authorized by IBM and offered through Coursera, focusing on building back-end applications with Node.js and Express. The course covers asynchronous programming with callbacks and promises, creating REST APIs with CRUD operations, and implementing authentication and session management. Includes hands-on labs and a final project to strengthen practical skills for back-end and full-stack development.",
+      to: "https://coursera.org/verify/UK84HBWR3YRT",
+      organization: "IBM",
+      logo: "https://www.google.com/s2/favicons?domain=ibm.com&sz=128",
+    },
+    {
+      title: "Machine Learning Specialization",
+      description:
+        "Completed an online specialization covering supervised and unsupervised learning, recommender systems, and reinforcement learning, gaining practical skills for real-world applications in machine learning.",
+      to: "https://coursera.org/verify/specialization/1XJIPHSURREJ",
+      organization: "DeepLearning.AI and Stanford University",
+      logo: "https://www.google.com/s2/favicons?domain=deeplearning.ai&sz=128",
+    },
+    {
+      title: "30 Days MasterClass in Artificial Intelligence",
+      description:
+        "This certifies successfully completed the 30 Days MasterClass in Artificial Intelligence conducted by NoviTech R&D Private Limited, provided comprehensive training in various aspects of artificial intelligence, equipping participants with the skills to apply AI techniques in real-world applications.",
+      to: "https://drive.google.com/file/d/13UoHvS4MVml488xk3oTUJcm_Z4pzh8Ii/view?usp=sharing",
+      organization: "NoviTech R&D Private Limited",
+      logo: "https://www.google.com/s2/favicons?domain=novitech.in&sz=128",
+    },
+    {
+      title: "Unsupervised Learning, Recommenders, and Reinforcement Learning",
+      description:
+        "An online course authorized by DeepLearning.AI and Stanford University, offered through Coursera, covering key concepts in unsupervised learning, recommendation systems, and reinforcement learning to build advanced machine learning models",
+      to: "https://coursera.org/verify/YWTMGTOVMA3U",
+      organization: "DeepLearning.AI and Stanford University",
+      logo: "https://www.google.com/s2/favicons?domain=deeplearning.ai&sz=128",
+    },
+    {
+      title: "Advanced React",
+      description:
+        "An advanced course authorized by Meta and offered through Coursera, focusing on deeper React concepts and features, advanced hooks, JSX, component composition, and modern React patterns like Higher Order Components and Render Props. Includes building forms, consuming API data, testing React components, and developing a React portfolio.",
+      to: "https://coursera.org/verify/QRV2OJDBGU5C",
+      organization: "Meta",
+      logo: "https://www.google.com/s2/favicons?domain=meta.com&sz=128",
+    },
+    {
+      title: "Supervised Machine Learning: Regression and Classification",
+      description:
+        "An online course authorized by DeepLearning.AI and Stanford University, offered through Coursera, focusing on supervised learning techniques, specifically regression and classification, to build predictive models in machine learning.",
+      to: "https://coursera.org/verify/PU99D2NGLKMN",
+      organization: "DeepLearning.AI and Stanford University",
+      logo: "https://www.google.com/s2/favicons?domain=deeplearning.ai&sz=128",
+    },
+    {
+      title: "Mastering Multi-Agent Development with AutoGen",
+      description:
+        "An online course authorized by Packt, offered through Coursera, covering multi-agent systems and AutoGen, including autonomous agent interactions, conversation patterns, and AI-driven automation.",
+      to: "https://coursera.org/verify/CCC0CUDGVOOR",
+      organization: "Packt",
+      logo: "https://www.google.com/s2/favicons?domain=packtpub.com&sz=128",
+    },
+    {
+      title: "DevOps Essentials and Version Control with Git",
+      description:
+        "An online course authorized by Edureka on Coursera covering DevOps principles, Linux fundamentals, and Git for version control. Learners gain skills in DevOps lifecycle, Linux commands, repository management, and Git workflows for team collaboration.",
+      to: "https://coursera.org/verify/CGZ88EILCMOB",
+      organization: "Edureka",
+      logo: "https://www.google.com/s2/favicons?domain=edureka.co&sz=128",
+    },
+    {
+      title: "Artificial Intelligence on Microsoft Azure",
+      description:
+        "An online course authorized by Microsoft, offered through Coursera, covering AI implementation on Microsoft Azure, including cloud-based machine learning, cognitive services, and AI model deployment.",
+      to: "https://coursera.org/verify/JOQ04JJROD5F",
+      organization: "Microsoft",
+      logo: "https://www.google.com/s2/favicons?domain=microsoft.com&sz=128",
+    },
+    {
+      title: "Introduction to TensorFlow",
+      description:
+        "An online course authorized by DeepLearning.AI and offered through Coursera, focusing on using TensorFlow to develop models for artificial intelligence, machine learning, and deep learning applications.",
+      to: "https://coursera.org/verify/4RPLXS251YLH",
+      organization: "DeepLearning.AI",
+      logo: "https://www.google.com/s2/favicons?domain=deeplearning.ai&sz=128",
+    },
+    {
+      title: "Introduction to Mobile Development",
+      description:
+        "An online course authorized by Meta and offered through Coursera, providing foundational knowledge and skills in mobile application development using various technologies and frameworks.",
+      to: "https://coursera.org/verify/4QU3RKF5QSCH",
+      organization: "Meta",
+      logo: "https://www.google.com/s2/favicons?domain=meta.com&sz=128",
+    },
+    {
+      title: "Azure Fundamentals Training",
+      description:
+        "Successfully completed the Azure Fundamentals Training organized by Styava on 22nd March 2025, gaining foundational knowledge of Microsoft Azure services and cloud computing",
+      to: "https://drive.google.com/file/d/137dq4RbCMkcUrUhR7N9AfB97gxjbXxqk/view?usp=sharing",
+      organization: "Styava",
+      logo: "https://www.google.com/s2/favicons?domain=styava.dev&sz=128",
+    },
+    {
+      title: "Django Web Framework",
+      description:
+        "An online course authorized by Meta and offered through Coursera, covering the essentials of the Django web framework for building robust and scalable web applications.",
+      to: "https://coursera.org/verify/DEUTHXHU3D8O",
+      organization: "Meta",
+      logo: "https://www.google.com/s2/favicons?domain=meta.com&sz=128",
+    },
+    {
+      title: "Convolutional Neural Networks in TensorFlow",
+      description:
+        "An online course authorized by DeepLearning.AI and offered through Coursera, focusing on building and deploying convolutional neural networks (CNNs) using TensorFlow for image recognition and computer vision applications.",
+      to: "https://coursera.org/verify/QCBOIZMZO4QY",
+      organization: "DeepLearning.AI",
+      logo: "https://www.google.com/s2/favicons?domain=deeplearning.ai&sz=128",
+    },
+    {
+      title: "Introduction to Large Language Models",
+      description:
+        "An online course authorized by Google Cloud and offered through Coursera. This course provides foundational knowledge of large language models (LLMs), their applications, and techniques to enhance their performance.",
+      to: "https://coursera.org/verify/WVOQZH3G9WIK",
+      organization: "Google Cloud",
+      logo: "https://www.google.com/s2/favicons?domain=cloud.google.com&sz=128",
+    },
+    {
+      title: "Advanced Learning Algorithms",
+      description:
+        "An online course authorized by DeepLearning.AI and Stanford University, offered through Coursera, covering advanced machine learning algorithms and techniques to enhance model performance and tackle complex data challenges.",
+      to: "https://coursera.org/verify/VZ4XLESMVTGF",
+      organization: "DeepLearning.AI and Stanford University",
+      logo: "https://www.google.com/s2/favicons?domain=deeplearning.ai&sz=128",
+    },
+    {
+      title: "Programming with JavaScript",
+      description:
+        "An online course authorized by Meta and offered through Coursera, focusing on core JavaScript programming skills essential for web development, including functions, objects, and asynchronous programming.",
+      to: "https://coursera.org/verify/6BXW9AAYUX9S",
+      organization: "Meta",
+      logo: "https://www.google.com/s2/favicons?domain=meta.com&sz=128",
+    },
+    {
+      title: "Introduction to Responsible AI",
+      description:
+        "An online course authorized by Google Cloud and offered through Coursera. This course provides foundational knowledge of responsible AI practices, emphasizing the importance of ethical considerations and Google's AI principles.",
+      to: "https://coursera.org/verify/O43QCWPY75RY",
+      organization: "Google Cloud",
+      logo: "https://www.google.com/s2/favicons?domain=cloud.google.com&sz=128",
+    },
+    {
+      title: "Version Control",
+      description:
+        "An online course authorized by Meta on Coursera that introduces version control systems, Git, and modern development workflows. Learners gain hands-on experience with Linux commands, repository creation, and collaboration techniques to manage code revisions and team projects.",
+      to: "https://coursera.org/verify/32XI9E6WKUMU",
+      organization: "Meta",
+      logo: "https://www.google.com/s2/favicons?domain=meta.com&sz=128",
+    },
+    {
+      title: "Introduction to Front-End Development",
+      description:
+        "An online course authorized by Meta and offered through Coursera, focusing on the essential skills and technologies for front-end development, including HTML, CSS, and JavaScript.",
+      to: "https://coursera.org/verify/D5H8DFCUNN57",
+      organization: "Meta",
+      logo: "https://www.google.com/s2/favicons?domain=meta.com&sz=128",
+    },
+    {
+      title: "Introduction to Generative AI",
+      description:
+        "An online course authorized by Google Cloud and offered through Coursera, providing foundational knowledge of generative AI concepts, tools, and applications.",
+      to: "https://coursera.org/verify/97FEMUSJ16AN",
+      organization: "Google Cloud",
+      logo: "https://www.google.com/s2/favicons?domain=cloud.google.com&sz=128",
+    },
+    {
+      title: "React Basics",
+      description:
+        "An online course authorized by Meta and offered through Coursera, covering the fundamental concepts of React for building user interfaces.",
+      to: "https://coursera.org/verify/MXULJQSHCAJP",
+      organization: "Meta",
+      logo: "https://www.google.com/s2/favicons?domain=meta.com&sz=128",
     },
   ],
+
   projects: [
     {
       title: "Tartuca - Restaurant & Delivery Platform",
       description:
-        "A full-stack restaurant and food ordering monorepo platform featuring a customer portal for interactive menu exploration and Google Maps delivery address tracking, an admin back-office dashboard for live order tracking and menu CRUD operations, and a high-performance asynchronous FastAPI backend integrated with PostgreSQL and Auth0.",
-      to: "https://github.com/Usamafuward/tartuca_user.git",
+        "A full-stack restaurant and food ordering platform featuring an interactive customer ordering portal, Google Maps delivery location tracking, and a live admin operations dashboard. Built with a high-performance FastAPI asynchronous backend, PostgreSQL database, and Auth0 secure identity management.",
+      to: "https://tartuca.vercel.app/",
+      links: [
+        { label: "User Site", url: "https://tartuca.vercel.app/", type: "user-site" },
+        { label: "Admin Site", url: "https://tartuca-admin.vercel.app/", type: "admin-site" },
+        { label: "User Repo", url: "https://github.com/Usamafuward/tartuca_user.git", type: "user-repo" },
+        { label: "Admin Repo", url: "https://github.com/Usamafuward/tartuca_admin.git", type: "admin-repo" },
+        { label: "Backend Repo", url: "https://github.com/Usamafuward/tartuca_back.git", type: "backend-repo" },
+      ],
       technologies: [
         "React",
         "FastAPI",
@@ -357,23 +520,14 @@ export const portfolioData = {
       category: "AI/ML",
     },
     {
-      title: "NLP Podcast Chatbot",
-      description:
-        "An NLP-driven chatbot that interacts with podcast transcripts to answer questions, attribute responses to speakers, and provide YouTube links, enhancing user engagement and content access.",
-      to: "https://github.com/Usamafuward/nlp-podcast-chatbot.git",
-      technologies: ["Flask", "TF-IDF", "VADER", "NLTK"],
-      thumbnail: three,
-      category: "AI/ML",
-    },
-    {
       title: "RAG Pipeline for PDF Analysis (Chatbot)",
       description:
-        "This project is a RAG (Retrieval-Augmented Generation) pipeline that extracts and processes text, tables, and images from PDFs, enabling users to query the extracted information through a conversational interface. It combines multi-modal embeddings with a Google Generative AI-powered question-answering system.",
+        "An advanced multi-modal RAG conversational pipeline that extracts and processes text, structured tables, and diagram images from complex PDF documents. Combines multi-vector embeddings with Google Generative AI and FAISS indexing to deliver high-precision document synthesis and semantic querying.",
       to: "https://github.com/Usamafuward/Rag-Pipeline-For-PDF-Analysis.git",
       technologies: [
         "LangChain",
         "Google GEN AI",
-        "FIASS",
+        "FAISS",
         "Streamlit",
         "Python",
       ],
@@ -381,10 +535,64 @@ export const portfolioData = {
       category: "AI/ML",
     },
     {
+      title: "FS Cake Gallery Website",
+      description:
+        "A modern responsive bakery website built for FS Cake Gallery to showcase custom cakes, birthday and wedding cakes, bento cakes, cupcakes, and special event creations. It includes categorized galleries, customer testimonials, custom order functionality, WhatsApp integration, and local delivery information.",
+      to: "https://fscakegallery.vercel.app/",
+      links: [
+        {
+          label: "Live Site",
+          url: "https://fscakegallery.vercel.app/",
+          type: "live-site",
+        },
+        {
+          label: "GitHub",
+          url: "https://github.com/Usamafuward/fscakegallery.git",
+          type: "github",
+        },
+      ],
+      technologies: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Vercel",
+        "WhatsApp Integration",
+      ],
+      thumbnail: fourteen,
+      category: "Frontend",
+    },
+    {
+      title: "NLP Podcast Chatbot",
+      description:
+        "An intelligent NLP-powered conversational chatbot that analyzes podcast transcripts to answer listener queries with speaker attribution and precise timestamp navigation. Features natural language querying with TF-IDF semantic vector retrieval, VADER sentiment analysis, and direct YouTube chapter synchronization.",
+      to: "https://github.com/Usamafuward/nlp-podcast-chatbot.git",
+      technologies: ["Flask", "TF-IDF", "VADER", "NLTK"],
+      thumbnail: three,
+      category: "AI/ML",
+    },
+    {
       title: "Travel Point",
       description:
-        "A social media platform for travellers to share experiences, itineraries, and book accommodations. It also allows users to create and book all-inclusive travel packages for a seamless travel experience.",
-      to: "https://github.com/aamirfazeer/TravelPointMobile.git",
+        "A full-stack social travel and itinerary platform designed for explorers to share journeys, discover curated travel experiences, and reserve accommodations seamlessly. Combines a cross-platform React Native mobile client, an interactive React web portal, and a scalable FastAPI backend with PostgreSQL.",
+      to: "https://github.com/aamirfazeer/TravelPointMobile",
+      links: [
+        {
+          label: "Mobile Repo",
+          url: "https://github.com/aamirfazeer/TravelPointMobile",
+          type: "mobile-repo",
+        },
+        {
+          label: "Backend Repo",
+          url: "https://github.com/Usamafuward/travelpoint-mobile-server",
+          type: "backend-repo",
+        },
+        {
+          label: "Web Repo",
+          url: "https://github.com/aamirfazeer/TravelPoint",
+          type: "frontend-repo",
+        },
+      ],
       technologies: [
         "React",
         "ReactNative",
@@ -398,25 +606,45 @@ export const portfolioData = {
     {
       title: "Eats Robers",
       description:
-        "Eats Robers is a web app using React, Node.js, Express, MongoDB, and Mongoose that helps users find the perfect meal, featuring seamless payment options and exceptional customer service.",
+        "A modern food discovery and meal ordering platform engineered to connect hungry diners with premier local restaurants. Features interactive menu browsing, customized dish configurators, automated checkout and billing workflows, and a robust Node.js and Express backend powered by MongoDB and Mongoose.",
       to: "https://github.com/Usamafuward/eats-robers.git",
       technologies: ["React", "Node.js", "Express", "MongoDB", "Mongoose"],
       thumbnail: six,
       category: "Full-Stack",
     },
     {
-      title: "Mediman - Doctor Dashboard (sample) Frontend App",
+      title: "Nexcura Pro — Clinical Command & Physician Intelligence UI",
       description:
-        "Mediman is a doctor dashboard app that allows doctors to manage patient appointments (Online and Physical), view patient medical records, and prescribe medications, enhancing patient care and treatment outcomes.",
-      to: "https://github.com/Usamafuward/sample-mediman-doctor.git",
-      technologies: ["React", "Shadcn-UI", "Tailwind CSS"],
+        "A next-generation physician intelligence and clinical command dashboard featuring real-time shift capacity HUDs, emergency triage queues, and ICU bed management. Integrates an urgent diagnostic sentry with multi-zone reference range bars, ambient pharmacovigilance risk matrices, and teleconsultation rooms.",
+      to: "https://nexcura-doctor.vercel.app/",
+      links: [
+        {
+          label: "Live Site",
+          url: "https://nexcura-doctor.vercel.app/",
+          type: "live-site",
+        },
+        {
+          label: "GitHub",
+          url: "https://github.com/Usamafuward/nexcura-doctor",
+          type: "github",
+        },
+      ],
+      technologies: [
+        "React",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Radix UI",
+        "Lucide Icons",
+        "Vite",
+        "Vercel",
+      ],
       thumbnail: four,
       category: "Frontend",
     },
     {
       title: "Portfolio Website",
       description:
-        "A personal portfolio built with React that showcases my projects and skills in artificial intelligence, software developing and machine learning, providing an engaging platform for potential employers and collaborators.",
+        "A modern cyberpunk-themed personal portfolio built with Next.js, React, and Tailwind CSS to showcase software engineering, AI/ML systems, and full-stack solutions. Features fluid Framer Motion animations, comprehensive project case studies, automated SEO schemas, and an interactive intelligent AI assistant.",
       to: "https://github.com/Usamafuward/portfolio.git",
       technologies: ["React", "Tailwind CSS", "EmailJS"],
       thumbnail: five,
@@ -425,7 +653,7 @@ export const portfolioData = {
     {
       title: "Clubhub-Central",
       description:
-        "Club-Hub Central is a centralized platform developed with PHP, HTML, CSS, JavaScript, and MariaDB for the University of Colombo School of Computing clubs and societies, facilitating better communication and collaboration among members.",
+        "A centralized campus organization and management platform developed for University of Colombo School of Computing student clubs and societies. Facilitates seamless member registrations, event scheduling, role-based announcements, and administrative record management powered by PHP, JavaScript, and MariaDB.",
       to: "https://github.com/terance-edmonds/clubhub-central.git",
       technologies: ["PHP", "HTML", "SCSS", "JavaScript", "MariaDB"],
       thumbnail: nine,
@@ -434,25 +662,16 @@ export const portfolioData = {
     {
       title: "LangChain for LLM Application Development (coursera)",
       description:
-        "The project uses the LangChain framework to build applications with advanced language models (LLMs), focusing on key features like prompts, memory management, creating operation chains, document-based question answering, and developing LLMs as reasoning agents.",
+        "An advanced generative AI engineering project built with the LangChain framework and Python to develop production-grade LLM applications. Implements modular prompt templates, conversational memory buffers, sequential retrieval chains, document-based question answering, and autonomous reasoning agents.",
       to: "https://www.coursera.org/learn/langchain-for-llm-application-development-project",
       technologies: ["LangChain", "LLM", "OpenAI", "Python"],
       thumbnail: eight,
       category: "AI/ML",
     },
     {
-      title: "Django Blog",
-      description:
-        "A blog application built with Django for publishing technology-related posts, providing a user-friendly interface for authors to share insights and engage with readers.",
-      to: "https://github.com/Usamafuward/Django-blog.git",
-      technologies: ["Python", "Django", "HTML", "CSS", "PostgreSQL"],
-      thumbnail: ten,
-      category: "Backend",
-    },
-    {
       title: "Online Book Review Application",
       description:
-        "A comprehensive RESTful API for managing book reviews built with Node.js and Express.js. Features user authentication (JWT & Session), CRUD operations for reviews, async operations with Promises and async/await, and supports multiple concurrent users for seamless book review management.",
+        "A high-throughput RESTful API architecture engineered with Node.js and Express for managing large-scale literary reviews and book ratings. Features dual JWT and session authentication mechanisms, complete CRUD lifecycle endpoints, asynchronous promise chains, and robust multi-user concurrency support.",
       to: "https://github.com/Usamafuward/book-review-api.git",
       technologies: ["Node.js", "Express.js", "JWT", "RESTful API"],
       thumbnail: eleven,
@@ -461,11 +680,20 @@ export const portfolioData = {
     {
       title: "Startup Company Website",
       description:
-        "A professional website created for a startup software company to showcase its products, services, team, blogs, and clients. Built with React, Next.js, and Tailwind CSS, it delivers a modern, responsive, and engaging user experience tailored for startups.",
+        "A high-converting corporate website crafted for an emerging software venture to showcase core products, engineering services, leadership, and customer success stories. Engineered with Next.js, React, and Tailwind CSS, delivering lightning-fast load times, responsive UI patterns, and strong SEO visibility.",
       to: "https://github.com/Usamafuward/startup_company_website.git",
       technologies: ["React", "Next.js", "Tailwind CSS"],
       thumbnail: twelve,
       category: "Frontend",
+    },
+    {
+      title: "Django Blog",
+      description:
+        "A dynamic publication platform and content management system developed with Django and PostgreSQL for authoring and sharing technology articles. Incorporates structured category taxonomy, markdown content formatting, user comment threads, search capabilities, and a responsive administrative publishing dashboard.",
+      to: "https://github.com/Usamafuward/Django-blog.git",
+      technologies: ["Python", "Django", "HTML", "CSS", "PostgreSQL"],
+      thumbnail: ten,
+      category: "Backend",
     },
   ],
 

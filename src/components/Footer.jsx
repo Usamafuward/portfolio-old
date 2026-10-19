@@ -1,0 +1,102 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { menuItems, resumeLinks } from "./Header";
+import { portfolioData } from "@/constants/portfolioData";
+
+export default function Footer() {
+  const { socialLinks } = portfolioData;
+
+  return (
+    <footer className="border-t border-[var(--border-line)] bg-[#0F0E1C] py-14 z-10 relative">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-[var(--border-line)]">
+          {/* Identity & Bio */}
+          <div className="md:col-span-6 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+              <span className="font-heading font-semibold text-base text-white tracking-tight">
+                USAMA PUWARD
+              </span>
+            </div>
+            <p className="text-xs text-[var(--text-muted)] max-w-md leading-relaxed font-ui">
+              AI/SE Engineer &amp; Computer Science Graduate. Designing production RAG pipelines,
+              vector search architectures, and resilient full-stack web applications.
+            </p>
+            <div className="text-[11px] font-ui text-[#C4B5FD] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD]" />
+              <span>Colombo, Sri Lanka · Available for Worldwide Engagements</span>
+            </div>
+          </div>
+
+          {/* Directory Links */}
+          <div className="md:col-span-3 space-y-2">
+            <span className="text-[11px] font-ui font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] block">
+              Directory
+            </span>
+            <ul className="space-y-1.5 font-ui text-xs">
+              {menuItems.map((item) => (
+                <li key={item.to}>
+                  <Link
+                    to={item.to}
+                    className="text-[var(--text-muted)] hover:text-white transition"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Direct Channels & Social */}
+          <div className="md:col-span-3 space-y-2">
+            <span className="text-[11px] font-ui font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] block">
+              Direct Channels
+            </span>
+            <div className="flex flex-wrap gap-2 pt-1">
+              {socialLinks.map((social, i) => {
+                const IconComponent = social.icon;
+                return (
+                  <a
+                    key={i}
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={social.platform || social.label}
+                    className="w-9 h-9 rounded-full bg-[#151328] hover:bg-[#8B5CF6] border border-[var(--border-line)] text-[#C4B5FD] hover:text-white flex items-center justify-center transition"
+                  >
+                    <IconComponent className="w-4 h-4" />
+                  </a>
+                );
+              })}
+            </div>
+            <a
+              href="mailto:usamafuward2001@gmail.com"
+              className="text-xs text-[var(--text-muted)] hover:text-white font-ui block pt-1 underline"
+            >
+              usamafuward2001@gmail.com
+            </a>
+          </div>
+        </div>
+
+        {/* Bottom Bar: Copyright & Resumes */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-[var(--text-muted)] font-ui gap-3">
+          <p>© {new Date().getFullYear()} Usama Puward. Quiet and Confident Engineering.</p>
+          <div className="flex items-center gap-4">
+            {resumeLinks.map((cv, i) => (
+              <React.Fragment key={i}>
+                {i > 0 && <span>•</span>}
+                <a
+                  href={cv.href}
+                  download={cv.download}
+                  className="hover:text-white transition"
+                >
+                  {cv.label.replace(" Curriculum Vitae", "").replace(" Engineering", "")} (PDF)
+                </a>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

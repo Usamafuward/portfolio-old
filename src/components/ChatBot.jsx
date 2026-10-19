@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   MessageCircle,
@@ -14,7 +14,7 @@ const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
-      text: "Hi! I'm Usama's AI assistant. Ask me anything about his portfolio, skills, or experience!",
+      text: "Hi! I'm Usama's AI assistant. Ask me anything about his engineering projects, multi-agent frameworks, machine learning models, or tech stack!",
       sender: "bot",
     },
   ]);
@@ -24,8 +24,8 @@ const ChatBot = () => {
 
   const exampleQuestions = [
     "What are Usama's main skills?",
-    "Tell me about his projects.",
-    "What is his educational background?",
+    "Tell me about Tartuca and his AI projects.",
+    "What is his role at Kainovation Technologies?",
   ];
 
   const scrollToBottom = () => {
@@ -48,18 +48,13 @@ const ChatBot = () => {
       const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
       if (!API_KEY) {
         throw new Error(
-          "API Key is missing. Please restart your development server to load the new .env variables."
+          "API Key is missing. Please configure VITE_GEMINI_API_KEY in your .env file."
         );
       }
 
       // Sanitize data to remove images and icons, keeping only text
       const cleanData = {
         personalInfo: portfolioData.personalInfo,
-        socialLinks: portfolioData.socialLinks?.map((item) => {
-          // eslint-disable-next-line no-unused-vars
-          const { icon, ...rest } = item;
-          return rest;
-        }),
         skills: portfolioData.skills,
         education: portfolioData.educations?.map((item) => {
           // eslint-disable-next-line no-unused-vars
@@ -89,14 +84,14 @@ const ChatBot = () => {
                 parts: [
                   {
                     text: `
-                You are a helpful AI assistant for Usama Fuward's portfolio. You can only answer questions about his portfolio, skills, projects, and experience.
+                You are a helpful AI assistant for Usama Puward's portfolio. You can only answer questions about his portfolio, skills, projects, and experience.
                 
                 Context:
                 ${JSON.stringify(cleanData, null, 2)}
                 
                 If asked about other topics, politely decline and steer the conversation back to the portfolio.
-                Keep answers concise and professional.
-                Use Markdown formatting for your responses (bold, lists, etc.) to make them easy to read.
+                Keep answers concise, confident, and professional.
+                Use Markdown formatting for your responses.
                 
                 User: ${text}
               `,
@@ -151,11 +146,10 @@ const ChatBot = () => {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-6 w-80 md:w-96 h-[500px] bg-white/50 dark:bg-gray-800/50 backdrop-blur-md rounded-2xl rounded-tl-none rounded-br-none shadow-2xl border-2 border-teal-500/40 dark:border-teal-400/40 flex flex-col z-50 overflow-hidden"
+            className="fixed bottom-24 right-6 w-80 md:w-96 h-[500px] bg-[#120b24]/95 backdrop-blur-xl rounded-[20px] shadow-2xl border border-purple-500/30 flex flex-col z-50 overflow-hidden"
           >
             {/* Header */}
-            <div className="relative p-4 flex justify-between items-center text-white overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-600/80 to-teal-700/80 backdrop-blur-xl" />
+            <div className="relative p-4 flex justify-between items-center text-white overflow-hidden border-b border-purple-500/20 bg-gradient-to-r from-purple-950/80 to-[#1b1038]/80">
               <div className="relative flex items-center gap-3 z-10">
                 <motion.div
                   className="relative"
@@ -166,13 +160,13 @@ const ChatBot = () => {
                     ease: "linear",
                   }}
                 >
-                  <Sparkles size={20} className="text-teal-200" />
+                  <Sparkles size={18} className="text-purple-300" />
                 </motion.div>
                 <div>
-                  <h3 className="font-bold text-lg">Portfolio Assistant</h3>
-                  <div className="flex items-center gap-2 text-xs text-teal-100">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-lg shadow-green-400/50" />
-                    <span>Online</span>
+                  <h3 className="font-semibold text-sm text-white">Portfolio AI Assistant</h3>
+                  <div className="flex items-center gap-1.5 text-[11px] font-mono text-purple-300">
+                    <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                    <span>Gemini Ready</span>
                   </div>
                 </div>
               </div>
@@ -180,14 +174,14 @@ const ChatBot = () => {
                 onClick={() => setIsOpen(false)}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="relative z-10 hover:bg-white/20 p-2 rounded-full transition-all duration-300"
+                className="relative z-10 hover:bg-purple-800/40 p-1.5 rounded-full text-purple-300 hover:text-white transition-colors"
               >
-                <Minimize2 size={18} />
+                <Minimize2 size={16} />
               </motion.button>
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50 dark:bg-gray-900/50 backdrop-blur-4xl scrollbar-thin scroll-smooth">
+            {/* Messages Container */}
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#0a0616]/70 scrollbar-thin">
               {messages.map((msg, idx) => (
                 <div
                   key={idx}
@@ -196,13 +190,13 @@ const ChatBot = () => {
                   }`}
                 >
                   <div
-                    className={`max-w-[80%] p-3 rounded-2xl ${
+                    className={`max-w-[85%] p-3.5 rounded-2xl text-xs leading-relaxed ${
                       msg.sender === "user"
-                        ? "bg-teal-600 text-white rounded-br-none"
-                        : "bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm text-gray-800 dark:text-gray-200 rounded-bl-none shadow-sm"
+                        ? "bg-purple-600 text-white rounded-br-none shadow-md shadow-purple-950/50"
+                        : "bg-[#181033] border border-purple-500/20 text-purple-100 rounded-bl-none shadow-sm"
                     }`}
                   >
-                    <div className="text-sm prose dark:prose-invert max-w-none">
+                    <div className="prose prose-invert prose-xs max-w-none">
                       <ReactMarkdown>{msg.text}</ReactMarkdown>
                     </div>
                   </div>
@@ -211,16 +205,16 @@ const ChatBot = () => {
 
               {/* Example Questions */}
               {messages.length === 1 && (
-                <div className="grid gap-2 mt-4 px-2">
-                  <p className="text-xs text-teal-300 font-medium ml-1 flex items-center gap-1">
+                <div className="grid gap-2 mt-4 px-1">
+                  <p className="text-xs text-purple-400 font-mono flex items-center gap-1">
                     <Sparkles size={12} />
-                    Try asking:
+                    <span>Suggested Prompts:</span>
                   </p>
                   {exampleQuestions.map((q, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleSend(q)}
-                      className="text-left text-sm p-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-teal-200 dark:border-teal-800 rounded-lg hover:bg-teal-50 dark:hover:bg-gray-700 transition-colors text-teal-700 dark:text-teal-300"
+                      className="text-left text-xs p-2.5 bg-purple-950/40 hover:bg-purple-900/50 border border-purple-500/20 rounded-xl transition-colors text-purple-200"
                     >
                       {q}
                     </button>
@@ -230,23 +224,11 @@ const ChatBot = () => {
 
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white/90 dark:bg-gray-700/90 backdrop-blur-sm p-3 rounded-2xl rounded-bl-none shadow-sm">
-                    <div className="flex gap-1">
-                      <motion.div
-                        className="w-2 h-2 bg-teal-600 rounded-full"
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
-                      />
-                      <motion.div
-                        className="w-2 h-2 bg-teal-600 rounded-full"
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
-                      />
-                      <motion.div
-                        className="w-2 h-2 bg-teal-600 rounded-full"
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }}
-                      />
+                  <div className="bg-[#181033] border border-purple-500/20 p-3 rounded-2xl rounded-bl-none shadow-sm">
+                    <div className="flex gap-1.5 items-center">
+                      <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" />
+                      <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce [animation-delay:0.2s]" />
+                      <span className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce [animation-delay:0.4s]" />
                     </div>
                   </div>
                 </div>
@@ -254,23 +236,23 @@ const ChatBot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
-            <div className="p-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border-t border-white/20 dark:border-gray-700/50">
+            {/* Input Bar */}
+            <div className="p-3 bg-[#120b24] border-t border-purple-500/20">
               <div className="flex gap-2">
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask about my skills..."
-                  className="flex-1 px-4 py-2 rounded-full bg-gray-100/80 dark:bg-gray-700/80 backdrop-blur-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 border-none"
+                  placeholder="Ask about projects, skills, ML models..."
+                  className="flex-1 px-4 py-2 text-xs rounded-full bg-[#090516] border border-purple-500/25 text-white placeholder-purple-400/50 focus:outline-none focus:border-purple-400 transition-colors"
                 />
                 <button
                   onClick={() => handleSend()}
                   disabled={isLoading || !input.trim()}
-                  className="p-2 bg-teal-600 text-white rounded-full hover:bg-teal-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="w-8 h-8 flex items-center justify-center bg-purple-600 text-white rounded-full hover:bg-purple-500 disabled:opacity-40 transition-colors shadow-md"
                 >
-                  <Send size={24} />
+                  <Send size={14} />
                 </button>
               </div>
             </div>
@@ -278,14 +260,15 @@ const ChatBot = () => {
         )}
       </AnimatePresence>
 
-      {/* Toggle Button */}
+      {/* Floating Toggle Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="fixed bottom-6 right-6 p-3 sm:p-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md text-teal-600 dark:text-teal-400 border-2 border-teal-500/40 dark:border-teal-400/40 rounded-2xl rounded-bl-none shadow-lg hover:shadow-xl z-50 transition-all hover:border-teal-500/50 dark:hover:border-teal-400/50"
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.92 }}
+        aria-label="Toggle AI assistant"
+        className="fixed bottom-6 right-6 w-12 h-12 bg-purple-600 hover:bg-purple-500 text-white rounded-full shadow-lg shadow-purple-900/60 border border-purple-400/40 flex items-center justify-center z-50 transition-colors"
       >
-        {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
+        {isOpen ? <X size={20} /> : <MessageCircle size={20} />}
       </motion.button>
     </>
   );

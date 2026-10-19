@@ -1,1 +1,6 @@
-<svg height="2500" width="1874" xmlns="http://www.w3.org/2000/svg" viewBox="76 64 297.006 471"><g fill-rule="evenodd"><path d="M321 242.017v178.017l25.75-.267 25.75-.267.253-177.75.253-177.75H321zM159 145.5V199h52V92h-52zM76 357v178h52V179H76zm164-124.017V287H292.017l-.258-53.75-.259-53.75-25.75-.267-25.75-.267zM159 365v54h52V311h-52zm81 88v54h52V399h-52z" fill="#0c0454"/><path d="M159 255.5V281h52v-51h-52zm81 88V369h52v-51h-52z" fill="#f36848"/></g></svg>
+<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <title>Pandas</title>
+  <path fill="#FFFFFF" d="M16.922 0h2.623v18.104h-2.623zM4.456 5.896h2.622V24H4.455zM8.67 12.606h2.623v5.447H8.67zM8.67 1.419h2.623v5.446H8.67z"/>
+  <path fill="#FF6B6B" d="M12.796 12.94h2.623v2.57h-2.623zM8.67 8.455h2.623v2.57H8.67z"/>
+  <path fill="#FCA311" d="M12.796 5.903h2.623v5.446h-2.623zM12.796 17.1h2.623v5.446h-2.623z"/>
+</svg>

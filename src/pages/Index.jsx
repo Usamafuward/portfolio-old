@@ -1,941 +1,935 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
-import { DarkModeContext } from "@/context/DarkModeContext";
-import { AiOutlineUp, AiOutlineDownload } from "react-icons/ai";
-import { motion, useInView } from "framer-motion";
-import profile from "@/assets/Usama1.png";
-import SplitText from "@/components/ui/SplitText";
-import LogoWall from "@/components/ui/LogoWall";
-import TrueFocus from "@/components/ui/TrueFocus";
-import AnimatedText from "@/components/ui/AnimatedText";
-import AnimatedProfile from "@/components/ui/AnimatedProfile";
-import PortfolioCard from "@/components/ui/PortfolioCard";
-import flatIcon from "@/assets/flat_icon";
-import { portfolioData } from "../constants/portfolioData";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  Brain,
+  Globe,
+  Server,
+  Layers,
+  Cpu,
+  Database,
+  Building,
+  GraduationCap,
+  Award,
+  Calendar,
+  ExternalLink,
+  ChevronRight,
+  Check,
+  Copy,
+  Minus,
+  Plus,
+  Cloud,
+  ShieldCheck,
+} from "lucide-react";
+import HeroTopographicWaves from "@/components/ui/HeroTopographicWaves";
+import HeroProfileCard from "@/components/ui/HeroProfileCard";
+import ToolchainMatrix from "@/components/ui/ToolchainMatrix";
+import { portfolioData } from "@/constants/portfolioData";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.25 },
-  },
-};
+export default function Index() {
+  const { personalInfo, technologies, projects, experiences, educations } = portfolioData;
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
+  // Active drawer state for featured cards
+  const [activeDrawer, setActiveDrawer] = useState(null);
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
-const slideUpVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0 },
-};
+  const toggleDrawer = (id) => {
+    setActiveDrawer((prev) => (prev === id ? null : id));
+  };
 
-const slideRightVariants = {
-  hidden: { opacity: 0, x: 50 },
-  visible: { opacity: 1, x: 0 },
-};
-
-const slideLeftVariants = {
-  hidden: { opacity: 0, x: -100 },
-  visible: { opacity: 1, x: 0 },
-};
-
-const Index = () => {
-  const { darkMode } = useContext(DarkModeContext);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const dropdownRef = useRef(null);
-  const [setIsScrolled] = useState(false);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [hoveredSkillIndex, setHoveredSkillIndex] = useState(null);
-  const [hoveredEducationIndex, setHoveredEducationIndex] = useState(null);
-  const educationRef = useRef(null);
-  const isInView3 = useInView(educationRef, { once: true });
-  const { skills } = portfolioData;
-  const { technologies } = portfolioData;
-  const { socialLinks } = portfolioData;
-  const { educations } = portfolioData;
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-      setShowDropdown(false);
-    };
-
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setShowDropdown(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [setIsScrolled]);
-
-  const cards = [
-    {
-      title: "Projects",
-      image: !darkMode ? flatIcon.project_full : flatIcon.project_white,
-      description:
-        "Explore a showcase of my innovative projects, demonstrating technical expertise and problem-solving skills.",
-      link: "/projects",
-    },
-    {
-      title: "Certifications",
-      image: !darkMode ? flatIcon.certificate_full : flatIcon.certificate_white,
-      description:
-        "Browse my certifications, highlighting my dedication to continuous learning and professional growth.",
-      link: "/certifications",
-    },
-    {
-      title: "Experiences",
-      image: !darkMode ? flatIcon.quality_full : flatIcon.quality_white,
-      description:
-        "Discover my professional journey, including key roles and experiences that have shaped my expertise and skills.",
-      link: "/experiences",
-    },
-  ];
-
-  const resumeLinks = [
-    {
-      href: "/SE_CV.pdf",
-      label: "Software Engineering",
-      download: "Usama_Puward_Resume_SE.pdf",
-    },
-    {
-      href: "/AI_ML_CV.pdf",
-      label: "AI/ML Engineering",
-      download: "Usama_Puward_Resume_ML.pdf",
-    },
-  ];
+  const copyEmail = () => {
+    navigator.clipboard.writeText(personalInfo.email);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
+  };
 
   return (
-    <div>
-      {/* Hero Section */}
-      <section ref={ref}>
-        <div className=" p-7 flex flex-col xl:flex-row md:justify-between w-full bg-transparent">
-          <div className="z-0 inline-block xl:w-2/3 xl:border-l-4 border-teal-400 dark:border-teal-400 justify-between order-2 xl:order-none relative py-5">
-            {/* Gradient overlay - Visible only on xl devices */}
-            <motion.div
-              className="hidden xl:block absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-teal-400/30 to-transparent pointer-events-none"
-              animate={{
-                opacity: [1, 0.5, 1],
-                transition: { duration: 1, repeat: Infinity },
-              }}
-            />
+    <div className="relative overflow-hidden font-body">
+      {/* 2. HERO SECTION WITH ALGORITHMIC TOPOGRAPHIC WAVES & CUTOUT PROFILE */}
+      <section className="relative min-h-[calc(100vh-4rem)] flex flex-col justify-center py-12 sm:py-16 overflow-hidden border-b border-[var(--border-line)]">
+        {/* Algorithmic Topographic Wave Field (Zero Particles) */}
+        <HeroTopographicWaves />
 
-            <motion.div
-              initial="hidden"
-              animate={isInView ? "visible" : "hidden"}
-              variants={
-                window.innerWidth > 1280 ? slideLeftVariants : slideUpVariants
-              }
-              transition={{ type: "spring", stiffness: 200, duration: 0.5 }}
-              className="text-center xl:text-left items-center justify-between mx-auto mt-6 xl:mt-0 xl:ps-28 relative z-10"
-            >
-              <AnimatedText texts={["AI/ML Engineer", "Software Developer"]} />
-              <h1 className="text-[40px] sm:text-5xl px-2 xl:px-0 sm:py-2 :py-1 text-gray-800 dark:text-white md:text-6xl">
-                Hello I’m
+        {/* Hero Content 2-Column Grid */}
+        <div className="relative z-10 max-w-6xl mx-auto px-6 w-full my-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+            {/* Left Column: Headline, Lead, CTA Buttons, Stats Strip */}
+            <div className="lg:col-span-7 text-left space-y-6">
+              {/* Eyebrow Pill */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--border-line)] bg-[#151328]/90 backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-[#C4B5FD] animate-pulse" />
+                <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C4B5FD]">
+                  AI/ML Engineer &amp; Full-Stack Architect
+                </span>
+              </div>
+
+              {/* Display H1 with Weight Contrast & Balanced Lines */}
+              <h1 className="font-heading text-3xl sm:text-4xl lg:text-[46px] lg:leading-[1.14] font-light tracking-[-0.03em] text-white">
+                Intelligent systems &amp; full-stack products,{" "}
+                <strong className="block font-semibold text-white mt-1">
+                  built for real-world scale.
+                </strong>
               </h1>
-              <SplitText
-                text="Usama Puward"
-                className="text-[40px] sm:text-5xl px-2 xl:px-0 sm:py-2 py-1 text-teal-600 font-medium dark:text-teal-400 md:text-6xl"
-                delay={150}
-                animationFrom={{
-                  opacity: 0,
-                  transform: "translate3d(0,50px,0)",
-                }}
-                animationTo={{ opacity: 1, transform: "translate3d(0,0,0)" }}
-                easing="easeOutCubic"
-                threshold={0.2}
-                rootMargin="-50px"
-              />
-              <motion.p
-                className="text-center xl:text-left text-md py-2 sm:py-4 leading-8 text-gray-700 dark:text-gray-300 max-w-xl xl:mx-0 mx-auto md:text-xl"
-                initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 1, delay: 0.5 }}
-              >
-                Computer Science Graduate and current AI/ML Engineer and
-                Software Developer, with a strong passion for Software
-                Developing, Machine Learning, and Artificial Intelligence.
-                Skilled in developing efficient and innovative solutions for
-                real-world projects and building high-quality applications.
-                Eager to tackle complex challenges in software development and
-                drive innovation within the fields of AI and ML.
-                <motion.span
-                  className="inline-block w-0.5 h-5 bg-teal-400 ml-1"
-                  animate={{ opacity: [1, 0, 1] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                />
-              </motion.p>
-              <div className="flex flex-col xl:flex-row items-center  xl:gap-8 py-4 space-y-8 xl:space-y-0">
-                <motion.div
-                  ref={dropdownRef} // Add this ref
-                  className="relative group xl:mb-0 order-none xl:order-2"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={
-                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
-                  }
-                  transition={{ duration: 0.6, delay: 0.8 }}
+
+              {/* Lead Paragraph */}
+              <p className="font-ui text-sm sm:text-base text-[var(--text-muted)] max-w-xl font-normal leading-relaxed">
+                Designing production RAG pipelines, vector search architectures, and resilient full-stack
+                web applications with surgical precision.
+              </p>
+
+              {/* Primary Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-1">
+                <a
+                  href="#projects"
+                  className="font-ui text-xs sm:text-sm font-medium px-7 py-3 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition shadow-lg shadow-[#8B5CF6]/25"
                 >
-                  <button
-                    onClick={() => setShowDropdown(!showDropdown)}
-                    className="shadow-xl dark:shadow-[#0c121d] font-bold text-gray-700 dark:text-white rounded-full xl:rounded-none xl:rounded-r-full border-dashed border-2 hover:text-teal-600 hover:dark:text-teal-400 border-gray-700 hover:border-teal-600 dark:border-white hover:dark:border-teal-400 py-4 px-6 relative transition-all duration-300 ease-in-out dropdown-button"
-                  >
-                    <div className="flex items-center transition-transform duration-300 hover:scale-[1.03] gap-3">
-                      <span className="text-lg">Download CV</span>
-                      {showDropdown ? (
-                        <AiOutlineUp className="h-[26px] w-[26px] font-bold" />
-                      ) : (
-                        <AiOutlineDownload className="h-[26px] w-[26px] font-bold" />
-                      )}
-                    </div>
-                  </button>
-                  {showDropdown && (
-                    <div className="absolute z-10 left-0 mt-2 w-full bg-white dark:bg-gray-800 shadow-xl dark:shadow-[#0c121d]">
-                      {resumeLinks.map((resume) => (
-                        <a
-                          key={resume.label}
-                          href={resume.href}
-                          download={resume.download}
-                          className="block px-4 py-3 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 text-left"
-                        >
-                          {resume.label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </motion.div>
+                  Explore Featured Systems →
+                </a>
+                <a
+                  href="#competencies"
+                  className="font-ui text-xs sm:text-sm font-medium px-7 py-3 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition"
+                >
+                  View Engineering Stack
+                </a>
+              </div>
 
-                <div className="relative z-0 flex justify-center gap-4 sm:gap-9 xl:gap-5 text-gray-700 dark:text-gray-300 xl:mb-0 order-none xl:order-2">
-                  {socialLinks.map((social, index) => (
-                    <motion.div
-                      key={index}
-                      className="relative group"
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={
-                        isInView
-                          ? { opacity: 1, scale: 1 }
-                          : { opacity: 0, scale: 0 }
-                      }
-                      transition={{ duration: 0.3, delay: 1 + index * 0.1 }}
-                    >
-                      {/* Holographic ring */}
-                      <motion.div
-                        className="absolute inset-0 rounded-full border border-teal-400/30"
-                        animate={{ rotate: 360 }}
-                        transition={{
-                          duration: 10 + index * 2,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                        style={{ scale: 1.2 }}
-                      />
-
-                      {/* Glow effect */}
-                      <div className="absolute inset-0 rounded-full bg-teal-400/20 blur-lg scale-0 group-hover:scale-100 transition-transform duration-300" />
-
-                      <motion.a
-                        href={social.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-full relative overflow-hidden shadow-xl dark:shadow-[#0c121d] border-2 border-teal-600 font-medium dark:border-teal-400 hover:border-black/50 hover:dark:border-white/50 bg-gray-100/10 dark:bg-gray-700/20 transition-colors duration-300"
-                        whileHover={{ rotateY: 180 }}
-                        whileTap={{ scale: 0.95 }}
-                        transition={{ duration: 0.6, ease: "easeInOut" }}
-                      >
-                        {/* Scan lines */}
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-b from-transparent via-teal-400/20 to-transparent"
-                          animate={{ y: [-56, 56] }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            delay: index * 0.3,
-                          }}
-                        />
-
-                        {/* Hover overlay */}
-                        <motion.div
-                          className="absolute inset-0 bg-gray-800 dark:bg-white scale-0 group-hover:scale-100 rounded-full transition-transform duration-300 ease-in-out"
-                          initial={{ scale: 0 }}
-                          whileHover={{ scale: 1 }}
-                        />
-
-                        {/* Icon */}
-                        <social.icon className="w-8 h-8 sm:w-9 sm:h-9 relative z-10 text-gray-700 dark:text-gray-300 group-hover:text-white dark:group-hover:text-white/50 transition-colors duration-300 rounded-[15px]" />
-                      </motion.a>
-                    </motion.div>
-                  ))}
+              {/* Quiet Stats Strip with Balanced Headroom */}
+              <div className="pt-6 border-t border-[var(--border-line)] grid grid-cols-3 max-w-md gap-4 font-ui">
+                <div>
+                  <div className="text-xl sm:text-2xl font-semibold text-white font-heading">BSc CS</div>
+                  <div className="text-[11px] sm:text-xs text-[var(--text-muted)] mt-0.5">University of Colombo</div>
+                </div>
+                <div>
+                  <div className="text-xl sm:text-2xl font-semibold text-[#C4B5FD] font-heading">13+</div>
+                  <div className="text-[11px] sm:text-xs text-[var(--text-muted)] mt-0.5">Systems Built</div>
+                </div>
+                <div>
+                  <div className="text-xl sm:text-2xl font-semibold text-[#8B5CF6] font-heading">23+</div>
+                  <div className="text-[11px] sm:text-xs text-[var(--text-muted)] mt-0.5">Accreditations</div>
                 </div>
               </div>
-            </motion.div>
+            </div>
+
+            {/* Right Column: High-Tech Cutout Silhouette Portrait */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <HeroProfileCard />
+            </div>
           </div>
-          <motion.div
-            className="relative mx-auto xl:w-1/3 flex justify-center items-center order-1 xl:order-none my-3 xl:my-0 py-4 xl:py-0"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={
-              isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }
-            }
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <AnimatedProfile imageSrc={profile} />
-
-            {/* Top Right - Fast pulse */}
-            <div className="hidden xl:block absolute top-7 right-0 w-16 h-16 border-t-2 border-r-2 border-teal-600 animate-pulse" />
-
-            {/* Bottom Left - Slow fade in/out */}
-            <div className="hidden xl:block absolute bottom-9 left-0 w-16 h-16 border-b-2 border-l-2 border-teal-600 animate-[fade_2s_ease-in-out_infinite]" />
-
-            {/* Top Left - Quick flash */}
-            <div className="hidden xl:block absolute top-7 left-0 w-16 h-16 border-t-2 border-l-2 border-teal-600 animate-[flash_0.5s_ease-in-out_infinite]" />
-
-            {/* Bottom Right - Glitch effect */}
-            <div className="hidden xl:block absolute bottom-9 right-0 w-16 h-16 border-b-2 border-r-2 border-teal-600 animate-[glitch_1.5s_ease-in-out_infinite]" />
-          </motion.div>
         </div>
       </section>
 
-      {/* Cards Section */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={containerVariants}
-        className="px-7"
-      >
-        <div className="text-center pt-8 sm:pt-16 xl:pb-0 px-7 mb-10">
-          <TrueFocus
-            sentence="Welcome to My Portfolio"
-            manualMode={false}
-            blurAmount={0}
-            borderColor="#0d9488"
-            textColor="#0d9488"
-            animationDuration={2}
-            pauseBetweenAnimations={1}
-          />
-        </div>
-        <motion.div
-          className="grid grid-cols-1 gap-10 lg:grid-cols-3 my-8"
-          variants={containerVariants}
-        >
-          {cards.map((card, index) => (
-            <motion.div key={index} variants={itemVariants}>
-              <PortfolioCard card={card} darkMode={darkMode} />
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.section>
+      {/* 3. FEATURED PROJECTS WITH EXPANDING '+' ARCHITECTURE DRAWERS (Alternating Section: #0F0E1C) */}
+      <section id="projects" className="py-24 border-b border-[var(--border-line)] bg-[#0F0E1C]">
+        <div className="max-w-6xl mx-auto px-6">
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div className="max-w-2xl">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+                <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                  Production Engineering
+                </span>
+              </div>
+              <h2 className="font-heading text-3xl md:text-[44px] font-light tracking-[-0.02em] text-white">
+                Systems engineered for <strong className="font-semibold text-white">measurable&nbsp;impact</strong>
+              </h2>
+            </div>
+            <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--border-line)] bg-[#151328] text-xs font-ui text-[var(--text-muted)] shrink-0">
+              <span className="w-4 h-4 rounded-full border border-white/20 flex items-center justify-center text-[10px] text-white font-mono leading-none">+</span>
+              <span>Click on any card to inspect architecture</span>
+            </div>
+          </div>
 
-      {/* Skills Section */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="px-7 pt-7"
-      >
-        <motion.h2
-          variants={slideUpVariants}
-          className="text-[42px] md:text-5xl font-bold text-center text-teal-600 dark:text-teal-400 mb-8"
-        >
-          Skills
-        </motion.h2>
-        <motion.div className="mx-auto my-6">
-          <motion.div variants={slideUpVariants} className="text-center mb-12">
-            <p className="text-lg max-w-3xl mx-auto text-gray-700 dark:text-gray-300">
-              I have a diverse background in various domains of software
-              development and machine learning. My expertise allows me to create
-              visually appealing interfaces, build robust server-side
-              applications, and develop intelligent systems using modern tools
-              and frameworks.
-            </p>
-          </motion.div>
+          {/* 3 Featured Systems Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-          <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
-          >
-            {skills.map((skill, index) => (
-              <motion.div
-                key={index}
-                className="relative group"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={
-                  index % 2 === 0 ? slideLeftVariants : slideRightVariants
-                }
-                transition={{
-                  duration: 0.8,
-                  delay: index * 0.1,
-                  type: "spring",
-                }}
-                onMouseEnter={() => setHoveredSkillIndex(index)}
-                onMouseLeave={() => setHoveredSkillIndex(null)}
-              >
-                {/* Main container with matching border style and glass effect */}
-                <motion.div
-                  className="relative h-full overflow-hidden transition-all duration-300 border-2 border-teal-500/40 dark:border-teal-400/40 hover:border-teal-500/50 dark:hover:border-teal-400/50 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md p-6 rounded-[30px] rounded-tl-none rounded-br-none shadow-xl dark:shadow-[#0c121d] transform"
-                  animate={
-                    hoveredSkillIndex === index
-                      ? {
-                          boxShadow: [
-                            "0 0 20px rgba(13,148,136,0.3)",
-                          ],
-                        }
-                      : {
-                          boxShadow: "0 0 0px rgba(13,148,136,0)",
-                        }
-                  }
-                  transition={{
-                    duration: 1.5,
-                    repeat: hoveredSkillIndex === index ? Infinity : 0,
-                    ease: "easeInOut",
-                  }}
+            {/* PROJECT CARD 1: FLAGSHIP RAG PIPELINE */}
+            <article
+              onMouseLeave={() => setActiveDrawer(null)}
+              className="k-card k-card-flagship p-7 flex flex-col justify-between min-h-[430px]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C4B5FD]">
+                    Flagship AI / NLP
+                  </span>
+                  <h3 className="font-heading text-[22px] font-semibold text-white mt-1 leading-snug">
+                    Automated PDF RAG Pipeline
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => toggleDrawer("rag")}
+                  onMouseEnter={() => setActiveDrawer("rag")}
+                  aria-label="Expand technical architecture"
+                  className="w-9 h-9 rounded-full border border-white/20 hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white transition-all duration-300 shrink-0 focus:outline-none"
                 >
-                  {/* Border light effect */}
-                  <div className="absolute inset-0 rounded-[30px] rounded-tl-none rounded-br-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                    <div className="absolute inset-0 rounded-[30px] rounded-tl-none rounded-br-none bg-gradient-to-r from-transparent via-teal-400/30 to-transparent blur-sm" />
-                  </div>
-                  
-                  {/* Animated background grid */}
-                  <div className="absolute inset-0 opacity-5 dark:opacity-10 rounded-[30px] rounded-tl-none rounded-br-none overflow-hidden">
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(13,148,136,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(13,148,136,0.3)_1px,transparent_1px)] bg-[size:20px_20px]" />
-                  </div>
+                  <span
+                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${
+                      activeDrawer === "rag" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
+                    }`}
+                  >
+                    <Plus className="w-4 h-4" />
+                  </span>
+                </button>
+              </div>
 
-                  {/* Circuit pattern */}
-                  <div className="absolute top-4 right-4 w-20 h-20 opacity-20">
-                    <svg
-                      viewBox="0 0 100 100"
-                      className="w-full h-full text-teal-600 dark:text-teal-400"
-                    >
-                      <motion.path
-                        d="M20,20 L80,20 L80,50 L50,50 L50,80 L80,80"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        fill="none"
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 2, delay: index * 0.2 }}
-                      />
-                      <motion.circle
-                        cx="50"
-                        cy="50"
-                        r="3"
-                        fill="currentColor"
-                        animate={{
-                          scale: [1, 1.5, 1],
-                          opacity: [0.5, 1, 0.5],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: index * 0.3,
-                        }}
-                      />
-                    </svg>
-                  </div>
+              <p className="text-sm text-[#E2E0F0]/80 leading-relaxed my-4 font-normal">
+                Retrieval-Augmented Generation engine for automated PDF ingestion, semantic chunking, vector
+                embeddings, and context-grounded multimodal synthesis.
+              </p>
 
-                  {/* Floating particles */}
-                  <div className="absolute inset-0 overflow-hidden rounded-[30px] rounded-tl-none rounded-br-none">
-                    {[...Array(6)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className="absolute w-1 h-1 bg-teal-400 rounded-full"
-                        style={{
-                          left: `${Math.random() * 50}%`,
-                          top: `${Math.random() * 50}%`,
-                        }}
-                        animate={{
-                          x: [Math.random() * 300, Math.random() * 300],
-                          y: [Math.random() * 200, Math.random() * 200],
-                          opacity: [0, 0.8, 0],
-                        }}
-                        transition={{
-                          duration: Math.random() * 3 + 2,
-                          repeat: Infinity,
-                          delay: Math.random() * 2,
-                        }}
-                      />
-                    ))}
-                  </div>
+              {/* 1px SVG Vector Diagram: RAG Embeddings & Retrieval */}
+              <div className="border border-white/15 rounded-xl p-3.5 bg-[#0A0A12]/40 mb-4">
+                <svg viewBox="0 0 280 130" className="w-full h-28" fill="none" aria-hidden="true">
+                  <rect x="16" y="25" width="52" height="76" rx="4" stroke="#ffffff" strokeWidth="1" />
+                  <line x1="26" y1="42" x2="56" y2="42" stroke="#C4B5FD" strokeWidth="1" />
+                  <line x1="26" y1="56" x2="50" y2="56" stroke="#9E98B8" strokeWidth="1" />
+                  <line x1="26" y1="70" x2="54" y2="70" stroke="#9E98B8" strokeWidth="1" />
+                  <line x1="12" y1="36" x2="72" y2="36" stroke="#8B5CF6" strokeWidth="1.5" className="scan-line" />
+                  <line x1="68" y1="63" x2="108" y2="63" stroke="#8B5CF6" strokeWidth="1" strokeDasharray="3 3" />
+                  <g className="orbit-group">
+                    <circle cx="140" cy="65" r="28" stroke="#C4B5FD" strokeWidth="1" strokeDasharray="4 4" />
+                    <circle cx="140" cy="37" r="3.5" fill="#8B5CF6" />
+                    <circle cx="164" cy="79" r="3.5" fill="#C4B5FD" />
+                  </g>
+                  <circle cx="140" cy="65" r="11" stroke="#ffffff" strokeWidth="1.2" />
+                  <line x1="168" y1="65" x2="215" y2="45" stroke="#8B5CF6" strokeWidth="1" />
+                  <line x1="168" y1="65" x2="215" y2="85" stroke="#C4B5FD" strokeWidth="1" />
+                  <rect x="215" y="34" width="48" height="22" rx="4" stroke="#8B5CF6" strokeWidth="1" />
+                  <rect x="215" y="74" width="48" height="22" rx="4" stroke="#C4B5FD" strokeWidth="1" />
+                </svg>
+              </div>
 
-                  {/* Content */}
-                  <div className="relative z-10">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300">
-                      {skill.category}
+              <div className="flex items-center justify-between text-xs font-ui pt-1 gap-2">
+                <span className="text-[#C4B5FD] truncate">Google API • Vector DB • Python</span>
+                <button
+                  type="button"
+                  onClick={() => toggleDrawer("rag")}
+                  onMouseEnter={() => setActiveDrawer("rag")}
+                  className="underline text-white hover:text-[#C4B5FD] transition whitespace-nowrap shrink-0"
+                >
+                  Architecture →
+                </button>
+              </div>
+
+              {/* Circular Ripple Expanding Drawer */}
+              <div className={`card-drawer ${activeDrawer === "rag" ? "open" : ""} flex flex-col justify-between`}>
+                <div className="flex items-start justify-between">
+                  <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C4B5FD]">
+                    System Spec // RAG
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActiveDrawer(null)}
+                    aria-label="Close architecture panel"
+                    className="w-9 h-9 rounded-full border border-white/25 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition shrink-0"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="space-y-3 my-auto py-2">
+                  <h4 className="font-heading text-lg font-semibold text-white">Pipeline Architecture</h4>
+                  <ul className="text-xs text-[#E2E0F0] space-y-2 leading-relaxed list-disc pl-4 font-ui">
+                    <li><strong>Ingestion:</strong> Automated PDF parsing &amp; token-aware semantic chunking.</li>
+                    <li><strong>Embeddings:</strong> High-dimensional vector indexing via Google Gemini API.</li>
+                    <li><strong>Retrieval:</strong> Top-K cosine similarity matching with low-latency grounding.</li>
+                  </ul>
+                </div>
+                <div className="flex gap-2 flex-wrap pt-2">
+                  <span className="text-[11px] font-ui px-2.5 py-1 rounded-full bg-white/10 text-[#C4B5FD]">
+                    Vector Embeddings
+                  </span>
+                  <span className="text-[11px] font-ui px-2.5 py-1 rounded-full bg-white/10 text-[#C4B5FD]">
+                    LLM Orchestration
+                  </span>
+                  <a
+                    href="https://github.com/Usamafuward/Rag-Pipeline-For-PDF-Analysis.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-auto text-xs text-white underline font-ui flex items-center gap-1 hover:text-[#C4B5FD] transition"
+                  >
+                    GitHub Code →
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            {/* PROJECT CARD 2: MEDIMAN FULL-STACK PLATFORM */}
+            <article
+              onMouseLeave={() => setActiveDrawer(null)}
+              className="k-card p-7 flex flex-col justify-between min-h-[430px]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                    FinTech &amp; Healthcare
+                  </span>
+                  <h3 className="font-heading text-[22px] font-semibold text-white mt-1 leading-snug">
+                    MediMan Consultation &amp; Wallet
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => toggleDrawer("mediman")}
+                  onMouseEnter={() => setActiveDrawer("mediman")}
+                  aria-label="Expand technical architecture"
+                  className="w-9 h-9 rounded-full border border-[var(--border-line)] hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white transition-all duration-300 shrink-0 focus:outline-none"
+                >
+                  <span
+                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${
+                      activeDrawer === "mediman" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
+                    }`}
+                  >
+                    <Plus className="w-4 h-4" />
+                  </span>
+                </button>
+              </div>
+
+              <p className="text-sm text-[var(--text-muted)] leading-relaxed my-4 font-normal">
+                Full-stack telemedicine booking platform featuring real-time multi-currency wallet management and
+                integrated PayHere payment checkout gateways.
+              </p>
+
+              {/* 1px SVG Vector Diagram: Telemetry & Multi-Currency Ledger */}
+              <div className="border border-[var(--border-line)] rounded-xl p-3.5 bg-[#0F0E1C] mb-4">
+                <svg viewBox="0 0 280 130" className="w-full h-28" fill="none" aria-hidden="true">
+                  <rect x="16" y="14" width="248" height="102" rx="8" stroke="#FFFFFF" strokeWidth="1" strokeOpacity="0.4" />
+                  <circle cx="30" cy="26" r="2.5" fill="#8B5CF6" />
+                  <circle cx="40" cy="26" r="2.5" fill="#C4B5FD" />
+                  <polyline points="28,82 70,82 88,48 104,98 122,60 140,82 248,82" stroke="#8B5CF6" strokeWidth="1.4" />
+                  <circle cx="248" cy="82" r="4" fill="#C4B5FD" />
+                </svg>
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-ui pt-1 gap-2">
+                <span className="text-[var(--text-muted)] truncate">Full-Stack • PayHere API • Multi-Currency</span>
+                <button
+                  type="button"
+                  onClick={() => toggleDrawer("mediman")}
+                  onMouseEnter={() => setActiveDrawer("mediman")}
+                  className="underline text-white hover:text-[#C4B5FD] transition whitespace-nowrap shrink-0"
+                >
+                  Architecture →
+                </button>
+              </div>
+
+              {/* Circular Ripple Expanding Drawer */}
+              <div className={`card-drawer ${activeDrawer === "mediman" ? "open" : ""} flex flex-col justify-between`}>
+                <div className="flex items-start justify-between">
+                  <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C4B5FD]">
+                    System Spec // MediMan
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActiveDrawer(null)}
+                    aria-label="Close architecture panel"
+                    className="w-9 h-9 rounded-full border border-white/25 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition shrink-0"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="space-y-3 my-auto py-2">
+                  <h4 className="font-heading text-lg font-semibold text-white">Full-Stack Architecture</h4>
+                  <ul className="text-xs text-[#E2E0F0] space-y-2 leading-relaxed list-disc pl-4 font-ui">
+                    <li><strong>Wallet Engine:</strong> Multi-currency ledger state management with atomic balance ops.</li>
+                    <li><strong>Payment Gateway:</strong> Webhook-verified PayHere checkout integration.</li>
+                    <li><strong>Scheduling:</strong> Real-time appointment booking with doctor calendar syncing.</li>
+                  </ul>
+                </div>
+                <div className="flex gap-2 flex-wrap pt-2">
+                  <span className="text-[11px] font-ui px-2.5 py-1 rounded-full bg-white/10 text-[#C4B5FD]">
+                    React / Node
+                  </span>
+                  <span className="text-[11px] font-ui px-2.5 py-1 rounded-full bg-white/10 text-[#C4B5FD]">
+                    PayHere SDK
+                  </span>
+                  <a
+                    href="https://github.com/Usamafuward/sample-mediman-doctor.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-auto text-xs text-white underline font-ui flex items-center gap-1 hover:text-[#C4B5FD] transition"
+                  >
+                    GitHub Code →
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            {/* PROJECT CARD 3: TARTUCA FOOD & MONOREPO PLATFORM */}
+            <article
+              onMouseLeave={() => setActiveDrawer(null)}
+              className="k-card p-7 flex flex-col justify-between min-h-[430px]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                    Full-Stack Monorepo
+                  </span>
+                  <h3 className="font-heading text-[22px] font-semibold text-white mt-1 leading-snug">
+                    Tartuca Food &amp; Delivery System
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => toggleDrawer("tartuca")}
+                  onMouseEnter={() => setActiveDrawer("tartuca")}
+                  aria-label="Expand technical architecture"
+                  className="w-9 h-9 rounded-full border border-[var(--border-line)] hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white transition-all duration-300 shrink-0 focus:outline-none"
+                >
+                  <span
+                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${
+                      activeDrawer === "tartuca" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
+                    }`}
+                  >
+                    <Plus className="w-4 h-4" />
+                  </span>
+                </button>
+              </div>
+
+              <p className="text-sm text-[var(--text-muted)] leading-relaxed my-4 font-normal">
+                Asynchronous FastAPI backend integrated with PostgreSQL and Auth0, Google Maps delivery routing,
+                and administrative order management portal.
+              </p>
+
+              {/* 1px SVG Vector Diagram: API Gateway & Data Bus */}
+              <div className="border border-[var(--border-line)] rounded-xl p-3.5 bg-[#0F0E1C] mb-4">
+                <svg viewBox="0 0 280 130" className="w-full h-28" fill="none" aria-hidden="true">
+                  <rect x="24" y="28" width="76" height="74" rx="6" stroke="#FFFFFF" strokeWidth="1" strokeOpacity="0.4" />
+                  <line x1="36" y1="48" x2="84" y2="48" stroke="#8B5CF6" strokeWidth="1.2" />
+                  <line x1="36" y1="64" x2="74" y2="64" stroke="#9E98B8" strokeWidth="1" />
+                  <line x1="100" y1="65" x2="178" y2="65" stroke="#C4B5FD" strokeWidth="1.2" strokeDasharray="4 4" />
+                  <rect x="178" y="28" width="76" height="74" rx="6" stroke="#FFFFFF" strokeWidth="1" strokeOpacity="0.4" />
+                  <circle cx="216" cy="65" r="14" stroke="#8B5CF6" strokeWidth="1.2" />
+                  <circle cx="216" cy="65" r="4" fill="#C4B5FD" />
+                </svg>
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-ui pt-1 gap-2">
+                <span className="text-[var(--text-muted)] truncate">FastAPI • PostgreSQL • Google Maps</span>
+                <button
+                  type="button"
+                  onClick={() => toggleDrawer("tartuca")}
+                  onMouseEnter={() => setActiveDrawer("tartuca")}
+                  className="underline text-white hover:text-[#C4B5FD] transition whitespace-nowrap shrink-0"
+                >
+                  Architecture →
+                </button>
+              </div>
+
+              {/* Circular Ripple Expanding Drawer */}
+              <div className={`card-drawer ${activeDrawer === "tartuca" ? "open" : ""} flex flex-col justify-between`}>
+                <div className="flex items-start justify-between">
+                  <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C4B5FD]">
+                    System Spec // Tartuca
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActiveDrawer(null)}
+                    aria-label="Close architecture panel"
+                    className="w-9 h-9 rounded-full border border-white/25 hover:border-white hover:bg-white/10 flex items-center justify-center text-white transition shrink-0"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                </div>
+                <div className="space-y-3 my-auto py-2">
+                  <h4 className="font-heading text-lg font-semibold text-white">Monorepo Architecture</h4>
+                  <ul className="text-xs text-[#E2E0F0] space-y-2 leading-relaxed list-disc pl-4 font-ui">
+                    <li><strong>Backend Engine:</strong> Asynchronous FastAPI microservice connected to PostgreSQL.</li>
+                    <li><strong>Geocoding:</strong> Dynamic distance matrix and map pin placement via Google Maps API.</li>
+                    <li><strong>Identity:</strong> Enterprise Auth0 OAuth2 token flow with role-based dashboard access.</li>
+                  </ul>
+                </div>
+                <div className="flex gap-2 flex-wrap pt-2">
+                  <span className="text-[11px] font-ui px-2.5 py-1 rounded-full bg-white/10 text-[#C4B5FD]">
+                    FastAPI
+                  </span>
+                  <span className="text-[11px] font-ui px-2.5 py-1 rounded-full bg-white/10 text-[#C4B5FD]">
+                    PostgreSQL
+                  </span>
+                  <a
+                    href="https://github.com/Usamafuward/tartuca_user.git"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-auto text-xs text-white underline font-ui flex items-center gap-1 hover:text-[#C4B5FD] transition"
+                  >
+                    GitHub Code →
+                  </a>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+          {/* Catalog Link */}
+          <div className="text-center mt-12">
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-2 font-ui text-xs font-medium px-6 py-3 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition hover:-translate-y-0.5"
+            >
+              <span>Explore All 13 Projects in Catalog</span>
+              <ChevronRight className="w-4 h-4 text-[#C4B5FD]" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. CORE ENGINEERING PILLARS (Canvas Section: #0A0A12) */}
+      <section id="competencies" className="py-24 border-b border-[var(--border-line)] bg-[#0A0A12]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-2xl mb-14 space-y-3">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+              <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                Architecture Pillars
+              </span>
+            </div>
+            <h2 className="font-heading text-3xl md:text-[44px] font-light tracking-[-0.02em] text-white">
+              Core technical disciplines &amp;{" "}
+              <strong className="font-semibold text-white">engineering&nbsp;execution</strong>
+            </h2>
+            <p className="font-ui text-sm text-[var(--text-muted)] leading-relaxed">
+              Bridging academic machine learning research with industrial-grade software engineering.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Pillar 1: AI & ML Systems */}
+            <div className="k-card p-8 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="w-11 h-11 rounded-2xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD]">
+                  <Brain className="w-5 h-5" />
+                </div>
+                <h3 className="font-heading text-xl font-semibold text-white">
+                  Autonomous AI &amp; Multimodal ML
+                </h3>
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui">
+                  Engineering multi-agent frameworks with AutoGen, retrieval-augmented pipelines with LangChain,
+                  semantic vector indexing with FAISS, and deep learning models in PyTorch &amp; TensorFlow.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 pt-6 border-t border-[var(--border-line)] mt-6">
+                {["AutoGen", "LangChain", "RAG Pipelines", "FAISS", "OpenAI GPT", "TensorFlow"].map((tech, i) => (
+                  <span
+                    key={i}
+                    className="text-[11px] font-ui px-2.5 py-1 rounded-full border border-[var(--border-line)] text-[#C4B5FD] bg-[#0A0A12]"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Pillar 2: Scalable Backend */}
+            <div className="k-card p-8 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="w-11 h-11 rounded-2xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD]">
+                  <Server className="w-5 h-5" />
+                </div>
+                <h3 className="font-heading text-xl font-semibold text-white">
+                  Distributed Backends &amp; APIs
+                </h3>
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui">
+                  Building asynchronous high-concurrency services using FastAPI, Node.js, Express, and Django,
+                  coupled with relational schemas in PostgreSQL and document databases in MongoDB.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 pt-6 border-t border-[var(--border-line)] mt-6">
+                {["FastAPI", "PostgreSQL", "Node.js", "Express", "MongoDB", "Auth0"].map((tech, i) => (
+                  <span
+                    key={i}
+                    className="text-[11px] font-ui px-2.5 py-1 rounded-full border border-[var(--border-line)] text-[#C4B5FD] bg-[#0A0A12]"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Pillar 3: Frontend & Mobile */}
+            <div className="k-card p-8 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="w-11 h-11 rounded-2xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD]">
+                  <Globe className="w-5 h-5" />
+                </div>
+                <h3 className="font-heading text-xl font-semibold text-white">
+                  Responsive Web &amp; Mobile Interfaces
+                </h3>
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui">
+                  Delivering fast client experiences in React, Next.js, and React Native, adhering strictly to
+                  zero layout shift, keyboard accessibility, and subtle micro-interactions.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 pt-6 border-t border-[var(--border-line)] mt-6">
+                {["React", "Next.js", "React Native", "Tailwind CSS", "Vite"].map((tech, i) => (
+                  <span
+                    key={i}
+                    className="text-[11px] font-ui px-2.5 py-1 rounded-full border border-[var(--border-line)] text-[#C4B5FD] bg-[#0A0A12]"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Pillar 4: DevOps & Cloud */}
+            <div className="k-card p-8 flex flex-col justify-between">
+              <div className="space-y-4">
+                <div className="w-11 h-11 rounded-2xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD]">
+                  <Cpu className="w-5 h-5" />
+                </div>
+                <h3 className="font-heading text-xl font-semibold text-white">
+                  Cloud Infrastructure &amp; Containerization
+                </h3>
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui">
+                  Containerized application deployment with Docker, reproducible build environments, Git
+                  collaboration workflows, and Microsoft Azure cloud integration.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2 pt-6 border-t border-[var(--border-line)] mt-6">
+                {["Docker", "Azure Cloud", "Git", "GitHub Actions", "Linux"].map((tech, i) => (
+                  <span
+                    key={i}
+                    className="text-[11px] font-ui px-2.5 py-1 rounded-full border border-[var(--border-line)] text-[#C4B5FD] bg-[#0A0A12]"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. PRODUCTION TOOLCHAIN & STACK MATRIX (#0F0E1C) */}
+      <section className="py-24 border-b border-[var(--border-line)] bg-[#0F0E1C]">
+        <div className="max-w-6xl mx-auto px-6 space-y-12">
+          {/* Section Header with Weight Contrast */}
+          <div className="text-center max-w-2xl mx-auto space-y-3">
+            <div className="inline-flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+              <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                Ecosystem &amp; Production Stack
+              </span>
+            </div>
+
+            <h2 className="font-heading text-3xl sm:text-4xl font-light text-white tracking-tight">
+              Verified technologies &amp;{" "}
+              <strong className="font-semibold text-white">engineering toolchain</strong>
+            </h2>
+
+            <p className="font-ui text-sm text-[var(--text-muted)] leading-relaxed">
+              Categorized frameworks, database engines, and AI models utilized across production platforms.
+            </p>
+          </div>
+
+          {/* Categorized Matrix & Clean Minimal Ticker */}
+          <ToolchainMatrix />
+        </div>
+      </section>
+
+      {/* 6. DEDICATED PROFESSIONAL EXPERIENCES SECTION (#0A0A12) */}
+      <section id="experiences" className="py-24 border-b border-[var(--border-line)] bg-[#0A0A12]">
+        <div className="max-w-6xl mx-auto px-6 space-y-12">
+          {/* Section Header with Weight Contrast */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+                <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                  Career Trajectory
+                </span>
+              </div>
+              <h2 className="font-heading text-3xl sm:text-4xl font-light text-white tracking-tight">
+                Professional experience &amp;{" "}
+                <strong className="font-semibold text-white">industry&nbsp;trajectory</strong>
+              </h2>
+              <p className="font-ui text-sm text-[var(--text-muted)] leading-relaxed">
+                Engineering autonomous multi-agent systems and production full-stack architectures across companies and research labs.
+              </p>
+            </div>
+
+            <Link
+              to="/experiences"
+              className="inline-flex items-center gap-2 font-ui text-xs font-medium px-5 py-2.5 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition hover:-translate-y-0.5 shrink-0"
+            >
+              <span>View Full History (7 Roles)</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#C4B5FD]" />
+            </Link>
+          </div>
+
+          {/* Experience Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {experiences.slice(0, 4).map((exp, idx) => {
+              const isCurrent = exp.duration.toLowerCase().includes("present");
+              return (
+                <div
+                  key={idx}
+                  className={`k-card ${
+                    isCurrent ? "k-card-flagship" : ""
+                  } p-7 flex flex-col justify-between space-y-4`}
+                >
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="font-ui text-xs text-[#C4B5FD] px-3 py-1 rounded-full border border-[var(--border-line)] bg-[#0A0A12] flex items-center gap-1.5">
+                        <Calendar className="w-3 h-3 text-[#8B5CF6]" />
+                        <span>{exp.duration}</span>
+                      </span>
+                      {isCurrent && (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-ui bg-[#8B5CF6]/30 text-white border border-[#C4B5FD]/40">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          <span>Active Role</span>
+                        </span>
+                      )}
+                    </div>
+
+                    <div>
+                      <h3 className="font-heading text-xl font-semibold text-white leading-snug">
+                        {exp.title}
+                      </h3>
+                      <div className="flex items-center gap-1.5 text-xs font-ui font-medium text-[#8B5CF6] mt-1">
+                        <Building className="w-3.5 h-3.5 text-[#C4B5FD]" />
+                        <span>{exp.company}</span>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-[#E2E0F0]/80 leading-relaxed font-ui">
+                      {exp.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. DEDICATED EDUCATION & ACCREDITATIONS SECTION (#0F0E1C) */}
+      <section id="education" className="py-24 border-b border-[var(--border-line)] bg-[#0F0E1C]">
+        <div className="max-w-6xl mx-auto px-6 space-y-14">
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+                <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                  Scholarship &amp; Accreditations
+                </span>
+              </div>
+              <h2 className="font-heading text-3xl sm:text-4xl font-light text-white tracking-tight">
+                Academic foundation &amp;{" "}
+                <strong className="font-semibold text-white">verified&nbsp;credentials</strong>
+              </h2>
+              <p className="font-ui text-sm text-[var(--text-muted)] leading-relaxed">
+                Computer Science degree scholarship from the University of Colombo combined with 23 certified specializations across Generative AI, Multi-Agent Systems, and Distributed Computing.
+              </p>
+            </div>
+
+            <Link
+              to="/certifications"
+              className="inline-flex items-center gap-2 font-ui text-xs font-medium px-5 py-2.5 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition hover:-translate-y-0.5 shrink-0"
+            >
+              <span>Explore All 23 Credentials</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#C4B5FD]" />
+            </Link>
+          </div>
+
+          {/* Academic Degrees Grid */}
+          <div className="space-y-4">
+            <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] block">
+              University Degree Programs
+            </span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {educations.map((edu, idx) => (
+                <div key={idx} className="k-card p-7 space-y-3 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-ui text-[#C4B5FD] px-3 py-1 rounded-full border border-[var(--border-line)] bg-[#0A0A12] flex items-center gap-1.5">
+                        <GraduationCap className="w-3.5 h-3.5 text-[#8B5CF6]" />
+                        <span>{edu.year}</span>
+                      </span>
+                    </div>
+                    <h3 className="font-heading text-lg font-semibold text-white pt-1">
+                      {edu.degree}
                     </h3>
-
-                    {/* Progress bar container */}
-                    <div className="relative mb-6">
-                      <div className="flex justify-between items-center mb-3">
-                        <span className="text-sm text-gray-600 dark:text-gray-400">
-                          Proficiency
-                        </span>
-                        <span className="text-sm font-mono text-teal-600 dark:text-teal-400 font-semibold">
-                          {skill.progress}%
-                        </span>
-                      </div>
-
-                      {/* Progress track */}
-                      <div className="relative h-3 bg-gray-300/50 dark:bg-gray-600/50 rounded-full overflow-hidden">
-                        {/* Animated background */}
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-teal-400/20 to-cyan-400/20"
-                          animate={{
-                            x: ["-100%", "100%"],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "linear",
-                          }}
-                        />
-
-                        {/* Progress fill */}
-                        <motion.div
-                          className="relative h-full bg-gradient-to-r from-teal-700 to-teal-500 rounded-full"
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.progress}%` }}
-                          viewport={{ once: true }}
-                          transition={{
-                            duration: 1.5,
-                            ease: "easeOut",
-                            delay: index * 0.1,
-                          }}
-                        >
-                          {/* Shimmer effect */}
-                          <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full"
-                            animate={{
-                              x: ["-100%", "100%"],
-                            }}
-                            transition={{
-                              duration: 1.5,
-                              repeat: Infinity,
-                              ease: "linear",
-                              delay: 1,
-                            }}
-                          />
-                        </motion.div>
-                      </div>
+                    <div className="text-xs font-ui text-[#8B5CF6] font-medium">
+                      {edu.institution}
                     </div>
-
-                    {/* Tech tags */}
-                    <div className="flex flex-wrap gap-2">
-                      {skill.techs.map((tech, techIndex) => (
-                        <motion.span
-                          key={techIndex}
-                          className="px-3 py-1 text-sm rounded-full bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300 border border-teal-800 dark:border-teal-300 hover:border-teal-600 hover:dark:border-teal-400 hover:bg-teal-200 dark:hover:bg-teal-800/40 transition-all duration-200 cursor-default"
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{
-                            duration: 0.3,
-                            delay: index * 0.1 + techIndex * 0.05,
-                          }}
-                        >
-                          {tech}
-                        </motion.span>
-                      ))}
-                    </div>
+                    <p className="text-xs text-[var(--text-muted)] leading-relaxed font-ui pt-1">
+                      {edu.description}
+                    </p>
                   </div>
-
-                  <div className="absolute bottom-0 right-0 p-4">
-                    <div className="relative w-8 h-8">
-                      <motion.div
-                        className="absolute bottom-0 right-0 w-full h-0.5 bg-teal-400/60 group-hover:bg-teal-400"
-                        animate={{ scaleX: [0, 1, 0] }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: index * 0.5,
-                        }}
-                      />
-                      <motion.div
-                        className="absolute bottom-0 right-0 w-0.5 h-full bg-teal-400/60 group-hover:bg-teal-400"
-                        animate={{ scaleY: [0, 1, 0] }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: index * 0.5 + 0.5,
-                        }}
-                      />
-                    </div>
-                  </div>
-
-         
-                </motion.div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </motion.section>
-
-      {/* Technologies Section */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="px-7 pt-7"
-      >
-        <motion.h2
-          variants={slideUpVariants}
-          className="text-[42px] md:text-5xl font-bold text-center text-teal-600 dark:text-teal-400 mb-10"
-        >
-          Technologies
-        </motion.h2>
-        <motion.div
-          variants={slideUpVariants}
-          className="h-auto w-full relative my-6 group"
-        >
-          <motion.div
-            className="relative overflow-hidden transition-all duration-300 border-2 border-teal-500/40 dark:border-teal-400/40 hover:border-teal-500/50 dark:hover:border-teal-400/50 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md rounded-[30px] rounded-tl-none rounded-br-none shadow-xl dark:shadow-[#0c121d] transform"
-            whileHover={{
-              boxShadow: [
-                "0 0 20px rgba(13,148,136,0.3)",
-              ],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            {/* Border light effect */}
-            <div className="absolute inset-0 rounded-[30px] rounded-tl-none rounded-br-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-              <div className="absolute inset-0 rounded-[30px] rounded-tl-none rounded-br-none bg-gradient-to-r from-transparent via-teal-400/30 to-transparent blur-sm" />
+                </div>
+              ))}
             </div>
-            
-            {/* Animated background grid */}
-            <div className="absolute inset-0 opacity-5 dark:opacity-10 rounded-[30px] rounded-tl-none rounded-br-none overflow-hidden">
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(13,148,136,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(13,148,136,0.3)_1px,transparent_1px)] bg-[size:20px_20px]" />
+          </div>
+
+          {/* Featured Top Accreditations Banner */}
+          <div className="k-card p-6 sm:p-8 bg-[#151328] border-[var(--border-line)] space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <div className="inline-flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
+                  <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C4B5FD]">
+                    Verified Specializations (23 Total)
+                  </span>
+                </div>
+                <h4 className="font-heading text-xl sm:text-2xl font-light text-white tracking-tight mt-1">
+                  Issued by{" "}
+                  <strong className="font-semibold text-white">Global Engineering Authorities</strong>
+                </h4>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-ui text-[#C4B5FD] bg-[#0A0A12] px-3.5 py-1.5 rounded-full border border-[var(--border-line)] shrink-0 self-start sm:self-auto">
+                <ShieldCheck className="w-4 h-4 text-[#8B5CF6]" />
+                <span>100% Verified Credentials</span>
+              </div>
             </div>
 
-            {/* Floating particles */}
-            <div className="absolute inset-0 overflow-hidden rounded-[30px] rounded-tl-none rounded-br-none">
-              {[...Array(6)].map((_, i) => (
-                <motion.div
+            {/* Top Engineering Authorities Grid (3 cols on desktop for balanced breathing room) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              {[
+                {
+                  org: "Stanford & DeepLearning.AI",
+                  count: "6 Specializations",
+                  focus: "Machine Learning & Neural Networks",
+                  icon: Brain,
+                },
+                {
+                  org: "Meta (Facebook)",
+                  count: "8 Certifications",
+                  focus: "React Specialization & Front-End",
+                  icon: Layers,
+                },
+                {
+                  org: "Google Cloud",
+                  count: "3 Accreditations",
+                  focus: "Cloud Computing & AI Tools",
+                  icon: Cloud,
+                },
+                {
+                  org: "Microsoft Azure",
+                  count: "2 Certifications",
+                  focus: "Cloud Architecture & Solutions",
+                  icon: Server,
+                },
+                {
+                  org: "Packt (AutoGen)",
+                  count: "Specialist",
+                  focus: "Multi-Agent Systems & Autonomy",
+                  icon: Cpu,
+                },
+                {
+                  org: "IBM",
+                  count: "Backend Certified",
+                  focus: "Node.js & Scalable REST APIs",
+                  icon: Database,
+                },
+              ].map((badge, i) => (
+                <div
                   key={i}
-                  className="absolute w-1 h-1 bg-teal-400 rounded-full"
-                  style={{
-                    left: `${Math.random() * 50}%`,
-                    top: `${Math.random() * 50}%`,
-                  }}
-                  animate={{
-                    x: [Math.random() * 300, Math.random() * 300],
-                    y: [Math.random() * 200, Math.random() * 200],
-                    opacity: [0, 0.8, 0],
-                  }}
-                  transition={{
-                    duration: Math.random() * 3 + 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 2,
-                  }}
-                />
+                  className="group p-4 rounded-xl border border-[var(--border-line)] bg-[#0A0A12] hover:bg-[#18132e] hover:border-[#8B5CF6]/50 transition-all duration-200 flex flex-col justify-between"
+                >
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#151328] border border-[var(--border-line)] flex items-center justify-center shrink-0 group-hover:border-[#8B5CF6]/50 group-hover:bg-[#1f173d] transition-all">
+                      <badge.icon className="w-4 h-4 text-[#8B5CF6] group-hover:text-[#C4B5FD] transition-colors" />
+                    </div>
+                    <span className="font-ui text-[10px] font-semibold text-[#C4B5FD] bg-[#8B5CF6]/15 border border-[#8B5CF6]/30 px-2.5 py-0.5 rounded-full shrink-0">
+                      {badge.count}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h5 className="font-heading font-semibold text-sm text-white group-hover:text-[#C4B5FD] transition-colors">
+                      {badge.org}
+                    </h5>
+                    <p className="font-ui text-xs text-[var(--text-muted)] mt-1">
+                      {badge.focus}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
 
-            <div className="relative z-10">
-              <LogoWall
-                items={technologies}
-                direction="horizontal"
-                size="clamp(6rem, 1rem + 25vmin, 22rem)"
-                duration="60s"
-                bgAccentColor="#2DD4BF"
-              />
-            </div>
-          </motion.div>
-        </motion.div>
-      </motion.section>
-
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="px-7 pt-7"
-      >
-        <motion.h2
-          variants={slideUpVariants}
-          className="text-[42px] md:text-5xl font-bold text-center text-teal-600 dark:text-teal-400 mb-10"
-        >
-          Education
-        </motion.h2>
-        <motion.div variants={containerVariants} className="space-y-6">
-          {educations.map((edu, index) => (
-            <motion.div
-              key={index}
-              ref={educationRef}
-              className="relative group"
-              initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-              animate={isInView3 ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: index * 0.3 }}
-              onMouseEnter={() => setHoveredEducationIndex(index)}
-              onMouseLeave={() => setHoveredEducationIndex(null)}
-            >
-              {/* Holographic timeline connector */}
-              {index < educations.length - 1 && (
-                <motion.div
-                  className="absolute left-8 top-24 w-0.5 h-24 bg-gradient-to-b from-teal-400 to-cyan-400"
-                  initial={{ height: 0 }}
-                  animate={isInView3 ? { height: 96 } : {}}
-                  transition={{ duration: 1, delay: index * 0.3 + 0.5 }}
-                />
-              )}
-
-              {/* Main container with matching border style and glass effect */}
-              <motion.div
-                className="relative overflow-hidden transition-all duration-300 border-2 border-teal-500/40 dark:border-teal-400/40 hover:border-teal-500/50 dark:hover:border-teal-400/50 bg-white/50 dark:bg-gray-800/50 backdrop-blur-md rounded-[30px] rounded-tl-none rounded-br-none shadow-xl dark:shadow-[#0c121d] transform"
-                animate={
-                  hoveredEducationIndex === index
-                    ? {
-                        boxShadow: [
-                          "0 0 20px rgba(13,148,136,0.3)",
-                        ],
-                      }
-                    : {
-                        boxShadow: "0 0 0px rgba(13,148,136,0)",
-                      }
-                }
-                transition={{
-                  duration: 1.5,
-                  repeat: hoveredEducationIndex === index ? Infinity : 0,
-                  ease: "easeInOut",
-                }}
+            {/* Bottom Bar: Key Core Competencies Pills + Direct CTA */}
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-5 border-t border-[var(--border-line)]">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="font-ui text-xs text-[var(--text-muted)] mr-1">
+                  Core Focus:
+                </span>
+                {[
+                  "Convolutional Neural Networks",
+                  "AutoGen Multi-Agent Systems",
+                  "RAG Pipelines",
+                  "React Specialization",
+                ].map((skill, idx) => (
+                  <span
+                    key={idx}
+                    className="font-ui text-[11px] px-2.5 py-1 rounded-md bg-[#0A0A12] text-[#C4B5FD] border border-[var(--border-line)] font-medium"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+              <Link
+                to="/certifications"
+                className="inline-flex items-center justify-center gap-2 font-ui text-xs font-medium px-5 py-2.5 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition hover:shadow-[0_0_20px_rgba(139,92,246,0.35)] shrink-0 self-start lg:self-auto"
               >
-                {/* Border light effect */}
-                <div className="absolute inset-0 rounded-[30px] rounded-tl-none rounded-br-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                  <div className="absolute inset-0 rounded-[30px] rounded-tl-none rounded-br-none bg-gradient-to-r from-transparent via-teal-400/30 to-transparent blur-sm" />
-                </div>
-                
-                {/* Animated background grid */}
-                <div className="absolute inset-0 opacity-5 dark:opacity-10 rounded-[30px] rounded-tl-none rounded-br-none overflow-hidden">
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(13,148,136,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(13,148,136,0.3)_1px,transparent_1px)] bg-[size:20px_20px]" />
-                </div>
+                <span>Browse All 23 Accreditations</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                {/* Floating particles */}
-                <div className="absolute inset-0 overflow-hidden rounded-[30px] rounded-tl-none rounded-br-none">
-                  {[...Array(6)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute w-1 h-1 bg-teal-400 rounded-full"
-                      style={{
-                        left: `${Math.random() * 50}%`,
-                        top: `${Math.random() * 50}%`,
-                      }}
-                      animate={{
-                        x: [Math.random() * 300, Math.random() * 300],
-                        y: [Math.random() * 200, Math.random() * 200],
-                        opacity: [0, 0.8, 0],
-                      }}
-                      transition={{
-                        duration: Math.random() * 3 + 2,
-                        repeat: Infinity,
-                        delay: Math.random() * 2,
-                      }}
-                    />
-                  ))}
-                </div>
+      {/* 8. CONNECT BANNER (#0A0A12) */}
+      <section className="py-24 bg-[#0A0A12]">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="k-card p-10 sm:p-14 text-center space-y-6 bg-[#151328] border-[var(--border-line)]">
+            <div className="inline-flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+              <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+                Available for Engagements
+              </span>
+            </div>
 
-                {/* Animated neural network background */}
-                <div className="absolute inset-0 opacity-15">
-                  <svg
-                    width="100%"
-                    height="100%"
-                    className="text-teal-600 dark:text-teal-400"
-                  >
-                    {[...Array(6)].map((_, i) => (
-                      <motion.line
-                        key={i}
-                        x1={Math.random() * 100 + "%"}
-                        y1={Math.random() * 100 + "%"}
-                        x2={Math.random() * 100 + "%"}
-                        y2={Math.random() * 100 + "%"}
-                        stroke="currentColor"
-                        strokeWidth="1"
-                        opacity="0.3"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: hoveredEducationIndex === index ? 1 : 0.5 }}
-                        transition={{ duration: 1.5, delay: i * 0.2 }}
-                      />
-                    ))}
-                  </svg>
-                </div>
+            <h2 className="font-heading text-3xl sm:text-4xl font-light text-white leading-tight">
+              Have a technical project in mind or want to{" "}
+              <strong className="font-semibold text-white">discuss systems&nbsp;engineering?</strong>
+            </h2>
 
-                <div className="relative z-10 p-6 flex flex-col md:flex-row items-start gap-6">
-                  {/* Icon container */}
-                  <motion.div
-                    className="relative flex-shrink-0"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {/* Glowing ring */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 p-0.5">
-                      <div className="w-full h-full bg-gray-100 dark:bg-gray-600 rounded-full" />
-                    </div>
+            <p className="font-ui text-sm text-[var(--text-muted)] max-w-xl mx-auto leading-relaxed">
+              Open to enterprise AI/ML development, scalable backend architecture, and technical collaborations.
+            </p>
 
-                    {/* Icon background with pulse */}
-                    <motion.div
-                      className="relative w-14 h-14 bg-gradient-to-br from-teal-600 to-teal-500 dark:from-teal-400 dark:to-cyan-500 rounded-full flex items-center justify-center"
-                      animate={{
-                        boxShadow: hoveredEducationIndex === index
-                          ? [
-                              "0 0 20px rgba(13,148,136,0.3)",
-                              "0 0 40px rgba(13,148,136,0.6)",
-                              "0 0 20px rgba(13,148,136,0.3)",
-                            ]
-                          : "0 0 20px rgba(13,148,136,0.3)",
-                      }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      {React.createElement(edu.icon, {
-                        size: 28,
-                        className: "text-white",
-                      })}
-                    </motion.div>
-
-                    {/* Orbital rings */}
-                    <motion.div
-                      className="absolute inset-0 rounded-full border border-teal-400/30"
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      style={{ scale: 1.25 }}
-                    />
-                    <motion.div
-                      className="absolute inset-0 rounded-full border border-cyan-400/20"
-                      animate={{ rotate: -360 }}
-                      transition={{
-                        duration: 15,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      style={{ scale: 1.5 }}
-                    />
-                  </motion.div>
-
-                  {/* Content */}
-                  <div className="flex-grow">
-                    <motion.div
-                      className="mb-4"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={isInView3 ? { opacity: 1, y: 0 } : {}}
-                      transition={{ duration: 0.6, delay: index * 0.3 + 0.3 }}
-                    >
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300">
-                        {edu.degree}
-                      </h3>
-
-                      {/* Institution with holographic effect */}
-                      <motion.div
-                        className="flex flex-col md:flex-row md:items-center gap-2 mb-2"
-                        whileHover={{
-                          textShadow: "0 0 10px rgba(13,148,136,0.5)",
-                        }}
-                      >
-                        <span className="text-teal-600 dark:text-teal-400 font-semibold">
-                          {edu.institution}
-                        </span>
-                        <span className="text-gray-500 dark:text-gray-400 hidden md:inline">
-                          •
-                        </span>
-                        <span className="text-sm bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-300  font-mono bg-teal-400/10 px-3 py-1 rounded-full border border-teal-400/30 w-fit">
-                          {edu.year}
-                        </span>
-                      </motion.div>
-
-                      {/* Description with typing effect simulation */}
-                      <motion.p
-                        className="text-gray-700 dark:text-gray-300 leading-relaxed"
-                        initial={{ opacity: 0 }}
-                        animate={isInView3 ? { opacity: 1 } : {}}
-                        transition={{ duration: 1, delay: index * 0.3 + 0.6 }}
-                      >
-                        {edu.description}
-                      </motion.p>
-                    </motion.div>
-
-                    <motion.div
-                      className="mt-6 flex items-center gap-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={isInView3 ? { opacity: 1, x: 0 } : {}}
-                      transition={{ duration: 0.6, delay: index * 0.3 + 0.9 }}
-                    >
-                      <div className="flex gap-1">
-                        {[...Array(5)].map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className="w-2 h-2 rounded-full bg-teal-400/30"
-                            animate={
-                              hoveredEducationIndex === index
-                                ? {
-                                    backgroundColor: [
-                                      "rgba(13,148,136,0.3)",
-                                      "rgba(13,148,136,1)",
-                                      "rgba(13,148,136,0.3)",
-                                    ],
-                                  }
-                                : {}
-                            }
-                            transition={{
-                              duration: 0.8,
-                              delay: i * 0.1,
-                              repeat: hoveredEducationIndex === index ? Infinity : 0,
-                            }}
-                          />
-                        ))}
-                      </div>
-                      <span className="text-xs text-gray-500 dark:text-gray-400 font-mono">
-                        STATUS: COMPLETED
-                      </span>
-                    </motion.div>
-                  </div>
-                </div>
-
-                {/* Corner geometric elements with theme compatibility */}
-
-                <div className="absolute bottom-0 right-0 p-4">
-                  <div className="relative w-10 h-10">
-                    <motion.div
-                      className="absolute bottom-0 right-0 w-full h-0.5 bg-teal-400/60 group-hover:bg-teal-400"
-                      animate={{ scaleX: [0, 1, 0] }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: index * 0.5,
-                      }}
-                    />
-                    <motion.div
-                      className="absolute bottom-0 right-0 w-0.5 h-full bg-teal-400/60 group-hover:bg-teal-400"
-                      animate={{ scaleY: [0, 1, 0] }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: index * 0.5 + 0.5,
-                      }}
-                    />
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </motion.section>
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+              <Link
+                to="/contact"
+                className="font-ui text-xs sm:text-sm font-medium px-8 py-3.5 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition shadow-lg shadow-[#8B5CF6]/30"
+              >
+                Start A Conversation →
+              </Link>
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="font-ui text-xs sm:text-sm font-medium px-6 py-3.5 rounded-full border border-[var(--border-line)] bg-[#0A0A12] hover:border-[#8B5CF6] text-white transition flex items-center gap-2"
+              >
+                {copiedEmail ? (
+                  <>
+                    <Check className="w-4 h-4 text-[#C4B5FD]" />
+                    <span>Copied usamafuward2001@gmail.com</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4 text-[#C4B5FD]" />
+                    <span>Copy Direct Email</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
-};
-
-export default Index;
+}

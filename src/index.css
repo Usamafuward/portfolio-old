@@ -2,216 +2,275 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .mask-horizontal {
-    @apply [mask-image:linear-gradient(to_right,rgba(0,0,0,0)_0%,rgba(0,0,0,1)_20%,rgba(0,0,0,1)_80%,rgba(0,0,0,0)_100%)]
-           [mask-size:cover]
-           [mask-repeat:no-repeat];
-  }
-
-  .mask-vertical {
-    @apply [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,1)_20%,rgba(0,0,0,1)_80%,rgba(0,0,0,0)_100%)]
-           [mask-size:cover]
-           [mask-repeat:no-repeat];
-  }
-
-  .paused .animate-scrollX,
-  .paused .animate-scrollY {
-    animation-play-state: paused !important;
-  }
-
-  .reverse-x {
-    animation-direction: reverse;
-    animation-delay: -3s;
-  }
-}
-
 :root {
-  --svg-color: #000; /* Light mode default - Black */
-}
+  /* Refined Monochrome Midnight Violet System (Zero Cyan) */
+  --bg-canvas: #0A0A12;          /* Deep Obsidian Void */
+  --bg-alt: #0F0E1C;             /* Dark Indigo Slate — Alternating section */
+  --bg-card: #151328;            /* Midnight Plum Surface — Resting card */
+  --bg-flagship: #1E143B;        /* Royal Aubergine — Flagship card */
+  --bg-drawer: #160F2E;          /* Expanding drawer surface */
+  --border-line: rgba(139, 92, 246, 0.18); /* 1px Hairline Border */
+  --border-highlight: rgba(196, 181, 253, 0.35);
 
-.dark :root {
-    --svg-color: #fff; /* Dark mode - White */
+  --accent-primary: #8B5CF6;       /* Electric Violet */
+  --accent-primary-hover: #7C3AED; /* Deep Violet */
+  --accent-secondary: #C4B5FD;     /* Soft Lavender Quartz */
+  --card-shadow: rgba(139, 92, 246, 0.14);
+
+  --text-heading: #FFFFFF;         /* Pure White (19.2:1 AAA contrast) */
+  --text-body: #E2E0F0;            /* Cool Alabaster body */
+  --text-muted: #9E98B8;           /* Muted Amethyst Grey */
+
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-ui: 'Plus Jakarta Sans', 'Montserrat', sans-serif;
+  --font-body: 'Plus Jakarta Sans', Arial, sans-serif;
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Playfair Display', serif;
-  background-color: var(--background-color);
+  background-color: var(--bg-canvas);
+  color: var(--text-body);
+  font-family: var(--font-body);
   overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbar */
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-ui {
+  font-family: var(--font-ui);
+}
+
+/* Headings with Modern Weight Contrast */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-heading);
+  letter-spacing: -0.02em;
+}
+
+/* Quiet & Confident 20px Card System */
+.k-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-line);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.k-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 12px 28px var(--card-shadow);
+}
+
+.k-card-flagship {
+  background-color: var(--bg-flagship);
+  border-color: rgba(196, 181, 253, 0.28);
+}
+
+/* Expanding Card Drawer Pattern (Exact Kainovation Inset Morph Architecture) */
+.card-drawer {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at calc(100% - 46px) 46px,
+    #251A4D 0%,
+    #181135 45%,
+    #0F0A24 80%,
+    #0A0618 100%
+  );
+  border: 1px solid rgba(139, 92, 246, 0.48);
+  border-radius: 20px;
+  color: #FFFFFF;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(196, 181, 253, 0.25);
+  visibility: hidden;
+  pointer-events: none;
+  clip-path: inset(28px 28px calc(100% - 28px - 36px) calc(100% - 28px - 36px) round 20px);
+  transition: clip-path 0.7s cubic-bezier(0.65, 0, 0.35, 1), visibility 0.7s;
+  will-change: clip-path;
+}
+
+.card-drawer.open {
+  visibility: visible;
+  pointer-events: auto;
+  clip-path: inset(0 0 0 0 round 20px);
+  transition: clip-path 0.8s cubic-bezier(0.65, 0, 0.35, 1), visibility 0s;
+}
+
+.card-drawer > * {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.card-drawer.open > * {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.38s ease 0.32s, transform 0.38s cubic-bezier(0.16, 1, 0.3, 1) 0.32s;
+}
+
+/* Procedural 3D Perspective Grid Background (Kainovation Architecture) */
+.h-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.h-grid {
+  position: absolute;
+  left: 10%;
+  width: 80%;
+}
+
+.h-grid path {
+  fill: none;
+  stroke-width: 1.3;
+  vector-effect: non-scaling-stroke;
+}
+
+.h-grid--top {
+  bottom: 68%;
+  mask-image: linear-gradient(0deg, transparent 0%, #000 28%, #000 44%, transparent 60%);
+  -webkit-mask-image: linear-gradient(0deg, transparent 0%, #000 28%, #000 44%, transparent 60%);
+}
+
+.h-grid--bottom {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  mask-image: linear-gradient(transparent, #000 22%, #000 60%, transparent 92%);
+  -webkit-mask-image: linear-gradient(transparent, #000 22%, #000 60%, transparent 92%);
+}
+
+/* Floor Light Pulse Scan (.h-scan) */
+.h-scan path {
+  stroke: #C4B5FD;
+  stroke-width: 2.2;
+  stroke-dasharray: 10 300;
+  stroke-dashoffset: 10;
+  animation: homeDashTravel 45s linear infinite;
+  filter: drop-shadow(0 0 6px rgba(196, 181, 253, 0.8));
+}
+
+@keyframes homeDashTravel {
+  0% {
+    stroke-dashoffset: -110;
+  }
+  2%, 100% {
+    stroke-dashoffset: 10;
+  }
+}
+
+/* Ceiling Light Beam Sweep (.h-beam) */
+.h-grid--top.h-beam {
+  mask-image: linear-gradient(transparent, rgba(0, 0, 0, 0.5) 9%, #000 15%, rgba(0, 0, 0, 0.5) 21%, transparent 30%);
+  -webkit-mask-image: linear-gradient(transparent, rgba(0, 0, 0, 0.5) 9%, #000 15%, rgba(0, 0, 0, 0.5) 21%, transparent 30%);
+  mask-size: 100% 300%;
+  -webkit-mask-size: 100% 300%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  animation: homeBeamSweep 3.2s cubic-bezier(0.62, 0.62, 0.14, 1) infinite reverse;
+}
+
+.h-beam path {
+  stroke: #8B5CF6;
+  stroke-width: 1.6;
+  filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.6));
+}
+
+@keyframes homeBeamSweep {
+  0% {
+    mask-position: 0 -120%;
+    -webkit-mask-position: 0 -120%;
+    opacity: 0;
+  }
+  14%, 86% {
+    opacity: 1;
+  }
+  100% {
+    mask-position: 0 210%;
+    -webkit-mask-position: 0 210%;
+    opacity: 0;
+  }
+}
+
+/* 1px SVG Hover Micro-Animations */
+.orbit-group {
+  transform-origin: 140px 65px;
+  transition: transform 1s ease;
+}
+
+.k-card:hover .orbit-group {
+  transform: rotate(40deg);
+}
+
+.scan-line {
+  animation: laserSweep 3.2s ease-in-out infinite;
+}
+
+@keyframes laserSweep {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(46px);
+  }
+}
+
+@keyframes siteTwinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.2);
+  }
+}
+
+/* Custom Scrollbar in Monochrome Violet */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgb(20 184 166) rgb(229 231 235);
-}
-
-.dark * {
-  scrollbar-color: rgb(20 184 166) rgb(31 41 55);
+  scrollbar-color: rgba(139, 92, 246, 0.5) rgba(15, 14, 28, 0.6);
 }
 
 *::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 
 *::-webkit-scrollbar-track {
-  background: rgb(229 231 235);
-  border-radius: 10px;
-}
-
-.dark *::-webkit-scrollbar-track {
-  background: rgb(31 41 55);
+  background: var(--bg-canvas);
 }
 
 *::-webkit-scrollbar-thumb {
-  background: rgb(20 184 166);
-  border-radius: 10px;
+  background: rgba(139, 92, 246, 0.35);
+  border-radius: 9999px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: rgb(13 148 136);
+  background: rgba(196, 181, 253, 0.65);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700; /* Adjust weight as needed */
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-}
-@font-face {
-  font-family: "burtons";
-  src: url("assets/Burtons.otf");
-}
-
-/* Text styling inside card */
-.overlay {
-  position: absolute;
-  text-align: center;
-  top: 65%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: 0.5s ease-in-out;
-  opacity: 0;
-  width: 100%;
-}
-
-/************ Skills Css ************/
-.skill {
-  position: relative;
-}
-.skill-bx {
-  text-align: center;
-  padding: 40px;
-}
-.skill h2 {
-  font-size: 45px;
-  font-weight: 700;
-}
-.skill p {
-  color: #000000;
-  font-size: 18px;
-  letter-spacing: 0.8px;
-  line-height: 1.5em;
-  margin: 14px 0 75px 0;
-}
-.skill-slider {
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-}
-.skill-slider .item img {
-  width: 50%;
-  margin: 0 auto 25px auto;
-}
-
-@keyframes glow {
-  0% {
-    box-shadow: 0 0 4px rgba(0, 255, 255, 0.6), 0 0 8px rgba(0, 255, 255, 0.4);
+/* Reduced Motion Fallbacks */
+@media (prefers-reduced-motion: reduce) {
+  .h-scan path, .h-beam, .scan-line {
+    animation: none !important;
   }
-  50% {
-    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8), 0 0 16px rgba(0, 255, 255, 0.6);
-  }
-  100% {
-    box-shadow: 0 0 4px rgba(0, 255, 255, 0.6), 0 0 8px rgba(0, 255, 255, 0.4);
+  .orbit-group, .k-card, .card-drawer {
+    transition: none !important;
   }
 }
-
-.glowing-button {
-  position: relative;
-  overflow: hidden;
-  animation: glow 1.5s infinite alternate;
-}
-
-.glowing-button:hover {
-  filter: brightness(1.2);
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes pulsate {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.2;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.4;
-  }
-}
-
-@keyframes float_1 {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes fade {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 1; }
-  }
-  
-  @keyframes flash {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  
-  @keyframes glitch {
-    0%, 100% { 
-      opacity: 0.5; 
-      filter: hue-rotate(0deg);
-    }
-    25% { 
-      opacity: 1; 
-      filter: hue-rotate(90deg);
-    }
-    50% { 
-      opacity: 0.3; 
-      filter: hue-rotate(180deg);
-    }
-    75% { 
-      opacity: 0.8; 
-      filter: hue-rotate(270deg);
-    }
-  }

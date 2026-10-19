@@ -67,7 +67,7 @@ function LogoWall({
           {[...Array(4)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute h-px bg-gradient-to-r from-transparent via-teal-400/20 to-transparent"
+              className="absolute h-px bg-gradient-to-r from-transparent via-purple-400/30 to-transparent"
               style={{
                 top: `${25 + i * 20}%`,
                 width: "100%",
@@ -92,7 +92,7 @@ function LogoWall({
           />
           <div className="absolute top-4 left-4 w-10 h-10">
             <motion.div
-              className="w-full h-0.5 bg-teal-400/50"
+              className="w-full h-0.5 bg-purple-400/50"
               animate={{ scaleX: [0, 1, 0] }}
               transition={{
                 duration: 2,
@@ -101,7 +101,7 @@ function LogoWall({
               }}
             />
             <motion.div
-              className="w-0.5 h-full bg-teal-400/50 absolute top-0 right-10"
+              className="w-0.5 h-full bg-purple-400/50 absolute top-0 right-10"
               animate={{ scaleY: [0, 1, 0] }}
               transition={{
                 duration: 2,
@@ -118,7 +118,7 @@ function LogoWall({
           />
           <div className="absolute top-4 left-4 w-10 h-10">
             <motion.div
-              className="w-full h-0.5 bg-teal-400/50 absolute -bottom-2 -right-2"
+              className="w-full h-0.5 bg-purple-400/50 absolute -bottom-2 -right-2"
               animate={{ scaleX: [0, 1, 0] }}
               transition={{
                 duration: 2,
@@ -127,7 +127,7 @@ function LogoWall({
               }}
             />
             <motion.div
-              className="w-0.5 h-full bg-teal-400/50 absolute top-2 -right-2"
+              className="w-0.5 h-full bg-purple-400/50 absolute top-2 -right-2"
               animate={{ scaleY: [0, 1, 0] }}
               transition={{
                 duration: 2,
@@ -143,7 +143,7 @@ function LogoWall({
           {[...Array(8)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-1 h-1 bg-teal-400/40 rounded-full"
+              className="absolute w-1 h-1 bg-purple-400/40 rounded-full"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -202,10 +202,10 @@ function LogoWall({
                   .join(" ")}
                 whileHover={{
                   scale: 1.1,
-                  filter: "drop-shadow(0 0 20px rgba(0, 255, 255, 0.4))",
+                  filter: "drop-shadow(0 0 20px rgba(168, 85, 247, 0.5))",
                 }}
                 style={{
-                  filter: "drop-shadow(0 0 8px rgba(0, 255, 255, 0.3))",
+                  filter: "drop-shadow(0 0 8px rgba(168, 85, 247, 0.35))",
                 }}
               />
             ))}
@@ -243,10 +243,10 @@ function LogoWall({
                   .join(" ")}
                 whileHover={{
                   scale: 1.1,
-                  filter: "drop-shadow(0 0 20px rgba(0, 255, 255, 0.4))",
+                  filter: "drop-shadow(0 0 20px rgba(168, 85, 247, 0.5))",
                 }}
                 style={{
-                  filter: "drop-shadow(0 0 8px rgba(0, 255, 255, 0.3))",
+                  filter: "drop-shadow(0 0 8px rgba(168, 85, 247, 0.35))",
                 }}
               />
             ))}
@@ -291,10 +291,10 @@ function LogoWall({
                   .join(" ")}
                 whileHover={{
                   scale: 1.1,
-                  filter: "drop-shadow(0 0 20px rgba(0, 255, 255, 0.4))",
+                  filter: "drop-shadow(0 0 20px rgba(168, 85, 247, 0.5))",
                 }}
                 style={{
-                  filter: "drop-shadow(0 0 8px rgba(0, 255, 255, 0.3))",
+                  filter: "drop-shadow(0 0 8px rgba(168, 85, 247, 0.35))",
                 }}
               />
             ))}
@@ -333,10 +333,10 @@ function LogoWall({
                   .join(" ")}
                 whileHover={{
                   scale: 1.1,
-                  filter: "drop-shadow(0 0 20px rgba(0, 255, 255, 0.4))",
+                  filter: "drop-shadow(0 0 20px rgba(168, 85, 247, 0.5))",
                 }}
                 style={{
-                  filter: "drop-shadow(0 0 8px rgba(0, 255, 255, 0.3))",
+                  filter: "drop-shadow(0 0 8px rgba(168, 85, 247, 0.35))",
                 }}
               />
             ))}
