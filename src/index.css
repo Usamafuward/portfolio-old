@@ -65,7 +65,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .k-card:hover {
-  transform: translateY(-4px);
   border-color: var(--accent-primary);
   box-shadow: 0 12px 28px var(--card-shadow);
 }
@@ -240,6 +239,44 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0.9;
     transform: scale(1.2);
   }
+}
+
+/* Ecosystem & Production Toolchain Logo Marquee */
+@keyframes marquee-track-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-track-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-track-left 34s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-track-right 36s linear infinite;
+  will-change: transform;
+}
+
+.marquee-container:hover .animate-marquee-left,
+.marquee-container:hover .animate-marquee-right {
+  animation-play-state: paused;
 }
 
 /* Custom Scrollbar in Monochrome Violet */

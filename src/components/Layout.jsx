@@ -38,7 +38,7 @@ export default function Layout() {
         type="button"
         onClick={scrollToTop}
         aria-label="Scroll to top"
-        className="fixed bottom-24 right-6 w-10 h-10 rounded-full bg-[#151328] hover:bg-[#8B5CF6] text-white border border-[var(--border-line)] flex items-center justify-center transition shadow-lg z-30"
+        className="fixed bottom-[88px] right-6 w-10 h-10 rounded-full bg-[#151328] hover:bg-[#8B5CF6] text-white border border-[var(--border-line)] flex items-center justify-center transition shadow-lg z-30"
       >
         <AiOutlineUp className="w-3.5 h-3.5" />
       </button>

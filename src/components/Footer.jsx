@@ -12,26 +12,30 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-[var(--border-line)]">
           {/* Identity & Bio */}
           <div className="md:col-span-6 space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
-              <span className="font-heading font-semibold text-base text-white tracking-tight">
+            <Link to="/" className="inline-flex items-center gap-2.5 group">
+              <img
+                src="/favicon.ico"
+                alt="Usama Puward Logo"
+                className="w-7 h-7 rounded-lg object-contain transition-transform"
+              />
+              <span className="font-heading font-semibold text-base text-white tracking-tight group-hover:text-[#C4B5FD] transition-colors">
                 USAMA PUWARD
               </span>
-            </div>
+            </Link>
             <p className="text-xs text-[var(--text-muted)] max-w-md leading-relaxed font-ui">
-              AI/SE Engineer &amp; Computer Science Graduate. Designing production RAG pipelines,
-              vector search architectures, and resilient full-stack web applications.
+              AI/ML Engineer &amp; Full-Stack Developer. Building intelligent systems,
+              autonomous AI agents, and modern web applications.
             </p>
             <div className="text-[11px] font-ui text-[#C4B5FD] flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD]" />
-              <span>Colombo, Sri Lanka · Available for Worldwide Engagements</span>
+              <span>Colombo, Sri Lanka · Open to Remote &amp; Relocation</span>
             </div>
           </div>
 
           {/* Directory Links */}
           <div className="md:col-span-3 space-y-2">
             <span className="text-[11px] font-ui font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] block">
-              Directory
+              Navigation
             </span>
             <ul className="space-y-1.5 font-ui text-xs">
               {menuItems.map((item) => (

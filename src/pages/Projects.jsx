@@ -33,20 +33,19 @@ export default function Projects() {
         <div className="inline-flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
           <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-            Project Archive &amp; Architecture Showcase
+            Portfolio &amp; Selected Work
           </span>
         </div>
 
         <h1 className="font-heading text-4xl sm:text-5xl font-light text-white tracking-tight leading-tight">
-          Engineered solutions &amp;{" "}
-          <strong className="font-semibold text-white">production software</strong>
+          Featured projects &amp;{" "}
+          <strong className="font-semibold text-white">software I&apos;ve built</strong>
         </h1>
 
         <p className="font-ui text-sm sm:text-base text-[var(--text-muted)] leading-relaxed font-normal">
-          Explore complete full-stack platforms, autonomous multi-agent frameworks, multimodal RAG
-          pipelines, and high-performance backend systems. Click the{" "}
-          <strong className="px-1.5 py-0.5 rounded border border-[var(--border-line)] text-[#C4B5FD] font-mono">+</strong> on any card to inspect its
-          architectural breakdown, source repositories, and live deployment endpoints.
+          A collection of projects spanning autonomous AI agents, machine learning pipelines, full-stack web applications, and backend APIs. Click the{" "}
+          <strong className="px-1.5 py-0.5 rounded border border-[var(--border-line)] text-[#C4B5FD] font-mono">+</strong> on any card to explore its
+          architectural breakdown, live demo, and source code.
         </p>
       </div>
 

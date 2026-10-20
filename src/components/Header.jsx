@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export const menuItems = [
   { to: "/", label: "Home" },
-  { to: "/projects", label: "Featured Systems" },
+  { to: "/projects", label: "Projects" },
   { to: "/certifications", label: "Certifications" },
   { to: "/experiences", label: "Experience" },
   { to: "/contact", label: "Contact" },
@@ -52,12 +52,13 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Brand Monogram */}
         <Link to="/" className="flex items-center gap-2.5 group">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#8B5CF6] group-hover:scale-125 transition-transform" />
+          <img
+            src="/favicon.ico"
+            alt="Usama Puward Logo"
+            className="w-7 h-7 rounded-lg object-contain transition-transform"
+          />
           <span className="font-heading font-semibold text-base tracking-tight text-white group-hover:text-[#C4B5FD] transition-colors">
             USAMA PUWARD
-          </span>
-          <span className="font-ui text-[11px] px-2.5 py-0.5 rounded-full border border-[var(--border-line)] text-[#C4B5FD] hidden sm:inline bg-[#151328]">
-            AI/ML &amp; Full-Stack
           </span>
         </Link>
 

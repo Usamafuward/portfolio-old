@@ -27,7 +27,7 @@ export default function HeroProfileCard() {
       />
 
       {/* 2. Precision Dual-Layer Architectural Bezel */}
-      <div className="relative rounded-[28px] p-2 bg-gradient-to-b from-[#8B5CF6]/35 via-white/[0.04] to-[#8B5CF6]/15 border border-[var(--border-line)] shadow-xl shadow-black/90 backdrop-blur-md transition-all duration-500 group-hover:border-[#8B5CF6]/40">
+      <div className="relative rounded-[28px] p-2 bg-gradient-to-b from-[#8B5CF6]/35 via-white/[0.04] to-[#8B5CF6]/15 border border-[var(--border-line)]  backdrop-blur-md transition-all duration-500 group-hover:border-[#8B5CF6]/40">
         
         {/* Top Hairline Light Reflection */}
         <div className="absolute inset-x-8 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#C4B5FD]/40 to-transparent pointer-events-none" />

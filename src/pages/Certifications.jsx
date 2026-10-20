@@ -40,18 +40,18 @@ export default function Certifications() {
         <div className="inline-flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
           <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-            Scholarship &amp; Verified Accreditations
+            Education &amp; Certifications
           </span>
         </div>
 
         <h1 className="font-heading text-4xl sm:text-5xl font-light text-white tracking-tight leading-tight">
-          Certified competencies &amp;{" "}
-          <strong className="font-semibold text-white">professional accreditations</strong>
+          Certifications &amp;{" "}
+          <strong className="font-semibold text-white">academic degrees</strong>
         </h1>
 
         <p className="font-ui text-sm sm:text-base text-[var(--text-muted)] leading-relaxed font-normal">
-          A comprehensive portfolio of 24 verified specializations and credentials across autonomous
-          multi-agent frameworks, machine learning, cloud architecture, and modern full-stack development, authorized by Meta, Google, Stanford, Microsoft, and DeepLearning.AI.
+          A collection of verified specializations and credentials I&apos;ve earned across autonomous
+          AI frameworks, machine learning, cloud architecture, and modern full-stack development, authorized by Meta, Google, Stanford, Microsoft, and DeepLearning.AI.
         </p>
       </div>
 
@@ -60,7 +60,7 @@ export default function Certifications() {
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
           <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-            Academic Degrees &amp; Formal Education
+            Academic Degrees &amp; Education
           </span>
         </div>
 
@@ -189,7 +189,7 @@ export default function Certifications() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-xs text-[#E2E0F0]/80 leading-relaxed line-clamp-3 font-ui">
+                <p className="text-xs text-[#E2E0F0]/80 leading-relaxed font-ui">
                   {cert.description}
                 </p>
               </div>

@@ -13,18 +13,18 @@ export default function Experiences() {
         <div className="inline-flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
           <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-            Career Trajectory &amp; Engineering Milestones
+            Career Journey &amp; Work Experience
           </span>
         </div>
 
         <h1 className="font-heading text-4xl sm:text-5xl font-light text-white tracking-tight leading-tight">
-          Professional experience &amp;{" "}
-          <strong className="font-semibold text-white">industry&nbsp;trajectory</strong>
+          Work experience &amp;{" "}
+          <strong className="font-semibold text-white">roles I&apos;ve held</strong>
         </h1>
 
         <p className="font-ui text-sm sm:text-base text-[var(--text-muted)] leading-relaxed font-normal">
-          From deploying enterprise AI solutions and autonomous multi-agent pipelines at Kainovation Technologies to leading full-stack
-          telemedicine architectures and computer vision research initiatives.
+          A timeline of my professional roles, internships, and engineering contributions across AI development,
+          full-stack applications, and research labs.
         </p>
       </div>
 
@@ -69,8 +69,7 @@ export default function Experiences() {
                         {exp.title}
                       </h2>
                       {isCurrent && (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-ui bg-[#8B5CF6]/30 text-white border border-[#C4B5FD]/40">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-ui bg-[#8B5CF6]/30 text-white border border-[#C4B5FD]/40">
                           <span>Active Role</span>
                         </span>
                       )}

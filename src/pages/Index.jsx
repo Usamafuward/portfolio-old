@@ -59,37 +59,37 @@ export default function Index() {
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--border-line)] bg-[#151328]/90 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-[#C4B5FD] animate-pulse" />
                 <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C4B5FD]">
-                  AI/ML Engineer &amp; Full-Stack Architect
+                  AI/ML Engineer &amp; Full-Stack Developer
                 </span>
               </div>
 
               {/* Display H1 with Weight Contrast & Balanced Lines */}
               <h1 className="font-heading text-3xl sm:text-4xl lg:text-[46px] lg:leading-[1.14] font-light tracking-[-0.03em] text-white">
-                Intelligent systems &amp; full-stack products,{" "}
+                Building intelligent systems &amp;{" "}
                 <strong className="block font-semibold text-white mt-1">
-                  built for real-world scale.
+                  modern full-stack products.
                 </strong>
               </h1>
 
               {/* Lead Paragraph */}
               <p className="font-ui text-sm sm:text-base text-[var(--text-muted)] max-w-xl font-normal leading-relaxed">
-                Designing production RAG pipelines, vector search architectures, and resilient full-stack
-                web applications with surgical precision.
+                Hi, I&apos;m Usama Puward — an AI/ML engineer and full-stack developer focused on autonomous AI agents,
+                retrieval-augmented pipelines, and high-performance web applications.
               </p>
 
               {/* Primary Action Buttons */}
               <div className="flex flex-wrap items-center gap-3.5 pt-1">
                 <a
                   href="#projects"
-                  className="font-ui text-xs sm:text-sm font-medium px-7 py-3 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition shadow-lg shadow-[#8B5CF6]/25"
+                  className="font-ui text-xs sm:text-sm font-medium px-7 py-3 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition"
                 >
-                  Explore Featured Systems →
+                  Explore My Work →
                 </a>
                 <a
                   href="#competencies"
                   className="font-ui text-xs sm:text-sm font-medium px-7 py-3 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition"
                 >
-                  View Engineering Stack
+                  Skills &amp; Tech Stack
                 </a>
               </div>
 
@@ -101,11 +101,11 @@ export default function Index() {
                 </div>
                 <div>
                   <div className="text-xl sm:text-2xl font-semibold text-[#C4B5FD] font-heading">13+</div>
-                  <div className="text-[11px] sm:text-xs text-[var(--text-muted)] mt-0.5">Systems Built</div>
+                  <div className="text-[11px] sm:text-xs text-[var(--text-muted)] mt-0.5">Projects Built</div>
                 </div>
                 <div>
                   <div className="text-xl sm:text-2xl font-semibold text-[#8B5CF6] font-heading">23+</div>
-                  <div className="text-[11px] sm:text-xs text-[var(--text-muted)] mt-0.5">Accreditations</div>
+                  <div className="text-[11px] sm:text-xs text-[var(--text-muted)] mt-0.5">Certifications</div>
                 </div>
               </div>
             </div>
@@ -127,11 +127,11 @@ export default function Index() {
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
                 <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                  Production Engineering
+                  Featured Work
                 </span>
               </div>
-              <h2 className="font-heading text-3xl md:text-[44px] font-light tracking-[-0.02em] text-white">
-                Systems engineered for <strong className="font-semibold text-white">measurable&nbsp;impact</strong>
+              <h2 className="font-heading text-3xl md:text-5xl font-light text-white">
+                Projects I&apos;ve built &amp; <strong className="font-semibold text-white">engineered</strong>
               </h2>
             </div>
             <div className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--border-line)] bg-[#151328] text-xs font-ui text-[var(--text-muted)] shrink-0">
@@ -165,9 +165,8 @@ export default function Index() {
                   className="w-9 h-9 rounded-full border border-white/20 hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white transition-all duration-300 shrink-0 focus:outline-none"
                 >
                   <span
-                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${
-                      activeDrawer === "rag" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
-                    }`}
+                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${activeDrawer === "rag" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
+                      }`}
                   >
                     <Plus className="w-4 h-4" />
                   </span>
@@ -206,7 +205,6 @@ export default function Index() {
                 <button
                   type="button"
                   onClick={() => toggleDrawer("rag")}
-                  onMouseEnter={() => setActiveDrawer("rag")}
                   className="underline text-white hover:text-[#C4B5FD] transition whitespace-nowrap shrink-0"
                 >
                   Architecture →
@@ -277,9 +275,8 @@ export default function Index() {
                   className="w-9 h-9 rounded-full border border-[var(--border-line)] hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white transition-all duration-300 shrink-0 focus:outline-none"
                 >
                   <span
-                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${
-                      activeDrawer === "mediman" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
-                    }`}
+                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${activeDrawer === "mediman" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
+                      }`}
                   >
                     <Plus className="w-4 h-4" />
                   </span>
@@ -307,7 +304,6 @@ export default function Index() {
                 <button
                   type="button"
                   onClick={() => toggleDrawer("mediman")}
-                  onMouseEnter={() => setActiveDrawer("mediman")}
                   className="underline text-white hover:text-[#C4B5FD] transition whitespace-nowrap shrink-0"
                 >
                   Architecture →
@@ -378,9 +374,8 @@ export default function Index() {
                   className="w-9 h-9 rounded-full border border-[var(--border-line)] hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white transition-all duration-300 shrink-0 focus:outline-none"
                 >
                   <span
-                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${
-                      activeDrawer === "tartuca" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
-                    }`}
+                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${activeDrawer === "tartuca" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
+                      }`}
                   >
                     <Plus className="w-4 h-4" />
                   </span>
@@ -410,7 +405,6 @@ export default function Index() {
                 <button
                   type="button"
                   onClick={() => toggleDrawer("tartuca")}
-                  onMouseEnter={() => setActiveDrawer("tartuca")}
                   className="underline text-white hover:text-[#C4B5FD] transition whitespace-nowrap shrink-0"
                 >
                   Architecture →
@@ -465,9 +459,9 @@ export default function Index() {
           <div className="text-center mt-12">
             <Link
               to="/projects"
-              className="inline-flex items-center gap-2 font-ui text-xs font-medium px-6 py-3 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 font-ui text-xs font-medium px-6 py-3 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition"
             >
-              <span>Explore All 13 Projects in Catalog</span>
+              <span>View All 13 Projects in Catalog</span>
               <ChevronRight className="w-4 h-4 text-[#C4B5FD]" />
             </Link>
           </div>
@@ -477,39 +471,39 @@ export default function Index() {
       {/* 4. CORE ENGINEERING PILLARS (Canvas Section: #0A0A12) */}
       <section id="competencies" className="py-24 border-b border-[var(--border-line)] bg-[#0A0A12]">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="max-w-2xl mb-14 space-y-3">
+          <div className="max-w-2xl mb-12 space-y-3">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
               <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                Architecture Pillars
+                Core Competencies
               </span>
             </div>
-            <h2 className="font-heading text-3xl md:text-[44px] font-light tracking-[-0.02em] text-white">
-              Core technical disciplines &amp;{" "}
-              <strong className="font-semibold text-white">engineering&nbsp;execution</strong>
+            <h2 className="font-heading text-3xl md:text-5xl font-light text-white">
+              Technical disciplines &amp;{" "}
+              <strong className="font-semibold text-white">areas of&nbsp;expertise</strong>
             </h2>
             <p className="font-ui text-sm text-[var(--text-muted)] leading-relaxed">
-              Bridging academic machine learning research with industrial-grade software engineering.
+              Combining academic computer science foundations with hands-on software development.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Pillar 1: AI & ML Systems */}
-            <div className="k-card p-8 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-11 h-11 rounded-2xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD]">
+            <div className="k-card p-6 sm:p-7 flex flex-col h-full">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD] mb-4">
                   <Brain className="w-5 h-5" />
                 </div>
-                <h3 className="font-heading text-xl font-semibold text-white">
+                <h3 className="font-heading text-xl font-semibold text-white tracking-tight">
                   Autonomous AI &amp; Multimodal ML
                 </h3>
-                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui">
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui mt-2.5">
                   Engineering multi-agent frameworks with AutoGen, retrieval-augmented pipelines with LangChain,
                   semantic vector indexing with FAISS, and deep learning models in PyTorch &amp; TensorFlow.
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2 pt-6 border-t border-[var(--border-line)] mt-6">
-                {["AutoGen", "LangChain", "RAG Pipelines", "FAISS", "OpenAI GPT", "TensorFlow"].map((tech, i) => (
+              <div className="flex flex-wrap gap-2 mt-auto pt-6">
+                {["AutoGen", "LangChain", "Vector RAG", "FAISS", "OpenAI GPT", "TensorFlow"].map((tech, i) => (
                   <span
                     key={i}
                     className="text-[11px] font-ui px-2.5 py-1 rounded-full border border-[var(--border-line)] text-[#C4B5FD] bg-[#0A0A12]"
@@ -521,20 +515,20 @@ export default function Index() {
             </div>
 
             {/* Pillar 2: Scalable Backend */}
-            <div className="k-card p-8 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-11 h-11 rounded-2xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD]">
+            <div className="k-card p-6 sm:p-7 flex flex-col h-full">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD] mb-4">
                   <Server className="w-5 h-5" />
                 </div>
-                <h3 className="font-heading text-xl font-semibold text-white">
+                <h3 className="font-heading text-xl font-semibold text-white tracking-tight">
                   Distributed Backends &amp; APIs
                 </h3>
-                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui">
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui mt-2.5">
                   Building asynchronous high-concurrency services using FastAPI, Node.js, Express, and Django,
                   coupled with relational schemas in PostgreSQL and document databases in MongoDB.
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2 pt-6 border-t border-[var(--border-line)] mt-6">
+              <div className="flex flex-wrap gap-2 mt-auto pt-6">
                 {["FastAPI", "PostgreSQL", "Node.js", "Express", "MongoDB", "Auth0"].map((tech, i) => (
                   <span
                     key={i}
@@ -547,21 +541,21 @@ export default function Index() {
             </div>
 
             {/* Pillar 3: Frontend & Mobile */}
-            <div className="k-card p-8 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-11 h-11 rounded-2xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD]">
+            <div className="k-card p-6 sm:p-7 flex flex-col h-full">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD] mb-4">
                   <Globe className="w-5 h-5" />
                 </div>
-                <h3 className="font-heading text-xl font-semibold text-white">
+                <h3 className="font-heading text-xl font-semibold text-white tracking-tight">
                   Responsive Web &amp; Mobile Interfaces
                 </h3>
-                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui">
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui mt-2.5">
                   Delivering fast client experiences in React, Next.js, and React Native, adhering strictly to
                   zero layout shift, keyboard accessibility, and subtle micro-interactions.
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2 pt-6 border-t border-[var(--border-line)] mt-6">
-                {["React", "Next.js", "React Native", "Tailwind CSS", "Vite"].map((tech, i) => (
+              <div className="flex flex-wrap gap-2 mt-auto pt-6">
+                {["React", "Next.js", "React Native", "Tailwind CSS", "Vite", "TypeScript"].map((tech, i) => (
                   <span
                     key={i}
                     className="text-[11px] font-ui px-2.5 py-1 rounded-full border border-[var(--border-line)] text-[#C4B5FD] bg-[#0A0A12]"
@@ -573,21 +567,21 @@ export default function Index() {
             </div>
 
             {/* Pillar 4: DevOps & Cloud */}
-            <div className="k-card p-8 flex flex-col justify-between">
-              <div className="space-y-4">
-                <div className="w-11 h-11 rounded-2xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD]">
+            <div className="k-card p-6 sm:p-7 flex flex-col h-full">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#1E143B] border border-[var(--border-line)] flex items-center justify-center text-[#C4B5FD] mb-4">
                   <Cpu className="w-5 h-5" />
                 </div>
-                <h3 className="font-heading text-xl font-semibold text-white">
+                <h3 className="font-heading text-xl font-semibold text-white tracking-tight">
                   Cloud Infrastructure &amp; Containerization
                 </h3>
-                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui">
+                <p className="text-sm text-[var(--text-muted)] leading-relaxed font-ui mt-2.5">
                   Containerized application deployment with Docker, reproducible build environments, Git
                   collaboration workflows, and Microsoft Azure cloud integration.
                 </p>
               </div>
-              <div className="flex flex-wrap gap-2 pt-6 border-t border-[var(--border-line)] mt-6">
-                {["Docker", "Azure Cloud", "Git", "GitHub Actions", "Linux"].map((tech, i) => (
+              <div className="flex flex-wrap gap-2 mt-auto pt-6">
+                {["Docker", "Azure Cloud", "Git", "GitHub Actions", "Linux", "CI/CD"].map((tech, i) => (
                   <span
                     key={i}
                     className="text-[11px] font-ui px-2.5 py-1 rounded-full border border-[var(--border-line)] text-[#C4B5FD] bg-[#0A0A12]"
@@ -602,28 +596,28 @@ export default function Index() {
       </section>
 
       {/* 5. PRODUCTION TOOLCHAIN & STACK MATRIX (#0F0E1C) */}
-      <section className="py-24 border-b border-[var(--border-line)] bg-[#0F0E1C]">
-        <div className="max-w-6xl mx-auto px-6 space-y-12">
+      <section className="py-24 border-b border-[var(--border-line)] bg-[#0F0E1C] overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 space-y-3 text-center mb-10">
           {/* Section Header with Weight Contrast */}
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
-              <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                Ecosystem &amp; Production Stack
-              </span>
-            </div>
-
-            <h2 className="font-heading text-3xl sm:text-4xl font-light text-white tracking-tight">
-              Verified technologies &amp;{" "}
-              <strong className="font-semibold text-white">engineering toolchain</strong>
-            </h2>
-
-            <p className="font-ui text-sm text-[var(--text-muted)] leading-relaxed">
-              Categorized frameworks, database engines, and AI models utilized across production platforms.
-            </p>
+          <div className="inline-flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+            <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
+              Tech Stack &amp; Tools
+            </span>
           </div>
 
-          {/* Categorized Matrix & Clean Minimal Ticker */}
+          <h2 className="font-heading text-3xl md:text-5xl font-light text-white">
+            Technologies &amp; frameworks{" "}
+            <strong className="font-semibold text-white">I work with</strong>
+          </h2>
+
+          <p className="font-ui text-sm text-[var(--text-muted)] leading-relaxed">
+            The programming languages, frameworks, libraries, and tools I use to build my applications.
+          </p>
+        </div>
+
+        {/* Full-Bleed Logo Carousel & Centered Filter Pill Bar */}
+        <div className="w-full">
           <ToolchainMatrix />
         </div>
       </section>
@@ -637,23 +631,23 @@ export default function Index() {
               <div className="inline-flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
                 <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                  Career Trajectory
+                  Work History
                 </span>
               </div>
-              <h2 className="font-heading text-3xl sm:text-4xl font-light text-white tracking-tight">
-                Professional experience &amp;{" "}
-                <strong className="font-semibold text-white">industry&nbsp;trajectory</strong>
+              <h2 className="font-heading text-3xl md:text-5xl font-light text-white">
+                My background &amp;{" "}
+                <strong className="font-semibold text-white">professional experience</strong>
               </h2>
               <p className="font-ui text-sm text-[var(--text-muted)] leading-relaxed">
-                Engineering autonomous multi-agent systems and production full-stack architectures across companies and research labs.
+                My journey as an AI/ML engineer, software developer, and researcher across industry roles and research labs.
               </p>
             </div>
 
             <Link
               to="/experiences"
-              className="inline-flex items-center gap-2 font-ui text-xs font-medium px-5 py-2.5 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition hover:-translate-y-0.5 shrink-0"
+              className="inline-flex items-center gap-2 font-ui text-xs font-medium px-5 py-2.5 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition shrink-0"
             >
-              <span>View Full History (7 Roles)</span>
+              <span>View Full Experience (7 Roles)</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#C4B5FD]" />
             </Link>
           </div>
@@ -665,9 +659,8 @@ export default function Index() {
               return (
                 <div
                   key={idx}
-                  className={`k-card ${
-                    isCurrent ? "k-card-flagship" : ""
-                  } p-7 flex flex-col justify-between space-y-4`}
+                  className={`k-card ${isCurrent ? "k-card-flagship" : ""
+                    } p-7 flex flex-col justify-between space-y-4`}
                 >
                   <div className="space-y-3">
                     <div className="flex flex-wrap items-center justify-between gap-2">
@@ -676,8 +669,7 @@ export default function Index() {
                         <span>{exp.duration}</span>
                       </span>
                       {isCurrent && (
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-ui bg-[#8B5CF6]/30 text-white border border-[#C4B5FD]/40">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-ui bg-[#8B5CF6]/30 text-white border border-[#C4B5FD]/40">
                           <span>Active Role</span>
                         </span>
                       )}
@@ -713,23 +705,23 @@ export default function Index() {
               <div className="inline-flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
                 <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                  Scholarship &amp; Accreditations
+                  Education &amp; Credentials
                 </span>
               </div>
-              <h2 className="font-heading text-3xl sm:text-4xl font-light text-white tracking-tight">
+              <h2 className="font-heading text-3xl md:text-5xl font-light text-white">
                 Academic foundation &amp;{" "}
-                <strong className="font-semibold text-white">verified&nbsp;credentials</strong>
+                <strong className="font-semibold text-white">certifications</strong>
               </h2>
               <p className="font-ui text-sm text-[var(--text-muted)] leading-relaxed">
-                Computer Science degree scholarship from the University of Colombo combined with 23 certified specializations across Generative AI, Multi-Agent Systems, and Distributed Computing.
+                BSc in Computer Science from the University of Colombo alongside verified certifications across AI, machine learning, and full-stack development.
               </p>
             </div>
 
             <Link
               to="/certifications"
-              className="inline-flex items-center gap-2 font-ui text-xs font-medium px-5 py-2.5 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition hover:-translate-y-0.5 shrink-0"
+              className="inline-flex items-center gap-2 font-ui text-xs font-medium px-5 py-2.5 rounded-full border border-[var(--border-line)] bg-[#151328] hover:border-[#8B5CF6] text-white transition shrink-0"
             >
-              <span>Explore All 23 Credentials</span>
+              <span>Explore All 23 Certifications</span>
               <ArrowRight className="w-3.5 h-3.5 text-[#C4B5FD]" />
             </Link>
           </div>
@@ -737,7 +729,7 @@ export default function Index() {
           {/* Academic Degrees Grid */}
           <div className="space-y-4">
             <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] block">
-              University Degree Programs
+              University Degree
             </span>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {educations.map((edu, idx) => (
@@ -771,17 +763,17 @@ export default function Index() {
                 <div className="inline-flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#8B5CF6] animate-pulse" />
                   <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C4B5FD]">
-                    Verified Specializations (23 Total)
+                    Verified Certifications (23 Total)
                   </span>
                 </div>
                 <h4 className="font-heading text-xl sm:text-2xl font-light text-white tracking-tight mt-1">
                   Issued by{" "}
-                  <strong className="font-semibold text-white">Global Engineering Authorities</strong>
+                  <strong className="font-semibold text-white">Leading Institutions &amp; Industry Leaders</strong>
                 </h4>
               </div>
               <div className="flex items-center gap-2 text-xs font-ui text-[#C4B5FD] bg-[#0A0A12] px-3.5 py-1.5 rounded-full border border-[var(--border-line)] shrink-0 self-start sm:self-auto">
                 <ShieldCheck className="w-4 h-4 text-[#8B5CF6]" />
-                <span>100% Verified Credentials</span>
+                <span>Verified Certifications</span>
               </div>
             </div>
 
@@ -874,7 +866,7 @@ export default function Index() {
                 to="/certifications"
                 className="inline-flex items-center justify-center gap-2 font-ui text-xs font-medium px-5 py-2.5 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition hover:shadow-[0_0_20px_rgba(139,92,246,0.35)] shrink-0 self-start lg:self-auto"
               >
-                <span>Browse All 23 Accreditations</span>
+                <span>Browse All 23 Certifications</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -889,23 +881,23 @@ export default function Index() {
             <div className="inline-flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
               <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
-                Available for Engagements
+                Let&apos;s Connect
               </span>
             </div>
 
             <h2 className="font-heading text-3xl sm:text-4xl font-light text-white leading-tight">
-              Have a technical project in mind or want to{" "}
-              <strong className="font-semibold text-white">discuss systems&nbsp;engineering?</strong>
+              Have a project in mind or looking for a{" "}
+              <strong className="font-semibold text-white">software&nbsp;solution?</strong>
             </h2>
 
             <p className="font-ui text-sm text-[var(--text-muted)] max-w-xl mx-auto leading-relaxed">
-              Open to enterprise AI/ML development, scalable backend architecture, and technical collaborations.
+              Feel free to send me your questions or discuss a potential project collaboration.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               <Link
                 to="/contact"
-                className="font-ui text-xs sm:text-sm font-medium px-8 py-3.5 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition shadow-lg shadow-[#8B5CF6]/30"
+                className="font-ui text-xs sm:text-sm font-medium px-8 py-3.5 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition"
               >
                 Start A Conversation →
               </Link>

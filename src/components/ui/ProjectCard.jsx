@@ -59,7 +59,7 @@ export default function ProjectCard({ project, isFlagship = false }) {
       onMouseLeave={() => setIsOpen(false)}
       className={`k-card ${
         isFlagship ? "k-card-flagship" : ""
-      } p-7 flex flex-col justify-between min-h-[460px] group`}
+      } p-7 flex flex-col justify-between min-h-[480px] group`}
     >
       {/* Top Header Row */}
       <div className="flex items-start justify-between gap-4">
@@ -104,7 +104,7 @@ export default function ProjectCard({ project, isFlagship = false }) {
       </p>
 
       {/* Media or Visual Technical 1px Diagram */}
-      <div className="border border-[var(--border-line)] rounded-xl overflow-hidden bg-[#0A0A12] mb-4 h-40 relative flex items-center justify-center">
+      <div className="border border-[var(--border-line)] rounded-xl overflow-hidden bg-[#0A0A12] mb-4 w-full h-auto relative flex items-center justify-center">
         {project.thumbnail ? (
           <img
             src={project.thumbnail}
@@ -155,8 +155,7 @@ export default function ProjectCard({ project, isFlagship = false }) {
           )}
           <button
             type="button"
-            onClick={() => setIsOpen(true)}
-            onMouseEnter={() => setIsOpen(true)}
+            onClick={() => setIsOpen((prev) => !prev)}
             className="text-white hover:text-[#C4B5FD] transition underline flex items-center gap-1 shrink-0 whitespace-nowrap"
           >
             <span>Architecture</span>
