@@ -165,8 +165,9 @@ export default function Index() {
                   className="w-9 h-9 rounded-full border border-white/20 hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white transition-all duration-300 shrink-0 focus:outline-none"
                 >
                   <span
-                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${activeDrawer === "rag" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
-                      }`}
+                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${
+                      activeDrawer === "rag" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
+                    }`}
                   >
                     <Plus className="w-4 h-4" />
                   </span>
@@ -275,8 +276,9 @@ export default function Index() {
                   className="w-9 h-9 rounded-full border border-[var(--border-line)] hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white transition-all duration-300 shrink-0 focus:outline-none"
                 >
                   <span
-                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${activeDrawer === "mediman" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
-                      }`}
+                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${
+                      activeDrawer === "mediman" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
+                    }`}
                   >
                     <Plus className="w-4 h-4" />
                   </span>
@@ -374,8 +376,9 @@ export default function Index() {
                   className="w-9 h-9 rounded-full border border-[var(--border-line)] hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white transition-all duration-300 shrink-0 focus:outline-none"
                 >
                   <span
-                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${activeDrawer === "tartuca" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
-                      }`}
+                    className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${
+                      activeDrawer === "tartuca" ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
+                    }`}
                   >
                     <Plus className="w-4 h-4" />
                   </span>
@@ -659,8 +662,9 @@ export default function Index() {
               return (
                 <div
                   key={idx}
-                  className={`k-card ${isCurrent ? "k-card-flagship" : ""
-                    } p-7 flex flex-col justify-between space-y-4`}
+                  className={`k-card ${
+                    isCurrent ? "k-card-flagship" : ""
+                  } p-7 flex flex-col justify-between space-y-4`}
                 >
                   <div className="space-y-3">
                     <div className="flex flex-wrap items-center justify-between gap-2">
