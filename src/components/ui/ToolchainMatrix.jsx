@@ -16,12 +16,12 @@ export default function ToolchainMatrix() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedTech, setSelectedTech] = useState(null);
 
-  // Exact categories matching the user reference design
+  // Filter tabs; shortLabel keeps all four on one row below md
   const categories = [
-    { id: "all", label: "All Technologies (23+)" },
-    { id: "ai", label: "AI / ML & Vector DB" },
-    { id: "frontend", label: "Frontend & State" },
-    { id: "backend", label: "Backend, Cloud & APIs" },
+    { id: "all", label: "All Technologies", shortLabel: "All" },
+    { id: "ai", label: "AI / ML & Vector DB", shortLabel: "AI / ML" },
+    { id: "frontend", label: "Frontend & State", shortLabel: "Frontend" },
+    { id: "backend", label: "Backend, Cloud & APIs", shortLabel: "Backend" },
   ];
 
   // Track 1: Matching top row using SVG URLs from portfolioData.technologies
@@ -298,8 +298,8 @@ export default function ToolchainMatrix() {
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       {/* 1. Centered Capsule Filter Pill Bar */}
-      <div className="flex justify-center items-center">
-        <div className="inline-flex items-center gap-1 sm:gap-1.5 p-1 rounded-full border border-white/10 bg-[#0E0B1A]/80 backdrop-blur-md">
+      <div className="flex justify-center items-center px-6">
+        <div className="inline-flex items-center max-w-full gap-0.5 sm:gap-1.5 p-1 rounded-full border border-white/10 bg-[#0E0B1A]/80 backdrop-blur-md">
           {categories.map((cat) => {
             const isActive = activeCategory === cat.id;
             return (
@@ -312,13 +312,15 @@ export default function ToolchainMatrix() {
                     setSelectedTech(null);
                   }
                 }}
-                className={`font-ui text-xs sm:text-sm font-medium px-4 sm:px-5 py-2 rounded-full transition-all duration-300 ${
+                aria-label={cat.label}
+                className={`font-ui text-xs lg:text-sm font-medium whitespace-nowrap px-3 sm:px-3.5 md:px-4 lg:px-5 py-2 rounded-full transition-all duration-300 ${
                   isActive
                     ? "bg-[#8B5CF6] text-white"
                     : "text-[#9E98B8] hover:text-white"
                 }`}
               >
-                {cat.label}
+                <span className="md:hidden">{cat.shortLabel}</span>
+                <span className="hidden md:inline">{cat.label}</span>
               </button>
             );
           })}

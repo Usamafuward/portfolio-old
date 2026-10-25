@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Sparkles, Filter, Code2, Brain, Globe, Server, Monitor } from "lucide-react";
@@ -27,9 +29,9 @@ export default function Projects() {
   }, [projects, selectedCategory, searchQuery]);
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10 space-y-12">
+    <div className="max-w-6xl mx-auto px-6 py-10 pb-20 space-y-12">
       {/* Page Header with Weight Contrast */}
-      <div className="space-y-4 max-w-3xl">
+      <div className="space-y-4 max-w-3xl" data-reveal-stagger="up">
         <div className="inline-flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
           <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
@@ -50,7 +52,7 @@ export default function Projects() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 p-4 rounded-2xl bg-[#151328] border border-[var(--border-line)] backdrop-blur-md">
+      <div data-reveal="up" className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 p-4 rounded-2xl bg-[#151328] border border-[var(--border-line)] backdrop-blur-md">
         {/* Category Filter Pills */}
         <div className="flex flex-wrap gap-2">
           {categories.map((category) => {
@@ -107,15 +109,25 @@ export default function Projects() {
 
       {/* Project Grid */}
       {filteredProjects.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project, idx) => (
-            <ProjectCard
-              key={project.title}
-              project={project}
-              isFlagship={idx === 0}
-            />
-          ))}
-        </div>
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, idx) => (
+              <motion.div
+                key={project.title}
+                layout
+                className="grid"
+                initial={{ opacity: 0, y: 40, scale: 0.97 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-60px" }}
+                exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+                // Stagger by column so each row of cards reveals one by one while scrolling
+                transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1], delay: (idx % 3) * 0.12 }}
+              >
+                <ProjectCard project={project} isFlagship={idx === 0} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       ) : (
         <div className="text-center py-20 rounded-2xl bg-[#151328] border border-[var(--border-line)] space-y-3 font-ui">
           <Code2 className="w-10 h-10 text-[#8B5CF6] mx-auto opacity-70" />

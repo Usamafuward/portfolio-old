@@ -1,15 +1,42 @@
-import React from "react";
-import { motion } from "framer-motion";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { Briefcase, Calendar, Building, ArrowUpRight } from "lucide-react";
 import { portfolioData } from "@/constants/portfolioData";
 
 export default function Experiences() {
   const { experiences } = portfolioData;
 
+  // Timeline line fills from top to bottom as the list scrolls through the viewport
+  const timelineRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: timelineRef, offset: ["start 75%", "end 60%"] });
+  const lineFill = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
+
+  // Stop the line at the centre of the last dot instead of the bottom of the last card
+  const [lineBottom, setLineBottom] = useState(0);
+  useEffect(() => {
+    const timeline = timelineRef.current;
+    if (!timeline) return;
+    const measure = () => {
+      const nodes = timeline.querySelectorAll("[data-timeline-node]");
+      const last = nodes[nodes.length - 1];
+      if (!last) return;
+      // Layout offsets (not getBoundingClientRect) so the cards' reveal slide doesn't skew it
+      const item = last.offsetParent;
+      const centre = item.offsetTop + last.offsetTop + last.offsetHeight / 2;
+      setLineBottom(Math.max(0, timeline.offsetHeight - centre));
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(timeline);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10 space-y-14">
+    <div className="max-w-6xl mx-auto px-6 py-10 pb-20 space-y-14">
       {/* Page Header with Weight Contrast */}
-      <div className="space-y-4 max-w-3xl">
+      <div className="space-y-4 max-w-3xl" data-reveal-stagger="up">
         <div className="inline-flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
           <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
@@ -29,7 +56,19 @@ export default function Experiences() {
       </div>
 
       {/* Chronological Timeline */}
-      <div className="relative pl-6 sm:pl-10 space-y-10 border-l border-[var(--border-line)]">
+      <div ref={timelineRef} className="relative pl-6 sm:pl-10 space-y-10">
+        {/* Line track + scroll-driven violet fill (centred under the node dots) */}
+        <div
+          aria-hidden="true"
+          style={{ bottom: lineBottom }}
+          className="absolute left-[2px] top-0 w-0.5 rounded-full bg-[var(--border-line)]"
+        />
+        <motion.div
+          aria-hidden="true"
+          style={{ scaleY: lineFill, bottom: lineBottom }}
+          className="absolute left-[2px] -top-6 w-0.5 rounded-full origin-top bg-gradient-to-b from-[#C4B5FD] via-[#8B5CF6] to-[#8B5CF6] shadow-[0_0_10px_rgba(139,92,246,0.6)]"
+        />
+
         {experiences.map((exp, index) => {
           const isCurrent = exp.duration.toLowerCase().includes("present");
 
@@ -42,16 +81,23 @@ export default function Experiences() {
               transition={{ duration: 0.5, delay: index * 0.08 }}
               className="relative group"
             >
-              {/* Timeline Spine Node Indicator */}
-              <div
-                className={`absolute -left-[31px] sm:-left-[47px] top-6 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
+              {/* Timeline Spine Node Indicator (lights up as the line fill reaches it) */}
+              <motion.div
+                data-timeline-node
+                {...(!isCurrent && {
+                  initial: { borderColor: "rgba(139, 92, 246, 0.18)" },
+                  whileInView: { borderColor: "#8B5CF6" },
+                  viewport: { once: true, margin: "0px 0px 0% 0px" },
+                  transition: { duration: 0.4 },
+                })}
+                className={`absolute -left-[31px] sm:-left-[47px] w-5 h-5 rounded-full border-2 flex items-center justify-center z-10 ${
                   isCurrent
                     ? "bg-[#8B5CF6] border-[#C4B5FD] shadow-[0_0_15px_rgba(139,92,246,0.7)]"
-                    : "bg-[#0A0A12] border-[var(--border-line)] group-hover:border-[#8B5CF6]"
+                    : "bg-[#0A0A12]"
                 }`}
               >
                 {isCurrent && <span className="w-2 h-2 rounded-full bg-white animate-pulse" />}
-              </div>
+              </motion.div>
 
               {/* Experience Card */}
               <div

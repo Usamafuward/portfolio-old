@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { menuItems, resumeLinks } from "./Header";
+import Link from "next/link";
+import { menuItems, resumeLink } from "./Header";
 import { portfolioData } from "@/constants/portfolioData";
 
 export default function Footer() {
@@ -9,10 +9,10 @@ export default function Footer() {
   return (
     <footer className="border-t border-[var(--border-line)] bg-[#0F0E1C] py-14 z-10 relative">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-[var(--border-line)]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-[var(--border-line)]" data-reveal-stagger="up">
           {/* Identity & Bio */}
           <div className="md:col-span-6 space-y-3">
-            <Link to="/" className="inline-flex items-center gap-2.5 group">
+            <Link href="/" className="inline-flex items-center gap-2.5 group">
               <img
                 src="/favicon.ico"
                 alt="Usama Puward Logo"
@@ -22,13 +22,13 @@ export default function Footer() {
                 USAMA PUWARD
               </span>
             </Link>
-            <p className="text-xs text-[var(--text-muted)] max-w-md leading-relaxed font-ui">
-              AI/ML Engineer &amp; Full-Stack Developer. Building intelligent systems,
+            <p className="text-xs text-[var(--text-muted)] max-w-sm leading-relaxed font-ui">
+              AI/ML Engineer &amp; Full-Stack Developer and a Computer Science Graduate. Passionate about building intelligent systems,
               autonomous AI agents, and modern web applications.
             </p>
             <div className="text-[11px] font-ui text-[#C4B5FD] flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C4B5FD]" />
-              <span>Colombo, Sri Lanka · Open to Remote &amp; Relocation</span>
+              <span>Colombo, Sri Lanka</span>
             </div>
           </div>
 
@@ -37,12 +37,12 @@ export default function Footer() {
             <span className="text-[11px] font-ui font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)] block">
               Navigation
             </span>
-            <ul className="space-y-1.5 font-ui text-xs">
+            <ul className="space-y-0.5 font-ui text-xs">
               {menuItems.map((item) => (
                 <li key={item.to}>
                   <Link
-                    to={item.to}
-                    className="text-[var(--text-muted)] hover:text-white transition"
+                    href={item.to}
+                    className="inline-block py-1.5 text-[var(--text-muted)] hover:text-white transition"
                   >
                     {item.label}
                   </Link>
@@ -83,21 +83,16 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar: Copyright & Resumes */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-[var(--text-muted)] font-ui gap-3">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-[var(--text-muted)] font-ui gap-3" data-reveal="fade">
           <p>© {new Date().getFullYear()} Usama Puward. Quiet and Confident Engineering.</p>
           <div className="flex items-center gap-4">
-            {resumeLinks.map((cv, i) => (
-              <React.Fragment key={i}>
-                {i > 0 && <span>•</span>}
-                <a
-                  href={cv.href}
-                  download={cv.download}
-                  className="hover:text-white transition"
-                >
-                  {cv.label.replace(" Curriculum Vitae", "").replace(" Engineering", "")} (PDF)
-                </a>
-              </React.Fragment>
-            ))}
+            <a
+              href={resumeLink.href}
+              download={resumeLink.download}
+              className="hover:text-white transition"
+            >
+              Download CV (PDF)
+            </a>
           </div>
         </div>
       </div>

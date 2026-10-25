@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -80,7 +82,7 @@ export default function Contact() {
 
     try {
       // Optional real dispatch via Web3Forms if key exists
-      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
       if (accessKey) {
         await fetch("https://api.web3forms.com/submit", {
           method: "POST",
@@ -164,9 +166,9 @@ export default function Contact() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10 space-y-14">
+    <div className="max-w-6xl mx-auto px-6 py-10 pb-20 space-y-14">
       {/* 1. HERO HEADER*/}
-      <div className="space-y-4 max-w-3xl">
+      <div className="space-y-4 max-w-3xl" data-reveal-stagger="up">
         <div className="inline-flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
           <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
@@ -188,7 +190,7 @@ export default function Contact() {
       {/* 2. MAIN 2-COLUMN GRID (COMMS HUB & TRANSMISSION FORM) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* LEFT COLUMN: INTERACTIVE COMMUNICATIONS MATRIX */}
-        <div className="lg:col-span-5 space-y-5">
+        <div className="lg:col-span-5 space-y-5" data-reveal-stagger="left">
           {/* Bento Card A: Live Timezone & Geo Node */}
           <div className="k-card p-5 space-y-3.5 bg-gradient-to-br from-[#151328] to-[#0F0E1C]">
             <div className="flex items-center justify-between">

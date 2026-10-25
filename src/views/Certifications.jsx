@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Search, Award, ExternalLink, ShieldCheck, CheckCircle2, GraduationCap } from "lucide-react";
@@ -34,9 +36,9 @@ export default function Certifications() {
   }, [certifications, selectedIssuer, searchQuery]);
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10 space-y-14">
+    <div className="max-w-6xl mx-auto px-6 py-10 pb-20 space-y-14">
       {/* Page Header with Weight Contrast */}
-      <div className="space-y-4 max-w-3xl">
+      <div className="space-y-4 max-w-3xl" data-reveal-stagger="up">
         <div className="inline-flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
           <span className="font-ui text-xs font-semibold uppercase tracking-[0.14em] text-[var(--text-muted)]">
@@ -64,7 +66,7 @@ export default function Certifications() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" data-reveal-stagger="up">
           {educations.map((edu, idx) => (
             <div
               key={idx}
@@ -93,7 +95,7 @@ export default function Certifications() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 p-4 rounded-2xl bg-[#151328] border border-[var(--border-line)] backdrop-blur-md">
+      <div data-reveal="up" className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 p-4 rounded-2xl bg-[#151328] border border-[var(--border-line)] backdrop-blur-md">
         {/* Issuer Filter Pills */}
         <div className="flex flex-wrap gap-2">
           {issuers.map((issuer) => {

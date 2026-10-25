@@ -3,20 +3,19 @@ import { AiFillLinkedin, AiFillInstagram } from "react-icons/ai";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
 
-import one from "@/assets/thumbnails/1.png";
-import two from "@/assets/thumbnails/2.png";
-import three from "@/assets/thumbnails/3.png";
-import four from "@/assets/thumbnails/4.png";
-import five from "@/assets/thumbnails/5.png";
-import six from "@/assets/thumbnails/6.png";
-import seven from "@/assets/thumbnails/7.png";
-import eight from "@/assets/thumbnails/8.png";
-import nine from "@/assets/thumbnails/9.png";
-import ten from "@/assets/thumbnails/10.png";
-import eleven from "@/assets/thumbnails/11.png";
-import twelve from "@/assets/thumbnails/12.png";
-import thirteen from "@/assets/thumbnails/13.png";
-import fourteen from "@/assets/thumbnails/14.png";
+import one from "@/assets/thumbnails/1.webp";
+import two from "@/assets/thumbnails/2.webp";
+import three from "@/assets/thumbnails/3.webp";
+import four from "@/assets/thumbnails/4.webp";
+import five from "@/assets/thumbnails/5.webp";
+import six from "@/assets/thumbnails/6.webp";
+import seven from "@/assets/thumbnails/7.webp";
+import nine from "@/assets/thumbnails/9.webp";
+import ten from "@/assets/thumbnails/10.webp";
+import eleven from "@/assets/thumbnails/11.webp";
+import twelve from "@/assets/thumbnails/12.webp";
+import thirteen from "@/assets/thumbnails/13.webp";
+import fourteen from "@/assets/thumbnails/14.webp";
 
 export function getProjectLinks(project) {
   if (project.links && project.links.length > 0) {
@@ -149,11 +148,11 @@ export function categorizeProjectLinks(links) {
 export const portfolioData = {
   personalInfo: {
     name: "Usama Puward",
-    title: "AI/ML Engineer & Software Developer",
+    title: "AI/ML Engineer & Full-Stack Developer",
     email: "usamafuward2001@gmail.com",
     phone: "+94 (76) 6260507",
     location: "Colombo, Sri Lanka",
-    bio: "Computer Science Graduate and current AI/ML Engineer and Software Developer, with a strong passion for Software Developing, Machine Learning, and Artificial Intelligence. Skilled in developing efficient and innovative solutions for real-world projects and building high-quality applications. Eager to tackle complex challenges in software development and drive innovation within the fields of AI and ML.",
+    bio: "Computer Science Graduate and current AI/ML Engineer and Full-Stack Developer, with a strong passion for Software Developing, Machine Learning, and Artificial Intelligence. Skilled in developing efficient and innovative solutions for real-world projects and building high-quality applications. Eager to tackle complex challenges in software development and drive innovation within the fields of AI and ML.",
   },
 
   socialLinks: [
@@ -618,7 +617,7 @@ export const portfolioData = {
       category: "Full-Stack",
     },
     {
-      title: "Nexcura Pro — Clinical Command & Physician Intelligence UI",
+      title: "Nexcura Pro - Clinical Dashboard UI",
       description:
         "A next-generation physician intelligence and clinical command dashboard featuring real-time shift capacity HUDs, emergency triage queues, and ICU bed management. Integrates an urgent diagnostic sentry with multi-zone reference range bars, ambient pharmacovigilance risk matrices, and teleconsultation rooms.",
       to: "https://nexcura-doctor.vercel.app/",
@@ -665,15 +664,6 @@ export const portfolioData = {
       category: "Full-Stack",
     },
     {
-      title: "LangChain for LLM Application Development (coursera)",
-      description:
-        "An advanced generative AI engineering project built with the LangChain framework and Python to develop production-grade LLM applications. Implements modular prompt templates, conversational memory buffers, sequential retrieval chains, document-based question answering, and autonomous reasoning agents.",
-      to: "https://www.coursera.org/learn/langchain-for-llm-application-development-project",
-      technologies: ["LangChain", "LLM", "OpenAI", "Python"],
-      thumbnail: eight,
-      category: "AI/ML",
-    },
-    {
       title: "Online Book Review Application",
       description:
         "A high-throughput RESTful API architecture engineered with Node.js and Express for managing large-scale literary reviews and book ratings. Features dual JWT and session authentication mechanisms, complete CRUD lifecycle endpoints, asynchronous promise chains, and robust multi-user concurrency support.",
@@ -683,11 +673,23 @@ export const portfolioData = {
       category: "Backend",
     },
     {
-      title: "Startup Company Website",
+      title: "Axis Solutions - Startup Website",
       description:
-        "A high-converting corporate website crafted for an emerging software venture to showcase core products, engineering services, leadership, and customer success stories. Engineered with Next.js, React, and Tailwind CSS, delivering lightning-fast load times, responsive UI patterns, and strong SEO visibility.",
-      to: "https://github.com/Usamafuward/startup_company_website.git",
-      technologies: ["React", "Next.js", "Tailwind CSS"],
+        "A high-velocity software platform and digital product landing portal engineered for modern tech startups. Features interactive architecture telemetry, cloud microservice metrics, dark-mode ambient crimson aesthetics, and responsive corporate showcases with seamless edge deployments.",
+      to: "https://axis-solutions-startup.vercel.app/",
+      links: [
+        {
+          label: "Live Site",
+          url: "https://axis-solutions-startup.vercel.app/",
+          type: "live-site",
+        },
+        {
+          label: "GitHub",
+          url: "https://github.com/Usamafuward/axis_solutions",
+          type: "github",
+        },
+      ],
+      technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
       thumbnail: twelve,
       category: "Frontend",
     },

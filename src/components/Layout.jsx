@@ -1,50 +1,51 @@
-import React, { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+"use client";
+
+import { MotionConfig } from "framer-motion";
 import { AiOutlineUp } from "react-icons/ai";
 import Header from "./Header";
 import Footer from "./Footer";
 import SiteBackground from "./ui/SiteBackground";
 import ChatBot from "./ChatBot";
+import ScrollReveal from "./ui/ScrollReveal";
 
-export default function Layout() {
-  const location = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
-
+export default function Layout({ children }) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <div className="min-h-screen text-[#E2E0F0] bg-[#0A0A12]">
-      {/* Procedural Midnight Violet Backdrop */}
-      <SiteBackground />
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen text-[#E2E0F0] bg-[#0A0A12]">
+        {/* Scroll-triggered reveal animations for [data-reveal] elements */}
+        <ScrollReveal />
 
-      {/* Standalone Modular Header */}
-      <Header />
+        {/* Procedural Midnight Violet Backdrop */}
+        <SiteBackground />
 
-      {/* Main Page Content */}
-      <main className="pt-16 z-10 relative">
-        <Outlet />
-      </main>
+        {/* Standalone Modular Header */}
+        <Header />
 
-      {/* Standalone Modular Footer */}
-      <Footer />
+        {/* Main Page Content */}
+        <main className="pt-16 z-10 relative">
+          {children}
+        </main>
 
-      {/* Scroll to Top */}
-      <button
-        type="button"
-        onClick={scrollToTop}
-        aria-label="Scroll to top"
-        className="fixed bottom-[88px] right-6 w-10 h-10 rounded-full bg-[#151328] hover:bg-[#8B5CF6] text-white border border-[var(--border-line)] flex items-center justify-center transition shadow-lg z-30"
-      >
-        <AiOutlineUp className="w-3.5 h-3.5" />
-      </button>
+        {/* Standalone Modular Footer */}
+        <Footer />
 
-      {/* AI Assistant */}
-      <ChatBot />
-    </div>
+        {/* Scroll to Top */}
+        <button
+          type="button"
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          className="fixed bottom-[88px] right-6 w-10 h-10 rounded-full bg-[#151328] hover:bg-[#8B5CF6] text-white border border-[var(--border-line)] flex items-center justify-center transition shadow-lg z-30"
+        >
+          <AiOutlineUp className="w-3.5 h-3.5" />
+        </button>
+
+        {/* AI Assistant */}
+        <ChatBot />
+      </div>
+    </MotionConfig>
   );
 }

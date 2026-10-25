@@ -1,5 +1,8 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AiOutlineMenu, AiOutlineClose, AiOutlineDownload } from "react-icons/ai";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -11,53 +14,35 @@ export const menuItems = [
   { to: "/contact", label: "Contact" },
 ];
 
-export const resumeLinks = [
-  {
-    href: "/SE_CV.pdf",
-    label: "Software Engineering CV",
-    download: "Usama_Puward_Resume_SE.pdf",
-  },
-  {
-    href: "/AI_ML_CV.pdf",
-    label: "AI / ML Engineering CV",
-    download: "Usama_Puward_Resume_ML.pdf",
-  },
-];
+export const resumeLink = {
+  href: "/resume.pdf",
+  label: "Curriculum Vitae",
+  download: "Usama_Puward_Resume.pdf",
+};
+
+export const resumeLinks = [resumeLink];
 
 export default function Header() {
   const [showMenu, setShowMenu] = useState(false);
-  const [showCvDropdown, setShowCvDropdown] = useState(false);
-  const cvDropdownRef = useRef(null);
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     setShowMenu(false);
-    setShowCvDropdown(false);
-  }, [location]);
+  }, [pathname]);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (cvDropdownRef.current && !cvDropdownRef.current.contains(event.target)) {
-        setShowCvDropdown(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => pathname === path;
 
   return (
     <header className="fixed top-0 inset-x-0 z-40 border-b border-[var(--border-line)] bg-[#0A0A12]/90 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Brand Monogram */}
-        <Link to="/" className="flex items-center gap-2.5 group">
+        <Link href="/" className="flex items-center gap-2.5 group shrink-0">
           <img
             src="/favicon.ico"
             alt="Usama Puward Logo"
             className="w-7 h-7 rounded-lg object-contain transition-transform"
           />
-          <span className="font-heading font-semibold text-base tracking-tight text-white group-hover:text-[#C4B5FD] transition-colors">
+          <span className="font-heading font-semibold text-sm sm:text-base tracking-tight whitespace-nowrap text-white group-hover:text-[#C4B5FD] transition-colors">
             USAMA PUWARD
           </span>
         </Link>
@@ -69,7 +54,7 @@ export default function Header() {
             return (
               <Link
                 key={item.to}
-                to={item.to}
+                href={item.to}
                 className={`transition-colors py-1 ${
                   active
                     ? "border-b border-[#8B5CF6] text-white font-semibold"
@@ -82,45 +67,19 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Right Action: Download CV Pill with Dropdown */}
-        <div className="flex items-center gap-3">
-          <div className="relative" ref={cvDropdownRef}>
-            <button
-              type="button"
-              onClick={() => setShowCvDropdown(!showCvDropdown)}
-              className="font-ui text-xs font-medium px-5 py-2 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition flex items-center gap-1.5 shadow-md"
-            >
-              <span>Download CV</span>
-              <span className="text-[10px]" aria-hidden="true">↓</span>
-            </button>
-
-            <AnimatePresence>
-              {showCvDropdown && (
-                <motion.div
-                  initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 8, scale: 0.95 }}
-                  transition={{ duration: 0.15 }}
-                  className="absolute right-0 mt-2 w-56 rounded-2xl bg-[#160F2E] border border-[var(--border-line)] p-2 shadow-2xl backdrop-blur-xl z-50"
-                >
-                  <div className="text-[10px] font-semibold uppercase tracking-wider text-[#C4B5FD] px-3 py-1.5 border-b border-[var(--border-line)] mb-1 font-ui">
-                    Select Curriculum Vitae
-                  </div>
-                  {resumeLinks.map((cv, i) => (
-                    <a
-                      key={i}
-                      href={cv.href}
-                      download={cv.download}
-                      className="flex items-center justify-between px-3 py-2 text-xs rounded-xl text-[#E2E0F0] hover:text-white hover:bg-[#1E143B] transition-colors"
-                    >
-                      <span>{cv.label}</span>
-                      <AiOutlineDownload className="w-3.5 h-3.5 text-[#C4B5FD]" />
-                    </a>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+        {/* Right Action: Direct Download CV Button */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <a
+            href={resumeLink.href}
+            download={resumeLink.download}
+            aria-label="Download CV"
+            className="font-ui text-xs font-medium px-3.5 sm:px-5 py-2 rounded-full bg-[#8B5CF6] hover:bg-[#7C3AED] text-white transition flex items-center gap-1.5 shadow-md whitespace-nowrap"
+          >
+            {/* Short label on phones so the header stays on one line */}
+            <span className="sm:hidden">CV</span>
+            <span className="hidden sm:inline">Download CV</span>
+            <AiOutlineDownload className="w-3.5 h-3.5" />
+          </a>
 
           {/* Mobile Menu Hamburger */}
           <button
@@ -147,7 +106,7 @@ export default function Header() {
               {menuItems.map((item) => (
                 <Link
                   key={item.to}
-                  to={item.to}
+                  href={item.to}
                   onClick={() => setShowMenu(false)}
                   className={`px-3 py-2 rounded-xl text-xs font-medium transition-colors ${
                     isActive(item.to)
@@ -158,6 +117,15 @@ export default function Header() {
                   {item.label}
                 </Link>
               ))}
+              <a
+                href={resumeLink.href}
+                download={resumeLink.download}
+                onClick={() => setShowMenu(false)}
+                className="mt-1 px-3 py-2.5 rounded-xl text-xs font-medium bg-[#8B5CF6] hover:bg-[#7C3AED] text-white flex items-center justify-center gap-2 transition"
+              >
+                <span>Download CV</span>
+                <AiOutlineDownload className="w-3.5 h-3.5" />
+              </a>
             </div>
           </motion.div>
         )}

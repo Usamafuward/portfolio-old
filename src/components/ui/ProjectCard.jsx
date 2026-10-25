@@ -13,12 +13,28 @@ import {
   Shield,
   Layers,
 } from "lucide-react";
+import Image from "next/image";
 import PropTypes from "prop-types";
 import { getProjectLinks, categorizeProjectLinks } from "@/constants/portfolioData";
 
 export default function ProjectCard({ project, isFlagship = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef(null);
+  // When mouse hover opened the drawer (so the click that follows doesn't immediately close it)
+  const hoverOpenedAt = useRef(0);
+
+  const openOnHover = (e) => {
+    if (e.pointerType !== "mouse") return;
+    setIsOpen((prev) => {
+      if (!prev) hoverOpenedAt.current = Date.now();
+      return true;
+    });
+  };
+
+  // Hover state renders at low priority, so decide from the latest value inside the updater
+  const toggle = () => {
+    setIsOpen((prev) => (prev && Date.now() - hoverOpenedAt.current < 600 ? true : !prev));
+  };
 
   // Close on Escape key
   useEffect(() => {
@@ -59,7 +75,7 @@ export default function ProjectCard({ project, isFlagship = false }) {
       onMouseLeave={() => setIsOpen(false)}
       className={`k-card ${
         isFlagship ? "k-card-flagship" : ""
-      } p-7 flex flex-col justify-between min-h-[480px] group`}
+      } p-7 flex flex-col justify-between group`}
     >
       {/* Top Header Row */}
       <div className="flex items-start justify-between gap-4">
@@ -82,35 +98,31 @@ export default function ProjectCard({ project, isFlagship = false }) {
         <button
           ref={buttonRef}
           type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          onMouseEnter={() => setIsOpen(true)}
+          onClick={toggle}
+          // Hover-to-open only for a real mouse; on touch a tap simply toggles
+          onPointerEnter={openOnHover}
           aria-expanded={isOpen}
-          aria-label={`Expand technical architecture for ${project.title}`}
-          className="w-9 h-9 rounded-full border border-[var(--border-line)] bg-[#0A0A12] hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white hover:text-[#C4B5FD] transition-all duration-300 shrink-0 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]"
+          aria-label={`${isOpen ? "Close" : "Expand"} technical architecture for ${project.title}`}
+          className="relative z-30 w-9 h-9 rounded-full border border-[var(--border-line)] bg-[#0A0A12] hover:border-[#8B5CF6] hover:bg-[#1E143B] flex items-center justify-center text-lg text-white hover:text-[#C4B5FD] transition-all duration-300 shrink-0 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]"
         >
-          <span
-            className={`inline-flex items-center justify-center transition-transform duration-500 ease-out ${
-              isOpen ? "rotate-45 text-[#C4B5FD]" : "rotate-0 text-white"
-            }`}
-          >
-            <Plus className="w-4 h-4" />
-          </span>
+          {/* Stays above the open overlay as a − close button */}
+          {isOpen ? <Minus className="w-4 h-4 text-[#C4B5FD]" /> : <Plus className="w-4 h-4 text-white" />}
         </button>
       </div>
 
       {/* Description */}
-      <p className="text-sm text-[#E2E0F0]/80 leading-relaxed my-3 font-normal line-clamp-3">
+      <p className="text-sm text-[#E2E0F0]/80 leading-relaxed my-3 font-normal">
         {project.description}
       </p>
 
       {/* Media or Visual Technical 1px Diagram */}
       <div className="border border-[var(--border-line)] rounded-xl overflow-hidden bg-[#0A0A12] mb-4 w-full h-auto relative flex items-center justify-center">
         {project.thumbnail ? (
-          <img
+          <Image
             src={project.thumbnail}
             alt={project.title}
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
-            loading="lazy"
           />
         ) : (
           /* Fallback 1px hairline SVG line-art diagram */
@@ -155,7 +167,7 @@ export default function ProjectCard({ project, isFlagship = false }) {
           )}
           <button
             type="button"
-            onClick={() => setIsOpen((prev) => !prev)}
+            onClick={toggle}
             className="text-white hover:text-[#C4B5FD] transition underline flex items-center gap-1 shrink-0 whitespace-nowrap"
           >
             <span>Architecture</span>
@@ -166,41 +178,31 @@ export default function ProjectCard({ project, isFlagship = false }) {
 
       {/* Circular Expanding Drawer Overlay (clip-path circle pattern) */}
       <div className={`card-drawer ${isOpen ? "open" : ""} flex flex-col justify-between`}>
-        {/* Drawer Header */}
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1 min-w-0">
-            <span className="font-ui text-[11px] font-semibold uppercase tracking-[0.14em] text-[#C4B5FD]">
-              System Spec // {project.category || "Architecture"}
-            </span>
-            <h4 className="font-heading text-lg font-semibold text-white mt-1">
-              {project.title}
-            </h4>
-          </div>
-          <button
-            type="button"
-            onClick={() => setIsOpen(false)}
-            aria-label="Close architecture panel"
-            className="w-9 h-9 shrink-0 rounded-full border border-white/25 hover:border-white flex items-center justify-center text-lg text-white transition focus:outline-none"
-          >
-            <Minus className="w-4 h-4" />
-          </button>
+        {/* Drawer Header (right padding leaves room for the − button) */}
+        <div className="pr-12">
+          <span className="font-ui text-[12px] font-semibold uppercase tracking-[0.14em] text-[#C4B5FD]">
+            System Spec // {project.category || "Architecture"}
+          </span>
+          <h4 className="font-heading text-xl font-semibold text-white mt-1">
+            {project.title}
+          </h4>
         </div>
 
         {/* Drawer Spec Body */}
-        <div className="space-y-4 my-auto py-2 overflow-y-auto max-h-[220px] scrollbar-thin pr-1">
-          <p className="text-xs text-[#E2E0F0] leading-relaxed">
+        <div className="space-y-4 my-auto py-2">
+          <p className="text-sm text-[#E2E0F0] leading-relaxed">
             {project.description}
           </p>
 
           <div className="space-y-1.5 pt-1">
-            <span className="text-[11px] font-ui uppercase tracking-wider text-[#C4B5FD] font-semibold block">
+            <span className="text-[12px] font-ui uppercase tracking-wider text-[#C4B5FD] font-semibold block">
               Core Tech Stack &amp; Protocol
             </span>
             <div className="flex flex-wrap gap-1.5">
               {project.technologies?.map((tech, i) => (
                 <span
                   key={i}
-                  className="text-[11px] font-ui px-2.5 py-0.5 rounded-full bg-white/10 text-[#C4B5FD] border border-white/10"
+                  className="text-[12px] font-ui px-2.5 py-0.5 rounded-full bg-white/10 text-[#C4B5FD] border border-white/10"
                 >
                   {tech}
                 </span>
@@ -211,9 +213,8 @@ export default function ProjectCard({ project, isFlagship = false }) {
 
         {/* Drawer Categorized Actions (Hosted Deployments & Repositories) */}
         <div className="space-y-2 pt-3 border-t border-white/15">
-          <div className="flex items-center justify-between text-[11px] text-[var(--text-muted)] font-ui">
+          <div className="flex items-center text-[11px] text-[var(--text-muted)] font-ui">
             <span>Project Resources ({allLinks.length})</span>
-            <span>Esc to close</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">

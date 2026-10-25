@@ -181,7 +181,7 @@ export default function ChatBot() {
     setInput("");
     setIsGenerating(true);
 
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || "";
+    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || "";
 
     try {
       await streamGeminiChat({
@@ -256,7 +256,7 @@ export default function ChatBot() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 18 }}
             transition={{ type: "spring", stiffness: 380, damping: 28 }}
-            className="fixed bottom-[88px] right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-[410px] h-[560px] max-h-[84vh] bg-[#0F0E1C]/95 backdrop-blur-2xl rounded-[22px] border border-[var(--border-line)] shadow-[0_20px_60px_rgba(0,0,0,0.85)] flex flex-col z-50 overflow-hidden"
+            className="fixed bottom-[88px] right-4 sm:right-6 w-[calc(100vw-2rem)] sm:w-[410px] h-[560px] max-h-[calc(100dvh-7rem)] bg-[#0F0E1C]/95 backdrop-blur-2xl rounded-[22px] border border-[var(--border-line)] shadow-[0_20px_60px_rgba(0,0,0,0.85)] flex flex-col z-50 overflow-hidden"
           >
             {/* Window Header */}
             <div className="px-5 py-4 border-b border-[var(--border-line)] bg-[#151328]/90 flex items-center justify-between text-white select-none">

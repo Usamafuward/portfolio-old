@@ -1,8 +1,35 @@
-# React + Vite
+# Usama Puward — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio built with [Next.js](https://nextjs.org) (App Router), React 19 and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Getting started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+npm run dev
+```
+
+Open http://localhost:3000.
+
+## Environment variables
+
+Create a `.env` file in the project root:
+
+```
+NEXT_PUBLIC_GEMINI_API_KEY=...
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=...
+```
+
+## Scripts
+
+- `npm run dev` — start the dev server
+- `npm run build` — production build
+- `npm run start` — serve the production build
+- `npm run lint` — run ESLint
+
+## Structure
+
+- `src/app/` — routes (`/`, `/projects`, `/certifications`, `/experiences`, `/contact`) and the root layout
+- `src/views/` — page components rendered by each route
+- `src/components/` — shared layout and UI components
+- `src/constants/portfolioData.js` — portfolio content
